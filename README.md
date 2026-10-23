@@ -25,6 +25,7 @@ npm run preview    # build + wrangler dev (igual que en Cloudflare)
   - Build command: `npm run build`
   - Deploy command: `npx wrangler deploy`
   - Rama de producción: `main` (las demás ramas generan versiones de preview).
+  - Node: **22.22.0+** (lo exige Astro 7). Cloudflare lo toma de `.node-version`.
 - **Manual:** `npx wrangler login && npm run deploy`.
 
 ## Estructura
