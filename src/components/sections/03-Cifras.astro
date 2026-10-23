@@ -1,0 +1,188 @@
+---
+/** 03 · Cifras (Figma 2:77) */
+import { Image } from 'astro:assets';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import cielo from '../../assets/img/shared/cielo.jpg';
+import icono from '../../assets/img/icons/revolution-43.png';
+import gbm from '../../assets/img/logos/gbm-white.png';
+import bitso from '../../assets/img/logos/bitso.png';
+import resplandorElectrico from '../../assets/img/cifras/resplandor-electrico.svg';
+import resplandorHielo from '../../assets/img/cifras/resplandor-hielo.svg';
+
+const cifras = [
+  { etiqueta: 'Experiencia', valor: '17+', texto: 'Años operando mercados y construyendo productos financieros' },
+  { logo: gbm, logoAlt: 'GBM', w: 69, valor: '1,000M+', texto: 'USD de valuación de GBM al crecer su área digital' },
+  { logo: gbm, logoAlt: 'GBM', w: 69, valor: '2M+', texto: 'Clientes en la plataforma digital de GBM' },
+  { logo: bitso, logoAlt: 'Bitso', w: 66, valor: '5×', texto: 'Su base de usuarios en Bitso, con expansión a Brasil y Colombia' },
+];
+---
+
+<section class="seccion seccion--tinta cifras" aria-labelledby="cifras-titulo">
+  <div class="capa cifras__fondo" aria-hidden="true">
+    <Image src={cielo} alt="" widths={[800, 1600]} sizes="100vw" />
+  </div>
+  <div class="capa cifras__velo" aria-hidden="true"></div>
+  <Image src={resplandorElectrico} alt="" class="cifras__resplandor cifras__resplandor--electrico" aria-hidden="true" />
+  <Image src={resplandorHielo} alt="" class="cifras__resplandor cifras__resplandor--hielo" aria-hidden="true" />
+
+  <EncabezadoSeccion icono={icono} etiqueta="Resultados que se pueden medir" />
+
+  <div class="contenedor">
+    <h2 id="cifras-titulo" class="display display-m cifras__titulo">
+      Una carrera hecha de tecnología, mercados y gente.
+    </h2>
+
+    <ul class="cifras__grid">
+      {
+        cifras.map((c) => (
+          <li class="cifra">
+            <div class="cifra__etiqueta">
+              {c.logo ? (
+                <Image src={c.logo} alt={c.logoAlt} width={c.w} class="cifra__logo" />
+              ) : (
+                <span>{c.etiqueta}</span>
+              )}
+            </div>
+            <p class="display cifra__valor">{c.valor}</p>
+            <span class="cifra__linea" aria-hidden="true" />
+            <p class="cifra__texto">{c.texto}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="mini cifras__nota">Cifras reportadas por el propio Javier Morodo · javiermorodo.com</p>
+  </div>
+</section>
+
+<style>
+  .cifras {
+    padding-top: 56px;
+    padding-bottom: 64px;
+  }
+
+  .cifras > :global(.encabezado) {
+    width: min(var(--contenido), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  .cifras__fondo {
+    opacity: 0.28;
+    z-index: -3;
+  }
+
+  .cifras__velo {
+    z-index: -2;
+    background: linear-gradient(
+      to right,
+      rgba(10, 10, 10, 0.9) 0%,
+      rgba(10, 10, 10, 0.55) 50%,
+      rgba(10, 10, 10, 0.95) 100%
+    );
+  }
+
+  .cifras__resplandor {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    max-width: none;
+  }
+
+  /* Los SVG traen su halo de blur: el círculo de 720 ocupa 1060 con el filtro */
+  .cifras__resplandor--electrico {
+    width: 1060px;
+    height: 1060px;
+    left: -390px;
+    top: 110px;
+  }
+
+  .cifras__resplandor--hielo {
+    width: 860px;
+    height: 860px;
+    left: calc(50% + 260px - 170px);
+    top: -310px;
+  }
+
+  .cifras__titulo {
+    margin-top: 48px;
+    max-width: 1221px;
+  }
+
+  .cifras__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .cifra {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 26px 28px 28px;
+    min-height: 262px;
+    border: 1px solid var(--linea-oscura);
+    border-radius: var(--radio-card);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .cifra__etiqueta {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--marca-hielo);
+  }
+
+  .cifra__logo {
+    height: auto;
+  }
+
+  .cifra__valor {
+    font-size: clamp(56px, 5.1vw, 74px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+
+  .cifra__linea {
+    height: 1px;
+    background: var(--texto-claro);
+  }
+
+  .cifra__texto {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .cifras__nota {
+    margin-top: 34px;
+  }
+
+  @media (max-width: 1100px) {
+    .cifras__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .cifras__titulo {
+      margin-top: 36px;
+    }
+
+    .cifras__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .cifra {
+      min-height: 0;
+    }
+  }
+</style>

@@ -1,0 +1,116 @@
+---
+/**
+ * Botón del sistema (Figma · Componentes/Botón).
+ * Estilos: electrico | claro | contorno-claro | contorno-oscuro
+ * Tamaños: m (28×18, default) | s (20×12, nav)
+ */
+interface Props {
+  href?: string;
+  estilo?: 'electrico' | 'claro' | 'contorno-claro' | 'contorno-oscuro';
+  tamano?: 'm' | 's';
+  type?: 'button' | 'submit';
+  flecha?: boolean;
+  externo?: boolean;
+  class?: string;
+  [attr: string]: unknown;
+}
+
+const {
+  href,
+  estilo = 'electrico',
+  tamano = 'm',
+  type = 'button',
+  flecha = true,
+  externo = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const clases = ['boton', `boton--${estilo}`, `boton--${tamano}`, className];
+const Tag = href ? 'a' : 'button';
+const attrs = href
+  ? { href, ...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {}) }
+  : { type };
+---
+
+<Tag class:list={clases} {...attrs} {...rest}>
+  <span><slot /></span>
+  {flecha && <span class="boton__flecha" aria-hidden="true">→</span>}
+</Tag>
+
+<style>
+  .boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    border-radius: var(--radio);
+    border: 1px solid transparent;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .boton--m {
+    padding: 18px 28px;
+  }
+
+  .boton--s {
+    padding: 12px 20px;
+  }
+
+  .boton__flecha {
+    transition: transform 0.2s ease;
+  }
+
+  .boton:hover .boton__flecha {
+    transform: translateX(3px);
+  }
+
+  .boton--electrico {
+    background: var(--marca-electrico);
+    color: var(--texto-claro);
+  }
+
+  .boton--electrico:hover {
+    background: var(--marca-electrico-claro);
+  }
+
+  .boton--claro {
+    background: var(--fondo-blanco);
+    color: var(--texto-tinta);
+  }
+
+  .boton--claro:hover {
+    background: var(--marca-hielo);
+  }
+
+  .boton--contorno-claro {
+    border-color: rgba(255, 255, 255, 0.55);
+    color: var(--texto-claro);
+  }
+
+  .boton--contorno-claro:hover {
+    border-color: var(--texto-claro);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .boton--contorno-oscuro {
+    border-color: rgba(17, 17, 17, 0.55);
+    color: var(--texto-tinta);
+  }
+
+  .boton--contorno-oscuro:hover {
+    border-color: var(--texto-tinta);
+    background: rgba(17, 17, 17, 0.05);
+  }
+</style>
