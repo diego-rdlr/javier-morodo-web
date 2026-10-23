@@ -2,6 +2,11 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "javier-morodo-web",
   "compatibility_date": "2026-10-01",
+  // `wrangler deploy` compila antes de subir, así el deploy no depende
+  // de que el "Build command" del dashboard esté configurado.
+  "build": {
+    "command": "npm run build"
+  },
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page",
