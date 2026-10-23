@@ -1,0 +1,698 @@
+---
+/** 16 · Suscripción (Figma 4:230) */
+import { Image } from 'astro:assets';
+import Boton from '../ui/Boton.astro';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import icono from '../../assets/img/icons/revolution-16.png';
+import cielo from '../../assets/img/shared/cielo.jpg';
+import masthead from '../../assets/img/suscripcion/masthead-revolution-daily.png';
+import bannerDatoDuro from '../../assets/img/suscripcion/banner-dato-duro.png';
+import bannerApuntaEsto from '../../assets/img/suscripcion/banner-apunta-esto.png';
+import resplandorHielo from '../../assets/img/suscripcion/resplandor-hielo.svg';
+import resplandorProfundo from '../../assets/img/suscripcion/resplandor-profundo.svg';
+import resplandorTelefono from '../../assets/img/suscripcion/resplandor-telefono.svg';
+
+const beneficios = [
+  { numero: '01', titulo: 'Pulso de mercado', texto: 'Seis activos al cierre, en una sola tabla.' },
+  { numero: '02', titulo: 'Una tesis, un dato duro', texto: 'Lo que el mercado no está viendo, con gráfica y fuente.' },
+  { numero: '03', titulo: 'Tres que importan', texto: 'Lo esencial del día, sin ruido.' },
+];
+
+const pulso = [
+  { activo: 'S&P 500', nivel: '7,744.1', variacion: '▲ 0.33%' },
+  { activo: 'Nasdaq', nivel: '26,713.0', variacion: '▲ 0.08%' },
+  { activo: 'BMV IPC', nivel: '67,663.3', variacion: '▲ 1.31%' },
+  { activo: 'Dólar', nivel: '$18.44', variacion: '▼ -0.25%', baja: true },
+  { activo: 'Bitcoin', nivel: '$82,165', variacion: '▲ 1.49%' },
+];
+
+const notas = [
+  'Utilidades esperadas del software en 2026: de 13.8% a 20.6% (LSEG).',
+  'Semiconductores suben 87.5% este año; el software, 5%.',
+  'Dólar al cierre: $18.44, con una variación de -0.25%.',
+];
+---
+
+<section class="seccion suscripcion" id="boletin" aria-labelledby="suscripcion-titulo">
+  <div class="capa suscripcion__atmosfera" aria-hidden="true">
+    <Image src={cielo} alt="" widths={[800, 1600]} sizes="100vw" />
+  </div>
+  <div class="capa suscripcion__velo" aria-hidden="true"></div>
+  <Image src={resplandorHielo} alt="" class="suscripcion__resplandor suscripcion__resplandor--hielo" aria-hidden="true" />
+  <Image
+    src={resplandorProfundo}
+    alt=""
+    class="suscripcion__resplandor suscripcion__resplandor--profundo"
+    aria-hidden="true"
+  />
+
+  <span class="suscripcion__acento" aria-hidden="true"></span>
+  <EncabezadoSeccion icono={icono} etiqueta="Únete" acento={false} />
+
+  <div class="contenedor suscripcion__grid">
+    <div class="suscripcion__texto">
+      <h2 id="suscripcion-titulo" class="display display-l suscripcion__titulo">
+        El ensayo de Javier, cada semana en tu correo.
+      </h2>
+      <p class="suscripcion__bajada">
+        Mercados, tesis y criterio para invertir con calma. Sin costo, sin ruido, cuando quieras te das de baja.
+      </p>
+
+      <ul class="beneficios">
+        {
+          beneficios.map((b) => (
+            <li class="beneficio">
+              <span class="beneficio__numero">{b.numero}</span>
+              <div>
+                <h3 class="beneficio__titulo">{b.titulo}</h3>
+                <p class="beneficio__texto">{b.texto}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <form class="suscripcion__form" data-form="suscripcion" method="post">
+        <label class="sr-only" for="suscripcion-email">Tu correo electrónico</label>
+        <input
+          id="suscripcion-email"
+          class="suscripcion__campo"
+          type="email"
+          name="email"
+          required
+          autocomplete="email"
+          placeholder="tu@correo.com"
+        />
+        <Boton type="submit" estilo="claro">Suscribirme</Boton>
+      </form>
+
+      <p class="mini">Gratis · Sin correo no deseado · Te das de baja cuando quieras</p>
+    </div>
+
+    <div class="suscripcion__visual">
+      <Image
+        src={resplandorTelefono}
+        alt=""
+        class="suscripcion__resplandor suscripcion__resplandor--telefono"
+        aria-hidden="true"
+      />
+
+      <figure class="telefono" role="img" aria-label="Vista previa del correo diario Revolution Daily en un teléfono">
+        <div aria-hidden="true">
+          <span class="telefono__lateral telefono__lateral--1"></span>
+          <span class="telefono__lateral telefono__lateral--2"></span>
+          <span class="telefono__lateral telefono__lateral--3"></span>
+          <span class="telefono__lateral telefono__lateral--4"></span>
+
+          <div class="telefono__pantalla">
+            <div class="telefono__estado">
+              <span class="telefono__hora">9:41</span>
+              <span class="telefono__senal">
+                <i></i><i></i><i></i><i></i>
+              </span>
+              <span class="telefono__bateria"></span>
+            </div>
+            <span class="telefono__isla"></span>
+
+            <div class="correo">
+              <Image src={masthead} alt="" width={330} densities={[1, 2]} class="correo__masthead" />
+              <div class="correo__contenido">
+                <p class="correo__kicker">Edición del día · Cierre de mercados</p>
+                <p class="correo__titulo">El consumidor se cansa, y el mercado apenas lo nota.</p>
+                <p class="correo__bajada">
+                  Las ventas siguen arriba, pero el ánimo del hogar cambió. Aquí está el reencuadre, con los números que
+                  importan.
+                </p>
+
+                <div class="pulso">
+                  <div class="pulso__fila pulso__fila--cabeza">
+                    <span>Activo</span>
+                    <span>Precio / nivel</span>
+                    <span>Variación</span>
+                  </div>
+                  {
+                    pulso.map((p) => (
+                      <div class="pulso__fila">
+                        <span class="pulso__activo">{p.activo}</span>
+                        <span class="pulso__nivel">{p.nivel}</span>
+                        <span class:list={['pulso__variacion', { 'pulso__variacion--baja': p.baja }]}>
+                          {p.variacion}
+                        </span>
+                      </div>
+                    ))
+                  }
+                </div>
+
+                <p class="correo__pie-tabla">Cierre del día · Variación diaria</p>
+                <Image src={bannerDatoDuro} alt="" width={296} densities={[1, 2]} class="correo__banner" />
+                <p class="correo__cita">
+                  Cuando las utilidades esperadas suben más rápido que el precio, la narrativa va atrasada.
+                </p>
+                <Image src={bannerApuntaEsto} alt="" width={296} densities={[1, 2]} class="correo__banner" />
+                <ol class="correo__notas">
+                  {
+                    notas.map((n, i) => (
+                      <li>
+                        <span>{String(i + 1).padStart(2, '0')}</span>
+                        <p>{n}</p>
+                      </li>
+                    ))
+                  }
+                </ol>
+              </div>
+              <span class="correo__degradado"></span>
+            </div>
+
+            <span class="telefono__inicio"></span>
+          </div>
+        </div>
+        <figcaption class="insignia">Cada día hábil · 7 am</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .suscripcion {
+    padding-top: 56px;
+    padding-bottom: 60px;
+    background: var(--marca-electrico);
+    color: var(--texto-claro);
+  }
+
+  .suscripcion__atmosfera {
+    z-index: -3;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+  }
+
+  .suscripcion__velo {
+    z-index: -2;
+    background: linear-gradient(to bottom, rgba(11, 11, 63, 0) 0%, rgba(11, 11, 63, 0.85) 100%);
+  }
+
+  .suscripcion__resplandor {
+    position: absolute;
+    z-index: -1;
+    max-width: none;
+    pointer-events: none;
+  }
+
+  /* SVG con halo de blur (círculo + filtro) */
+  .suscripcion__resplandor--hielo {
+    width: 1040px;
+    height: 1040px;
+    left: calc(50% - 720px + 590px);
+    top: -110px;
+  }
+
+  .suscripcion__resplandor--profundo {
+    width: 940px;
+    height: 940px;
+    left: calc(50% - 720px - 270px);
+    top: 330px;
+  }
+
+  .suscripcion__acento {
+    position: absolute;
+    top: 0;
+    left: max(var(--gutter), (100% - var(--contenido)) / 2);
+    width: 140px;
+    height: 5px;
+    background: var(--texto-claro);
+  }
+
+  .suscripcion > :global(.encabezado) {
+    width: min(var(--contenido), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  .suscripcion > :global(.encabezado .encabezado__icono) {
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+  }
+
+  .suscripcion > :global(.encabezado .encabezado__etiqueta) {
+    color: var(--texto-claro);
+  }
+
+  /* ---------- Layout ---------- */
+  .suscripcion__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 610px) minmax(0, 1fr);
+    column-gap: 150px;
+    align-items: start;
+    margin-top: -18px;
+  }
+
+  .suscripcion__texto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding-top: 63px;
+  }
+
+  .suscripcion__titulo {
+    min-height: 2.47em;
+  }
+
+  .suscripcion__bajada {
+    font-size: clamp(17px, 1.4vw, 20px);
+    line-height: 1.6;
+  }
+
+  .beneficios {
+    width: 100%;
+  }
+
+  .beneficio {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-block: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+  }
+
+  .beneficio__numero {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--marca-hielo);
+  }
+
+  .beneficio__titulo {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .beneficio__texto {
+    margin-top: 2px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .suscripcion__form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .suscripcion__campo {
+    width: 300px;
+    max-width: 100%;
+    height: 58px;
+    padding: 0 20px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: var(--radio);
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--texto-claro);
+  }
+
+  .suscripcion__campo::placeholder {
+    color: var(--texto-claro);
+    opacity: 1;
+  }
+
+  .suscripcion__campo:focus {
+    outline: none;
+    border-color: var(--texto-claro);
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  /* ---------- Teléfono (ilustración 352×760) ---------- */
+  .suscripcion__visual {
+    position: relative;
+  }
+
+  .suscripcion__resplandor--telefono {
+    width: 800px;
+    height: 800px;
+    left: -224px;
+    top: -34px;
+  }
+
+  .telefono {
+    position: relative;
+    width: 352px;
+    height: 760px;
+    border: 2px solid #3a3b42;
+    border-radius: 58px;
+    background: #0c0c0e;
+    filter: drop-shadow(0 40px 35px rgba(0, 0, 31, 0.55));
+  }
+
+  .telefono__lateral {
+    position: absolute;
+    width: 4px;
+    border-radius: 2px;
+    background: #2a2b31;
+  }
+
+  .telefono__lateral--1 { left: -7px; top: 146px; height: 34px; }
+  .telefono__lateral--2 { left: -7px; top: 206px; height: 62px; }
+  .telefono__lateral--3 { left: -7px; top: 281px; height: 62px; }
+  .telefono__lateral--4 { left: 347px; top: 226px; height: 96px; }
+
+  .telefono__pantalla {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    width: 330px;
+    height: 738px;
+    overflow: hidden;
+    border-radius: 48px;
+    background: var(--fondo-crema);
+    color: var(--texto-tinta);
+  }
+
+  .telefono__estado {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 54px;
+    background: var(--fondo-blanco);
+  }
+
+  .telefono__hora {
+    position: absolute;
+    left: 34px;
+    top: 17px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #111;
+  }
+
+  .telefono__senal {
+    position: absolute;
+    left: 234px;
+    top: 20px;
+    display: flex;
+    align-items: flex-end;
+    gap: 2.5px;
+    height: 12px;
+  }
+
+  .telefono__senal i {
+    width: 3.5px;
+    border-radius: 1px;
+    background: #111;
+  }
+
+  .telefono__senal i:nth-child(1) { height: 4px; }
+  .telefono__senal i:nth-child(2) { height: 6.5px; }
+  .telefono__senal i:nth-child(3) { height: 9px; }
+  .telefono__senal i:nth-child(4) { height: 11.5px; }
+
+  .telefono__bateria {
+    position: absolute;
+    left: 278px;
+    top: 20px;
+    width: 24px;
+    height: 12px;
+    border-radius: 4px;
+    background: #111;
+  }
+
+  .telefono__isla {
+    position: absolute;
+    left: 115px;
+    top: 11px;
+    width: 100px;
+    height: 30px;
+    border-radius: 15px;
+    background: #000;
+  }
+
+  .telefono__inicio {
+    position: absolute;
+    left: 105px;
+    top: 724px;
+    width: 120px;
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(17, 17, 17, 0.85);
+  }
+
+  .correo {
+    position: absolute;
+    top: 54px;
+    left: 0;
+    width: 330px;
+    height: 684px;
+    overflow: hidden;
+    background: var(--fondo-crema);
+  }
+
+  .correo :global(.correo__masthead) {
+    width: 330px;
+    height: 57px;
+    object-fit: cover;
+  }
+
+  .correo__contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 9.58px;
+    padding: 13.84px 17.03px 0;
+  }
+
+  .correo__kicker {
+    font-family: var(--font-mono);
+    font-size: 5.32px;
+    line-height: 1.2;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--marca-electrico);
+  }
+
+  .correo__titulo {
+    font-family: var(--font-serif);
+    font-size: 17.03px;
+    font-weight: 300;
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+  }
+
+  .correo__bajada {
+    font-size: 7.45px;
+    line-height: 1.55;
+    color: var(--texto-tenue);
+  }
+
+  .pulso {
+    width: 295.94px;
+    height: 110.71px;
+    overflow: hidden;
+    border: 0.53px solid var(--linea-clara);
+    border-radius: 3.19px;
+    background: var(--fondo-blanco);
+    line-height: 1.2;
+  }
+
+  .pulso__fila {
+    display: grid;
+    grid-template-columns: 125.61px 79.84px 64.94px;
+    align-items: center;
+    padding: 4.79px 8.52px;
+    font-size: 6.92px;
+    color: #2a2520;
+  }
+
+  .pulso__fila:nth-child(odd) {
+    background: #f9f7f3;
+  }
+
+  .pulso__fila--cabeza {
+    padding-block: 5.32px;
+    background: #2a2520 !important;
+    font-family: var(--font-mono);
+    font-size: 5.32px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .pulso__fila span:not(:first-child) {
+    text-align: right;
+  }
+
+  .pulso__activo {
+    font-weight: 500;
+  }
+
+  .pulso__nivel {
+    font-family: var(--font-mono);
+  }
+
+  .pulso__variacion {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--marca-electrico);
+  }
+
+  .pulso__variacion--baja {
+    color: #c93b2e;
+  }
+
+  .correo__pie-tabla {
+    font-family: var(--font-mono);
+    font-size: 4.79px;
+    line-height: 1.2;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--texto-tenue);
+  }
+
+  .correo :global(.correo__banner) {
+    width: 295.94px;
+    height: 17.8px;
+    object-fit: cover;
+  }
+
+  .correo__cita {
+    padding-left: 9.58px;
+    border-left: 1.6px solid var(--marca-electrico);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 11.71px;
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+    color: var(--marca-electrico);
+  }
+
+  .correo__notas li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding-block: 6px;
+    border-top: 1px solid var(--linea-clara);
+    line-height: 1.2;
+  }
+
+  .correo__notas span {
+    font-family: var(--font-mono);
+    font-size: 7px;
+    color: var(--marca-electrico);
+  }
+
+  .correo__notas p {
+    font-family: var(--font-serif);
+    font-size: 11.5px;
+    color: var(--texto-tinta);
+  }
+
+  .correo__degradado {
+    position: absolute;
+    left: 0;
+    top: 524px;
+    width: 330px;
+    height: 160px;
+    background: linear-gradient(to bottom, rgba(243, 240, 236, 0), #f3f0ec);
+  }
+
+  .insignia {
+    position: absolute;
+    left: 310px;
+    top: 544px;
+    padding: 10px 16px;
+    border-radius: 100px;
+    background: var(--marca-electrico);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1.2;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--texto-claro);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1240px) {
+    .suscripcion__grid {
+      column-gap: 48px;
+    }
+
+    .telefono {
+      zoom: 0.8;
+    }
+
+    .insignia {
+      left: auto;
+      right: -24px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .telefono {
+      zoom: 1;
+    }
+
+    .suscripcion__grid {
+      grid-template-columns: 1fr;
+      row-gap: 56px;
+      margin-top: 0;
+    }
+
+    .suscripcion__texto {
+      padding-top: 48px;
+      max-width: 640px;
+    }
+
+    .suscripcion__visual {
+      justify-self: center;
+    }
+
+    .suscripcion__resplandor--hielo {
+      left: auto;
+      right: -400px;
+      top: auto;
+      bottom: -100px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .suscripcion__texto {
+      padding-top: 36px;
+    }
+
+    .suscripcion__titulo {
+      min-height: 0;
+    }
+
+    .suscripcion__form {
+      flex-direction: column;
+      align-self: stretch;
+    }
+
+    .suscripcion__campo {
+      width: 100%;
+    }
+
+    .suscripcion__form :global(.boton) {
+      width: 100%;
+    }
+
+    .suscripcion__visual {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .telefono {
+      zoom: 0.86;
+    }
+
+    .insignia {
+      left: auto;
+      right: -12px;
+    }
+  }
+</style>

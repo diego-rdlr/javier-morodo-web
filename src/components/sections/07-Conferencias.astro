@@ -1,0 +1,282 @@
+---
+/** 07 · Conferencias (Figma 3:31) */
+import { Image } from 'astro:assets';
+import Boton from '../ui/Boton.astro';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import icono from '../../assets/img/icons/revolution-32.png';
+import retrato from '../../assets/img/conferencias/retrato-conferencista.jpg';
+
+const temas = [
+  { n: '01', titulo: 'Mentalidad patrimonial', texto: 'De ganar dinero a construir riqueza.' },
+  { n: '02', titulo: 'Educación financiera para todos', texto: 'Democratizar productos y servicios financieros.' },
+  { n: '03', titulo: 'El dinero y las máquinas', texto: 'IA, cripto y el futuro de invertir.' },
+  { n: '04', titulo: 'Activos alternativos y digitales', texto: 'Dónde se está moviendo el siguiente ciclo.' },
+];
+---
+
+<section class="seccion seccion--negro conferencias" id="conferencias" aria-labelledby="conferencias-titulo">
+  <figure class="conferencias__retrato">
+    <Image
+      src={retrato}
+      alt="Javier Morodo sonriendo, de brazos cruzados"
+      widths={[640, 960, 1280]}
+      sizes="(max-width: 900px) 100vw, 640px"
+    />
+    <span class="conferencias__velo" aria-hidden="true"></span>
+    <aside class="evento" aria-label="Próximo evento">
+      <p class="mini evento__etiqueta">Próximo evento</p>
+      <p class="evento__nombre">Wealth Nation</p>
+      <p class="evento__fecha">Seminario web en vivo · 27 y 28 de octubre</p>
+    </aside>
+  </figure>
+
+  <div class="contenedor conferencias__encabezado">
+    <EncabezadoSeccion icono={icono} etiqueta="Conferencias" />
+  </div>
+
+  <div class="contenedor">
+    <div class="conferencias__texto">
+      <h2 id="conferencias-titulo" class="display conferencias__titulo">Ideas que cambian cómo piensas el dinero.</h2>
+      <p class="conferencias__bajada">
+        Conferencias magistrales sobre mentalidad patrimonial, educación financiera y el futuro de las inversiones.
+        Para empresas, universidades, foros y eventos corporativos.
+      </p>
+
+      <ul class="temas">
+        {
+          temas.map((t) => (
+            <li class="tema">
+              <span class="mini tema__n">{t.n}</span>
+              <div>
+                <h3 class="tema__titulo">{t.titulo}</h3>
+                <p class="tema__texto">{t.texto}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="conferencias__botones">
+        <!-- TODO: URL real -->
+        <Boton href="#">Solicitar una conferencia</Boton>
+        <!-- TODO: URL real -->
+        <Boton href="#" estilo="contorno-claro">Descargar dossier de conferencista</Boton>
+      </div>
+
+      <p class="mini conferencias__nota">
+        Han escuchado a Javier: Portada México · Bolsa Institucional de Valores · Wealth X
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .conferencias {
+    padding-top: 56px;
+    padding-bottom: 60px;
+    min-height: 960px;
+  }
+
+  .conferencias__encabezado :global(.encabezado__regla) {
+    display: none;
+  }
+
+  /* ---------- Retrato ---------- */
+  .conferencias__retrato {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(640px, 44.45%);
+  }
+
+  .conferencias__retrato img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 0%;
+  }
+
+  .conferencias__velo {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(to right, #000 0, rgba(0, 0, 0, 0) 300px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0) calc(100% - 300px), rgba(0, 0, 0, 0.85) 100%);
+  }
+
+  .evento {
+    position: absolute;
+    right: 40px;
+    bottom: 49px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px 24px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .evento__etiqueta {
+    color: var(--marca-hielo);
+  }
+
+  .evento__nombre {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: 34px;
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+  }
+
+  .evento__fecha {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  /* ---------- Texto ---------- */
+  .conferencias__texto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    max-width: 680px;
+    margin-top: 48px;
+  }
+
+  .conferencias__titulo {
+    max-width: 640px;
+    font-size: clamp(38px, 3.9vw, 56px);
+  }
+
+  .conferencias__bajada {
+    max-width: 640px;
+  }
+
+  .temas {
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .tema {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-block: 18px;
+    border-top: 1px solid var(--texto-claro);
+  }
+
+  .tema__n {
+    flex: none;
+    color: var(--marca-hielo);
+  }
+
+  .tema__titulo {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.2;
+  }
+
+  .tema__texto {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .conferencias__botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .conferencias__nota {
+    margin-top: 21px;
+    max-width: 640px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1180px) {
+    .conferencias__retrato {
+      width: 40%;
+    }
+
+    .conferencias__texto {
+      max-width: calc(60vw - var(--gutter) - 32px);
+    }
+
+    .evento {
+      right: 24px;
+      left: 24px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .conferencias {
+      min-height: 0;
+      padding-bottom: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .conferencias__retrato {
+      position: relative;
+      z-index: 0;
+      order: 3;
+      width: 100%;
+      height: min(125vw, 720px);
+      margin-top: 48px;
+    }
+
+    .conferencias__retrato img {
+      object-position: 50% 15%;
+    }
+
+    .conferencias__velo {
+      background:
+        linear-gradient(to bottom, #000 0, rgba(0, 0, 0, 0) 160px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.85) 100%);
+    }
+
+    .evento {
+      left: var(--gutter);
+      right: var(--gutter);
+      bottom: 32px;
+    }
+
+    .conferencias__texto {
+      max-width: none;
+      margin-top: 36px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .conferencias__botones {
+      flex-direction: column;
+      align-self: stretch;
+    }
+
+    .conferencias__botones :global(.boton) {
+      width: 100%;
+      white-space: normal;
+      text-align: center;
+    }
+
+    .tema {
+      gap: 16px;
+    }
+
+    .tema__titulo {
+      font-size: 22px;
+    }
+
+    .evento__nombre {
+      font-size: 28px;
+    }
+  }
+</style>

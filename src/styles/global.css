@@ -7,6 +7,23 @@
 @import '@fontsource-variable/source-serif-4/opsz.css';
 @import '@fontsource-variable/source-serif-4/opsz-italic.css';
 
+/* Feature Display (Commercial Type) — archivos de Revolution, subset latino en WOFF2 */
+@font-face {
+  font-family: 'Feature Display';
+  src: url('/fonts/FeatureDisplay-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Feature Display';
+  src: url('/fonts/FeatureDisplay-LightItalic.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   /* Marca */
   --marca-electrico: #4042ff;
@@ -29,11 +46,7 @@
   --linea-clara: #d9d5ce;
   --linea-oscura: rgba(255, 255, 255, 0.18);
 
-  /*
-   * Tipografía. El Figma usa "Feature Display Light" (Commercial Type, con licencia)
-   * para los titulares. Si se compra la licencia, agrega el @font-face de
-   * "Feature Display" y quedará primero en la pila; mientras tanto cae a Source Serif 4.
-   */
+  /* Tipografía: Feature Display Light para titulares (cae a Source Serif 4 mientras carga) */
   --font-display: 'Feature Display', 'Source Serif 4 Variable', Georgia, serif;
   --font-serif: 'Source Serif 4 Variable', Georgia, serif;
   --font-sans: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;

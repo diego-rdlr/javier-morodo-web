@@ -1,0 +1,403 @@
+---
+/** 12 · Podcast (Figma 4:58) */
+import { Image } from 'astro:assets';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import icono from '../../assets/img/icons/revolution-42.png';
+import portada from '../../assets/img/podcast/portada-podcast.jpg';
+import resplandorCobre from '../../assets/img/podcast/resplandor-cobre.svg';
+import resplandorHielo from '../../assets/img/podcast/resplandor-hielo.svg';
+import playVidrio from '../../assets/img/podcast/play-vidrio.svg';
+import spotify from '../../assets/img/logos/spotify-144.png';
+import applePodcasts from '../../assets/img/logos/apple-podcasts-144.png';
+import amazonMusic from '../../assets/img/logos/amazon-music.png';
+import youtubeMusic from '../../assets/img/logos/youtube-music.png';
+
+const plataformas = [
+  { nombre: 'Spotify', logo: spotify, href: 'https://open.spotify.com/show/7exTzXcsvM9EH7uxhWbFFI' },
+  {
+    nombre: 'Apple Podcasts',
+    logo: applePodcasts,
+    href: 'https://podcasts.apple.com/mx/podcast/revoluci%C3%B3n-de-la-riqueza/id1567968618',
+  },
+  { nombre: 'Amazon Music', logo: amazonMusic, href: '#' }, // TODO: URL real
+  { nombre: 'YouTube Music', logo: youtubeMusic, href: '#' }, // TODO: URL real
+];
+
+// TODO: URL real de cada episodio
+const episodios = [
+  { titulo: 'El peso se depreció 10% en dos semanas: qué lo provocó y por qué es sano', meta: 'Hace 2 días · 8.4 K vistas' },
+  { titulo: 'Si te pierdes los 10 mejores días de la bolsa, pierdes la mitad del retorno', meta: 'Hace 4 días · 5.4 K vistas' },
+  { titulo: 'Las casas sí bajan de precio: 3 crisis inmobiliarias en EE.UU. en 50 años', meta: 'Hace 9 días · 15 K vistas' },
+  {
+    titulo: 'Fundador de un grupo educativo en 125 países: "¡en un Search Fund solo tienes una bala!"',
+    meta: 'Hace 11 días · 1.5 K vistas',
+  },
+  { titulo: 'De qué depende el 90% de tu rendimiento, según el director de Vanguard', meta: 'Hace 2 semanas · 17 K vistas' },
+  {
+    titulo: 'Experto en IA y geopolítica: "¡la ley de la escala no es una ley, es una observación!"',
+    meta: 'Hace 2 semanas · 2.4 K vistas',
+  },
+].map((e, i) => ({ ...e, numero: String(i + 1).padStart(2, '0'), href: '#' }));
+---
+
+<section class="seccion seccion--negro podcast" id="podcast" aria-labelledby="podcast-titulo">
+  <div class="capa podcast__atmosfera" aria-hidden="true">
+    <Image src={portada} alt="" widths={[480, 960]} sizes="100vw" />
+  </div>
+  <div class="capa podcast__velo" aria-hidden="true"></div>
+  <Image src={resplandorCobre} alt="" class="podcast__resplandor podcast__resplandor--cobre" aria-hidden="true" />
+  <Image src={resplandorHielo} alt="" class="podcast__resplandor podcast__resplandor--hielo" aria-hidden="true" />
+
+  <EncabezadoSeccion icono={icono} etiqueta="Podcast" />
+
+  <div class="contenedor podcast__grid">
+    <div class="podcast__info">
+      <div class="podcast__portada">
+        <Image
+          src={portada}
+          alt="Javier Morodo frente al micrófono en el estudio del podcast"
+          widths={[360, 720]}
+          sizes="360px"
+          class="podcast__portada-img"
+        />
+        {/* TODO: URL real del episodio más reciente */}
+        <a href="#" class="podcast__play">
+          <span class="sr-only">Escuchar el último episodio</span>
+          <Image src={playVidrio} alt="" width={76} height={76} aria-hidden="true" />
+        </a>
+      </div>
+
+      <div class="podcast__texto">
+        <h2 id="podcast-titulo" class="display podcast__titulo">
+          Conversaciones con quienes construyen riqueza de verdad.
+        </h2>
+        <p class="podcast__bajada">
+          Javier conversa con fundadores, inversionistas y especialistas sobre dinero, salud, relaciones y propósito.
+        </p>
+        <ul class="podcast__plataformas" aria-label="Escuchar en">
+          {
+            plataformas.map((p) => (
+              <li>
+                <a
+                  class="plataforma mini"
+                  href={p.href}
+                  {...(p.href !== '#' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  <Image src={p.logo} alt="" width={20} height={20} class="plataforma__logo" />
+                  <span>{p.nombre} ↗</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="podcast__panel">
+      <h3 class="kicker podcast__panel-titulo">Últimos episodios</h3>
+      <ol class="podcast__episodios">
+        {
+          episodios.map((e) => (
+            <li>
+              <a class="episodio" href={e.href}>
+                <span class="mini episodio__numero">{e.numero}</span>
+                <span class="episodio__texto">
+                  <span class="episodio__titulo">{e.titulo}</span>
+                  <span class="episodio__meta">{e.meta}</span>
+                </span>
+                <span class="kicker episodio__play" aria-hidden="true">▶</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .podcast {
+    padding-top: 56px;
+    padding-bottom: 110px;
+  }
+
+  .podcast > :global(.encabezado) {
+    width: min(var(--contenido), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  .podcast__atmosfera {
+    z-index: -4;
+    opacity: 0.6;
+    filter: blur(45px);
+    transform: scale(1.08);
+  }
+
+  .podcast__velo {
+    z-index: -3;
+    opacity: 0.55;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.92) 0%,
+      rgba(0, 0, 0, 0.7) 55%,
+      rgba(0, 0, 0, 0.9) 100%
+    );
+  }
+
+  .podcast__resplandor {
+    position: absolute;
+    z-index: -2;
+    pointer-events: none;
+    max-width: none;
+  }
+
+  /* Los SVG traen su halo de blur: el círculo de 640 ocupa 980, el de 420 ocupa 700 */
+  .podcast__resplandor--cobre {
+    width: 980px;
+    height: 980px;
+    left: calc(50% - 10px);
+    top: 350px;
+  }
+
+  .podcast__resplandor--hielo {
+    width: 700px;
+    height: 700px;
+    left: calc(50% + 40px);
+    top: -260px;
+  }
+
+  .podcast__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 420px) minmax(0, 728px);
+    justify-content: space-between;
+    align-items: start;
+    gap: 48px;
+    margin-top: 47px;
+  }
+
+  /* ---------- Columna izquierda ---------- */
+  .podcast__info {
+    padding-top: 33px;
+  }
+
+  .podcast__portada {
+    position: relative;
+    width: min(360px, 100%);
+  }
+
+  .podcast__portada-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow:
+      0 0 80px -6px rgba(77, 79, 229, 0.3),
+      0 30px 60px -10px rgba(0, 0, 0, 0.6);
+  }
+
+  .podcast__play {
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s ease;
+  }
+
+  .podcast__play:hover {
+    transform: scale(1.05);
+  }
+
+  .podcast__play :global(img) {
+    width: 76px;
+    height: 76px;
+  }
+
+  .podcast__texto {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-top: 44px;
+  }
+
+  .podcast__titulo {
+    font-size: clamp(30px, 2.5vw, 36px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+
+  .podcast__bajada {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .podcast__plataformas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .plataforma {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px 10px 14px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.06);
+    white-space: nowrap;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .plataforma:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .plataforma__logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+
+  /* ---------- Panel de episodios ---------- */
+  .podcast__panel {
+    padding: 32px 32px 42px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 18px;
+    background: linear-gradient(157.8deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 83.333%);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+
+  .podcast__panel-titulo {
+    font-weight: 400;
+  }
+
+  .podcast__episodios {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .episodio {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-block: 18px;
+    border-top: 1px solid var(--texto-claro);
+  }
+
+  .episodio__numero {
+    flex: none;
+    color: var(--marca-hielo);
+  }
+
+  .episodio__texto {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .episodio__titulo {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.2;
+    transition: color 0.2s ease;
+  }
+
+  .episodio:hover .episodio__titulo {
+    color: var(--marca-hielo);
+  }
+
+  .episodio__meta {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .episodio__play {
+    flex: none;
+    transition: transform 0.2s ease;
+  }
+
+  .episodio:hover .episodio__play {
+    transform: translateX(3px);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) {
+    .podcast__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 56px;
+    }
+
+    .podcast__info {
+      display: grid;
+      grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+      align-items: center;
+      gap: 48px;
+      padding-top: 0;
+    }
+
+    .podcast__texto {
+      margin-top: 0;
+    }
+
+    .podcast__resplandor--cobre {
+      left: auto;
+      right: -400px;
+      top: auto;
+      bottom: -300px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .podcast {
+      padding-bottom: 72px;
+    }
+
+    .podcast__grid {
+      margin-top: 36px;
+      gap: 40px;
+    }
+
+    .podcast__info {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 44px;
+    }
+
+    .podcast__portada {
+      width: calc(100% - 20px);
+      max-width: 360px;
+    }
+
+    .podcast__panel {
+      padding: 24px 20px 28px;
+    }
+
+    .episodio {
+      gap: 16px;
+      padding-block: 16px;
+    }
+
+    .episodio__titulo {
+      font-size: 19px;
+    }
+
+    .podcast__resplandor--hielo {
+      left: auto;
+      right: -300px;
+    }
+  }
+</style>

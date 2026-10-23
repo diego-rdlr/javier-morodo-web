@@ -1,0 +1,329 @@
+---
+/** 13 · Ecosistema de shows (Figma 34:75) */
+import { Image } from 'astro:assets';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import Boton from '../ui/Boton.astro';
+import icono from '../../assets/img/icons/revolution-15.png';
+import spotify from '../../assets/img/logos/spotify.png';
+import apple from '../../assets/img/logos/apple-podcasts.png';
+import youtube from '../../assets/img/logos/youtube.png';
+import showRevolucion from '../../assets/img/ecosistema-shows/revolucion-de-la-riqueza.jpg';
+import showArte from '../../assets/img/ecosistema-shows/el-arte-de-invertir.jpg';
+import showSkin from '../../assets/img/ecosistema-shows/skin-in-the-game.jpg';
+
+const shows = [
+  {
+    numero: '01',
+    tipo: 'Podcast',
+    nombre: 'Revolución de la Riqueza',
+    imagen: showRevolucion,
+    alt: 'Logotipo de Javier Morodo',
+    texto: 'Conversaciones largas con quienes construyeron riqueza de verdad.',
+    spotify: 'https://open.spotify.com/show/7exTzXcsvM9EH7uxhWbFFI',
+    apple: 'https://podcasts.apple.com/mx/podcast/revoluci%C3%B3n-de-la-riqueza/id1567968618',
+    youtube: 'https://www.youtube.com/playlist?list=PLwdXcQkLGge8nBTD_FmeCFv1z6Z-s7few',
+    suscribir: 'https://www.youtube.com/@javiermorodo?sub_confirmation=1',
+    temas: 'Personas · Estrategia · Patrimonio',
+  },
+  {
+    numero: '02',
+    tipo: 'Colaboración',
+    nombre: 'El Arte de Invertir',
+    imagen: showArte,
+    alt: 'Logotipo de El Arte de Invertir, presentado por GBM',
+    texto: 'Conversaciones donde el mercado mexicano se explica a sí mismo. Presentado por GBM.',
+    spotify: 'https://open.spotify.com/show/7EEySI8WROdJWlYo2Y8Sbv',
+    apple: 'https://podcasts.apple.com/mx/podcast/el-arte-de-invertir/id1832065527',
+    youtube: 'https://www.youtube.com/@ElArtedeInvertirPodcast',
+    suscribir: 'https://www.youtube.com/@ElArtedeInvertirPodcast?sub_confirmation=1',
+    temas: 'Mercado mexicano · Inversión',
+    destacado: true,
+  },
+  {
+    numero: '03',
+    tipo: 'Podcast',
+    nombre: 'Skin in the Game',
+    imagen: showSkin,
+    alt: 'Logotipo de Skin in the Game',
+    texto: 'Lo que pasa en los mercados, sin el ruido.',
+    spotify: 'https://creators.spotify.com/pod/profile/admin41',
+    apple: 'https://podcasts.apple.com/mx/podcast/skin-in-the-game/id1896433283',
+    youtube: 'https://www.youtube.com/channel/UCEh-AzYUtXELDOoyVV-eRIw',
+    suscribir: 'https://www.youtube.com/channel/UCEh-AzYUtXELDOoyVV-eRIw?sub_confirmation=1',
+    temas: 'Mercados · Tendencias · Oportunidades',
+  },
+];
+
+const externo = { target: '_blank', rel: 'noopener noreferrer' };
+---
+
+<section class="seccion seccion--crema shows" id="shows" aria-labelledby="shows-titulo">
+  <EncabezadoSeccion icono={icono} etiqueta="Ecosistema de PODCAST" tono="claro" />
+
+  <div class="contenedor">
+    <div class="shows__intro">
+      <h2 id="shows-titulo" class="display shows__titulo">Los podcast donde participa Javier.</h2>
+      <p class="shows__bajada">
+        Conversaciones para construir una visión más profunda del mundo, los mercados y la riqueza.
+      </p>
+    </div>
+
+    <ul class="shows__grid">
+      {
+        shows.map((s) => (
+          <li class:list={['show', { 'show--destacado': s.destacado }]}>
+            <div class="mini show__fila">
+              <span class="show__numero">{s.numero}</span>
+              <span class="show__regla" aria-hidden="true" />
+              <span class="show__tipo">{s.tipo}</span>
+            </div>
+            <Image src={s.imagen} alt={s.alt} widths={[400, 720]} sizes="(max-width: 900px) 100vw, 358px" class="show__logo" />
+            <h3 class="show__nombre">{s.nombre}</h3>
+            <p class="show__texto">{s.texto}</p>
+            <ul class="show__plataformas" aria-label={`Escuchar ${s.nombre} en`}>
+              <li>
+                <a href={s.spotify} {...externo}>
+                  <Image src={spotify} alt="" width={26} height={26} class="show__icono show__icono--spotify" />
+                  <span class="mini">Spotify</span>
+                </a>
+              </li>
+              <li>
+                <a href={s.apple} {...externo}>
+                  <Image src={apple} alt="" width={26} height={26} class="show__icono show__icono--apple" />
+                  <span class="mini">Apple</span>
+                </a>
+              </li>
+              <li>
+                <a href={s.youtube} {...externo}>
+                  <Image src={youtube} alt="" width={26} height={26} class="show__icono" />
+                  <span class="mini">YouTube</span>
+                </a>
+              </li>
+            </ul>
+            <Boton href={s.suscribir} externo class="show__boton" aria-label={`Suscribirme a ${s.nombre}`}>
+              Suscribirme
+            </Boton>
+            <p class="mini show__temas">{s.temas}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .shows {
+    padding-top: 56px;
+    padding-bottom: 74px;
+  }
+
+  .shows > :global(.encabezado) {
+    width: min(var(--contenido), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  .shows > :global(.encabezado .encabezado__regla) {
+    background: var(--linea-clara);
+  }
+
+  .shows__intro {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 48px;
+  }
+
+  .shows__titulo {
+    max-width: 860px;
+    font-size: clamp(36px, 3.9vw, 56px);
+    line-height: 1.04;
+  }
+
+  .shows__bajada {
+    flex: 0 1 360px;
+    margin-right: 22px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--texto-tenue);
+  }
+
+  .shows__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 31px;
+    margin-top: 55px;
+  }
+
+  .show {
+    display: flex;
+    flex-direction: column;
+    min-height: 590px;
+    padding: 23px 23px 28px;
+    background: var(--fondo-blanco);
+    border: 1px solid var(--linea-clara);
+    border-radius: var(--radio-card);
+    box-shadow:
+      0 12px 28px -4px rgba(0, 0, 0, 0.06),
+      0 2px 6px 0 rgba(0, 0, 0, 0.07);
+  }
+
+  .show--destacado {
+    border-color: #d8b36a;
+  }
+
+  .show__fila {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: 20px;
+  }
+
+  .show__numero {
+    color: var(--marca-electrico);
+  }
+
+  .show__regla {
+    flex: 1 1 0;
+    height: 1px;
+    background: var(--linea-clara);
+  }
+
+  .show__tipo {
+    color: var(--texto-tenue);
+  }
+
+  .show__logo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 358 / 200;
+    object-fit: cover;
+    margin-top: 18px;
+    border: 1px solid #2e333d;
+    border-radius: 12px;
+  }
+
+  .show__nombre {
+    margin-top: 24px;
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+  }
+
+  .show__texto {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--texto-tenue);
+  }
+
+  .show__plataformas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: auto;
+    padding-top: 28px;
+  }
+
+  .show__plataformas a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--texto-tenue);
+    transition: color 0.2s ease;
+  }
+
+  .show__plataformas a:hover {
+    color: var(--texto-tinta);
+  }
+
+  .show__icono {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+  }
+
+  .show__icono--spotify {
+    border-radius: 13px;
+  }
+
+  .show__icono--apple {
+    border-radius: 7px;
+  }
+
+  .show :global(.show__boton) {
+    width: 100%;
+    margin-top: 28px;
+  }
+
+  .show__temas {
+    margin-top: 16px;
+    color: var(--texto-tenue);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) {
+    .shows__intro {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .shows__bajada {
+      flex: none;
+      max-width: 520px;
+      margin-right: 0;
+    }
+
+    .shows__grid {
+      gap: 20px;
+    }
+
+    .show {
+      padding: 19px 19px 24px;
+    }
+
+    .show__nombre {
+      font-size: 28px;
+    }
+
+    .show__plataformas {
+      gap: 10px 12px;
+    }
+
+    .show__plataformas a {
+      gap: 6px;
+    }
+
+    .show__plataformas .mini {
+      letter-spacing: 0.1em;
+    }
+
+    .show__icono {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .shows__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 520px;
+      margin-top: 40px;
+    }
+
+    .shows__intro {
+      margin-top: 36px;
+    }
+
+    .show {
+      min-height: 0;
+    }
+
+    .show__nombre {
+      font-size: 28px;
+    }
+  }
+</style>

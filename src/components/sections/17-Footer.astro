@@ -1,0 +1,200 @@
+---
+/** 17 · Footer (Figma 4:246) */
+import { Image } from 'astro:assets';
+import logo from '../../assets/img/logos/javier-morodo-horizontal-light.svg';
+
+type Enlace = { texto: string; href: string; externo?: boolean };
+
+const columnas: { titulo: string; enlaces: Enlace[] }[] = [
+  {
+    titulo: 'Explorar',
+    enlaces: [
+      { texto: 'Sobre Javier', href: '#sobre-javier' },
+      { texto: 'Trayectoria', href: '#trayectoria' },
+      { texto: 'Conferencias', href: '#conferencias' },
+      { texto: 'Educación', href: '#educacion' },
+      { texto: 'Inversiones', href: '#inversiones' },
+    ],
+  },
+  {
+    titulo: 'Contenido',
+    enlaces: [
+      { texto: 'Podcast', href: '#podcast' },
+      { texto: 'Videos', href: 'https://www.youtube.com/@RevoluciondelaRiqueza', externo: true },
+      { texto: 'Boletín', href: '#boletin' },
+      { texto: 'Blog', href: 'https://javiermtzmorodo.substack.com', externo: true },
+      { texto: 'Libro Riqueza 360', href: '#libro' },
+    ],
+  },
+  {
+    titulo: 'Conecta',
+    enlaces: [
+      { texto: 'Instagram', href: 'https://www.instagram.com/javiermorodo/', externo: true },
+      { texto: 'X', href: 'https://x.com/JavierMtzMorodo', externo: true },
+      { texto: 'LinkedIn', href: 'https://www.linkedin.com/in/javiermtzmorodo/', externo: true },
+      { texto: 'YouTube', href: 'https://www.youtube.com/@RevoluciondelaRiqueza', externo: true },
+      { texto: 'TikTok', href: 'https://www.tiktok.com/@javiermorodo', externo: true },
+      { texto: 'Facebook', href: 'https://www.facebook.com/javiermtzmorodo', externo: true },
+    ],
+  },
+];
+---
+
+<footer class="pie" id="contacto">
+  <div class="contenedor">
+    <div class="pie__superior">
+      <div class="pie__marca">
+        <a href="#inicio" class="pie__logo">
+          <Image src={logo} alt="Javier Morodo" width={272} height={58} />
+        </a>
+        <p class="pie__bajada">
+          Inversionista, emprendedor y educador financiero.<br />
+          Señal por encima del ruido.
+        </p>
+      </div>
+
+      {
+        columnas.map((c) => (
+          <nav class="pie__columna" aria-labelledby={`pie-${c.titulo.toLowerCase()}`}>
+            <h2 class="mini pie__titulo" id={`pie-${c.titulo.toLowerCase()}`}>
+              {c.titulo}
+            </h2>
+            <ul>
+              {c.enlaces.map((e) => (
+                <li>
+                  <a href={e.href} {...(e.externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                    {e.texto}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+
+    <p class="display pie__lema" aria-hidden="true">Libertad a través de la riqueza.</p>
+
+    <div class="pie__inferior">
+      <p class="mini">© 2026 Javier Morodo · Revolution Inc. Todos los derechos reservados.</p>
+      <p class="mini">Contenido educativo, no constituye asesoría financiera ni recomendación de inversión.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .pie {
+    overflow: hidden;
+    padding-top: 80px;
+    padding-bottom: 100px;
+    background: var(--fondo-negro);
+    color: var(--texto-claro);
+  }
+
+  .pie__superior {
+    display: grid;
+    grid-template-columns: minmax(0, 500fr) repeat(3, minmax(0, 200fr));
+    column-gap: 60px;
+  }
+
+  .pie__logo {
+    display: block;
+    width: max-content;
+    padding: 6px;
+  }
+
+  .pie__logo img {
+    width: 272px;
+    height: auto;
+  }
+
+  .pie__bajada {
+    max-width: 300px;
+    margin-top: 19px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .pie__titulo {
+    color: var(--marca-hielo);
+  }
+
+  .pie__columna ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .pie__columna li {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .pie__columna a {
+    transition: opacity 0.2s;
+  }
+
+  .pie__columna a:hover {
+    opacity: 0.7;
+  }
+
+  .pie__lema {
+    margin-top: 39px;
+    margin-left: -0.1em;
+    font-size: clamp(40px, 7.23vw, 104px);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+    opacity: 0.07;
+    user-select: none;
+  }
+
+  .pie__inferior {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 32px;
+    margin-top: 25px;
+    padding-top: 23px;
+    border-top: 1px solid var(--texto-claro);
+  }
+
+  @media (max-width: 1024px) {
+    .pie__superior {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      row-gap: 48px;
+      column-gap: 32px;
+    }
+
+    .pie__marca {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .pie {
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    .pie__superior {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 40px;
+    }
+
+    .pie__logo img {
+      width: 200px;
+    }
+
+    .pie__lema {
+      margin-top: 48px;
+      white-space: normal;
+      font-size: 52px;
+    }
+
+    .pie__inferior {
+      flex-direction: column;
+    }
+  }
+</style>

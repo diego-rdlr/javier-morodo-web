@@ -1,0 +1,401 @@
+---
+/** 10 · Lanzamiento CORE-X (Figma 27:74) */
+import { Image } from 'astro:assets';
+import Boton from '../ui/Boton.astro';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import icono from '../../assets/img/icons/revolution-41.png';
+import atmosfera from '../../assets/img/lanzamiento-core-x/atmosfera.jpg';
+import portada from '../../assets/img/lanzamiento-core-x/portada-core-x.jpg';
+import resplandor from '../../assets/img/lanzamiento-core-x/resplandor-oro.svg';
+import anillo from '../../assets/img/lanzamiento-core-x/anillo-oro.svg';
+import punto from '../../assets/img/lanzamiento-core-x/punto-oro.svg';
+
+const ecuacion = [
+  { etiqueta: 'CORE', nombre: 'El oro', texto: 'Paciencia y estabilidad' },
+  { simbolo: '+' },
+  { etiqueta: 'EXPONENTIAL', nombre: 'El mercurio', texto: 'Audacia y disrupción' },
+  { simbolo: '=' },
+  { etiqueta: 'CORE–X', nombre: 'La amalgama', texto: 'El equilibrio que compone', destacada: true },
+];
+---
+
+<section class="seccion seccion--negro corex" id="core-x" aria-labelledby="corex-titulo">
+  <div class="capa corex__atmosfera" aria-hidden="true">
+    <Image src={atmosfera} alt="" widths={[800, 1440]} sizes="100vw" />
+  </div>
+  <div class="capa corex__velo" aria-hidden="true"></div>
+
+  <div class="contenedor">
+    <EncabezadoSeccion icono={icono} etiqueta="Lanzamiento · nuevo libro" />
+  </div>
+
+  <div class="contenedor corex__cuerpo">
+    <div class="corex__portada">
+      <Image src={resplandor} alt="" class="corex__resplandor" aria-hidden="true" />
+      <Image src={anillo} alt="" class="corex__anillo" aria-hidden="true" />
+      <Image
+        src={portada}
+        alt="Portada del libro CORE-X, de Javier Morodo y Vini Ramos"
+        class="corex__portada-img"
+        widths={[373, 746]}
+        sizes="(max-width: 760px) 300px, 373px"
+      />
+    </div>
+
+    <div class="corex__texto">
+      <p class="corex__proximamente">
+        <Image src={punto} alt="" width={8} height={8} aria-hidden="true" />
+        Próximamente · nuevo libro
+      </p>
+      <h2 id="corex-titulo" class="display corex__titulo">CORE–<span class="corex__x">X</span>.</h2>
+      <p class="corex__subtitulo">El núcleo de la riqueza.</p>
+      <p class="corex__bajada">
+        Dos fuerzas que parecen opuestas, un solo método. CORE es la paciencia que preserva; EXPONENTIAL es la audacia
+        que transforma. Como en la alquimia, Javier propone no elegir entre una y otra, sino fundirlas en una amalgama:
+        un pie en la estabilidad y otro en la innovación.
+      </p>
+
+      <ul class="ecuacion">
+        {
+          ecuacion.map((e) =>
+            e.simbolo ? (
+              <li class="ecuacion__simbolo" aria-hidden="true">
+                {e.simbolo}
+              </li>
+            ) : (
+              <li class:list={['ecuacion__tarjeta', { 'ecuacion__tarjeta--destacada': e.destacada }]}>
+                <span class="ecuacion__etiqueta">{e.etiqueta}</span>
+                <span class="ecuacion__nombre">{e.nombre}</span>
+                <span class="ecuacion__texto">{e.texto}</span>
+              </li>
+            ),
+          )
+        }
+      </ul>
+
+      <p class="corex__lema">Principios invisibles, resultados extraordinarios.</p>
+
+      <form class="corex__form" data-form="lanzamiento-core-x" method="post">
+        <label class="sr-only" for="corex-correo">Correo electrónico</label>
+        <input
+          id="corex-correo"
+          class="corex__campo"
+          type="email"
+          name="email"
+          required
+          autocomplete="email"
+          placeholder="tu@correo.com"
+        />
+        <Boton type="submit">Avísame del lanzamiento</Boton>
+      </form>
+
+      <p class="mini">Sé de los primeros en recibir la fecha y un adelanto del libro.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .corex {
+    padding-top: 56px;
+    padding-bottom: 102px;
+  }
+
+  .corex__atmosfera {
+    z-index: -3;
+    opacity: 0.45;
+    filter: blur(40px);
+    transform: scale(1.06);
+  }
+
+  .corex__velo {
+    z-index: -2;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.55) 45%,
+      rgba(0, 0, 0, 0.9) 100%
+    );
+  }
+
+  .corex__cuerpo {
+    display: grid;
+    grid-template-columns: 373px minmax(0, 1fr);
+    column-gap: clamp(48px, 8.5vw, 123px);
+    align-items: center;
+    margin-top: 41px;
+  }
+
+  /* ---------- Portada + decoración ---------- */
+  .corex__portada {
+    position: relative;
+  }
+
+  .corex__resplandor,
+  .corex__anillo {
+    position: absolute;
+    z-index: -1;
+    max-width: none;
+    pointer-events: none;
+  }
+
+  /* elipse 606×539 (946×879 con blur) y anillo de 910, relativos a la portada */
+  .corex__resplandor {
+    width: 946px;
+    height: 879px;
+    left: -288px;
+    top: -159px;
+  }
+
+  .corex__anillo {
+    width: 910px;
+    height: 910px;
+    left: -270px;
+    top: -195px;
+  }
+
+  .corex__portada-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 373 / 560;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow:
+      0 0 90px -8px rgba(216, 179, 106, 0.35),
+      0 34px 60px -10px rgba(0, 0, 0, 0.65);
+  }
+
+  /* ---------- Texto ---------- */
+  .corex__texto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 26px;
+    max-width: 784px;
+  }
+
+  .corex__proximamente {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px;
+    border-radius: 100px;
+    border: 1px solid rgba(216, 179, 106, 0.7);
+    background: rgba(216, 179, 106, 0.1);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.4;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #efe3c8;
+  }
+
+  .corex__titulo {
+    font-size: clamp(60px, 6.7vw, 96px);
+    line-height: 0.98;
+  }
+
+  .corex__x {
+    background: linear-gradient(to bottom, #f6e3b4 0%, #d8b36a 60%, #b8893d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .corex__subtitulo {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(22px, 2.1vw, 30px);
+    line-height: 1.12;
+    color: #e6cf9b;
+  }
+
+  .ecuacion {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .ecuacion__tarjeta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 196px;
+    min-height: 118px;
+    padding: 18px 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+    white-space: nowrap;
+  }
+
+  .ecuacion__tarjeta--destacada {
+    border-color: rgba(216, 179, 106, 0.8);
+    background: rgba(216, 179, 106, 0.16);
+  }
+
+  .ecuacion__etiqueta,
+  .corex__lema {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.4;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .ecuacion__etiqueta {
+    color: var(--marca-hielo);
+  }
+
+  .ecuacion__tarjeta--destacada .ecuacion__etiqueta {
+    color: #f0d9a3;
+  }
+
+  .ecuacion__nombre {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .ecuacion__texto {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .ecuacion__simbolo {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: 36px;
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+    color: #d8b36a;
+  }
+
+  .corex__lema {
+    color: #e6cf9b;
+  }
+
+  .corex__form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .corex__campo {
+    width: 340px;
+    height: 58px;
+    padding: 0 20px;
+    border-radius: var(--radio);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .corex__campo::placeholder {
+    color: var(--texto-claro);
+    opacity: 1;
+  }
+
+  .corex__campo:focus {
+    outline: none;
+    border-color: #d8b36a;
+  }
+
+  .corex__campo:focus-visible {
+    outline: 2px solid var(--marca-electrico-claro);
+    outline-offset: 2px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) {
+    .corex__cuerpo {
+      grid-template-columns: minmax(240px, 30%) minmax(0, 1fr);
+    }
+
+    .ecuacion {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      width: 100%;
+      gap: 10px;
+    }
+
+    .ecuacion__tarjeta {
+      width: auto;
+      align-self: stretch;
+      padding: 16px;
+      white-space: normal;
+    }
+
+    .ecuacion__nombre {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .corex__cuerpo {
+      grid-template-columns: 1fr;
+      row-gap: 48px;
+      margin-top: 44px;
+    }
+
+    .corex__portada {
+      width: min(300px, 78%);
+      margin-inline: auto;
+    }
+
+    .corex__resplandor,
+    .corex__anillo {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .corex__anillo {
+      width: 640px;
+      height: 640px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .corex {
+      padding-bottom: 72px;
+    }
+
+    .ecuacion {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .ecuacion__tarjeta {
+      flex: none;
+      min-height: 0;
+      white-space: normal;
+    }
+
+    .ecuacion__simbolo {
+      text-align: center;
+      font-size: 30px;
+    }
+
+    .corex__form {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+    }
+
+    .corex__campo {
+      width: 100%;
+    }
+
+    .corex__form :global(.boton) {
+      width: 100%;
+    }
+  }
+</style>
