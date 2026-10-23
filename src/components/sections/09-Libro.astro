@@ -1,0 +1,326 @@
+---
+/** 09 · Libro (Figma 3:113) */
+import { Image } from 'astro:assets';
+import Boton from '../ui/Boton.astro';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import icono from '../../assets/img/icons/revolution-08.png';
+import cielo from '../../assets/img/shared/cielo.jpg';
+import portada from '../../assets/img/libro/portada-riqueza-360.png';
+import amazon from '../../assets/img/logos/amazon.png';
+import resplandor from '../../assets/img/libro/resplandor-hielo.svg';
+import anillo from '../../assets/img/libro/anillo.svg';
+import punto from '../../assets/img/libro/punto-verde.svg';
+
+const dimensiones = [
+  { n: '01', nombre: 'Capital', texto: 'Que compone' },
+  { n: '02', nombre: 'Cuerpo', texto: 'Que lo sostiene' },
+  { n: '03', nombre: 'Relaciones', texto: 'Que le dan sentido' },
+  { n: '04', nombre: 'Propósito', texto: 'Que da dirección' },
+];
+---
+
+<section class="seccion libro" id="libro" aria-labelledby="libro-titulo">
+  <div class="capa libro__atmosfera" aria-hidden="true">
+    <Image src={cielo} alt="" widths={[800, 1600]} sizes="100vw" />
+  </div>
+  <div class="capa libro__velo" aria-hidden="true"></div>
+
+  <div class="contenedor libro__encabezado">
+    <EncabezadoSeccion icono={icono} etiqueta="Libro" />
+  </div>
+
+  <div class="contenedor libro__cuerpo">
+    <div class="libro__portada">
+      <Image src={resplandor} alt="" class="libro__resplandor" aria-hidden="true" />
+      <Image src={anillo} alt="" class="libro__anillo" aria-hidden="true" />
+      <Image
+        src={portada}
+        alt="Portada del libro Riqueza 360, de Javier Morodo, editorial Aguilar"
+        class="libro__portada-img"
+        width={340}
+        height={522}
+      />
+    </div>
+
+    <div class="libro__texto">
+      <p class="libro__disponible">
+        <Image src={punto} alt="" width={8} height={8} aria-hidden="true" />
+        Ya disponible · Aguilar
+      </p>
+      <h2 id="libro-titulo" class="display libro__titulo">Riqueza 360.</h2>
+      <p class="libro__subtitulo">
+        La metodología que ordena tu dinero, tu cuerpo, tus relaciones y tu propósito.
+      </p>
+      <p class="libro__bajada">
+        Javier condensa en un libro lo que ha enseñado a miles de personas: cómo construir riqueza que compone, se
+        sostiene y tiene sentido. Lanzamiento exclusivo.
+      </p>
+
+      <ul class="dimensiones">
+        {
+          dimensiones.map((d) => (
+            <li class="dimension">
+              <span class="dimension__n">{d.n}</span>
+              <span class="dimension__nombre">{d.nombre}</span>
+              <span class="dimension__texto">{d.texto}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="libro__prologo">Prólogo de Oso Trava</p>
+
+      <div class="libro__botones">
+        <!-- TODO: URL real (Amazon) -->
+        <Boton href="#" estilo="claro" externo class="libro__amazon">
+          <Image src={amazon} alt="" width={22} height={22} aria-hidden="true" />
+          Comprar en Amazon
+        </Boton>
+        <!-- TODO: URL real -->
+        <Boton href="#" estilo="contorno-claro">Conocer el método</Boton>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .libro {
+    padding-top: 56px;
+    padding-bottom: 160px;
+    background: var(--marca-electrico);
+    color: var(--texto-claro);
+  }
+
+  /* Encabezado: acento blanco + icono translúcido + etiqueta blanca */
+  .libro__encabezado :global(.acento) {
+    background: var(--texto-claro);
+  }
+
+  .libro__encabezado :global(.encabezado__icono) {
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+  }
+
+  .libro__encabezado :global(.encabezado .encabezado__etiqueta) {
+    color: var(--texto-claro);
+  }
+
+  .libro__atmosfera {
+    z-index: -3;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+  }
+
+  .libro__velo {
+    z-index: -2;
+    background:
+      linear-gradient(to bottom, rgba(0, 0, 0, 0) calc(100% - 220px), #000 100%),
+      linear-gradient(to bottom, rgba(11, 11, 63, 0) 0%, rgba(11, 11, 63, 0.9) 100%);
+  }
+
+  .libro__cuerpo {
+    display: grid;
+    grid-template-columns: 365px minmax(0, 1fr);
+    column-gap: clamp(48px, 10.8vw, 155px);
+    align-items: start;
+    margin-top: 62px;
+  }
+
+  /* ---------- Portada + decoración ---------- */
+  .libro__portada {
+    position: relative;
+  }
+
+  .libro__resplandor,
+  .libro__anillo {
+    position: absolute;
+    z-index: -1;
+    max-width: none;
+    pointer-events: none;
+  }
+
+  /* círculo de 640 (980 con blur) y anillo de 905, relativos a la portada */
+  .libro__resplandor {
+    width: 980px;
+    height: 980px;
+    left: -307.5px;
+    top: -210px;
+  }
+
+  .libro__anillo {
+    width: 905px;
+    height: 905px;
+    left: -270px;
+    top: -172.5px;
+  }
+
+  .libro__portada-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 365 / 560;
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 0 30px 50px -8px rgba(0, 0, 0, 0.5);
+  }
+
+  /* ---------- Texto ---------- */
+  .libro__texto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 26px;
+    max-width: 760px;
+  }
+
+  .libro__disponible {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.12);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.4;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .libro__titulo {
+    font-size: clamp(56px, 6.1vw, 88px);
+    line-height: 0.98;
+  }
+
+  .libro__subtitulo {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(22px, 2.1vw, 30px);
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+    color: var(--marca-hielo);
+  }
+
+  .dimensiones {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 176px));
+    gap: 12px;
+    width: 100%;
+  }
+
+  .dimension {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 118px;
+    padding: 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
+  }
+
+  .dimension__n,
+  .libro__prologo {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.4;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--marca-hielo);
+  }
+
+  .dimension__nombre {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .dimension__texto {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .libro__botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .libro__botones :global(.libro__amazon > span:first-child) {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .libro__botones :global(.libro__amazon img) {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) {
+    .libro__cuerpo {
+      grid-template-columns: minmax(240px, 30%) minmax(0, 1fr);
+    }
+
+    .dimensiones {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .libro {
+      padding-bottom: 120px;
+    }
+
+    .libro__cuerpo {
+      grid-template-columns: 1fr;
+      row-gap: 48px;
+      margin-top: 44px;
+    }
+
+    .libro__portada {
+      width: min(300px, 78%);
+      margin-inline: auto;
+    }
+
+    .libro__resplandor {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .libro__anillo {
+      width: 640px;
+      height: 640px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .dimensiones {
+      gap: 10px;
+    }
+
+    .dimension {
+      padding: 14px;
+    }
+
+    .dimension__nombre {
+      font-size: 21px;
+    }
+
+    .libro__botones {
+      flex-direction: column;
+      align-self: stretch;
+    }
+
+    .libro__botones :global(.boton) {
+      width: 100%;
+    }
+  }
+</style>

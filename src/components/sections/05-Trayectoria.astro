@@ -1,0 +1,465 @@
+---
+/** 05 · Trayectoria (Figma 2:127) */
+import { Image } from 'astro:assets';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import atmosfera from '../../assets/img/shared/atmosfera.jpg';
+import icono from '../../assets/img/icons/revolution-18.png';
+import gbm from '../../assets/img/logos/gbm-white.png';
+import bitso from '../../assets/img/logos/bitso.png';
+import resplandorElectrico from '../../assets/img/trayectoria/resplandor-electrico.svg';
+import resplandorHielo from '../../assets/img/trayectoria/resplandor-hielo.svg';
+import hito from '../../assets/img/trayectoria/hito.svg';
+import hitoActual from '../../assets/img/trayectoria/hito-actual.svg';
+import halo from '../../assets/img/trayectoria/halo.svg';
+
+type Hito = {
+  anio: string;
+  texto: string;
+  etiqueta?: string;
+  logo?: { src: ImageMetadata; alt: string; w: number };
+  actual?: boolean;
+};
+
+const hitos: Hito[] = [
+  {
+    anio: '2009',
+    logo: { src: gbm, alt: 'GBM', w: 69 },
+    texto: 'Crea GBM Digital, el área que llevaría la inversión a millones de personas.',
+  },
+  {
+    anio: '2011',
+    logo: { src: gbm, alt: 'GBM', w: 54 },
+    etiqueta: 'homebroker',
+    texto: 'Lanza la plataforma, reconocida por CNNExpansión como mejor proyecto financiero.',
+  },
+  { anio: '2018', etiqueta: 'Portada México', texto: 'Se suma como ponente a la lista de conferencistas del foro.' },
+  {
+    anio: '2021',
+    logo: { src: bitso, alt: 'Bitso', w: 65 },
+    texto: 'Director de Producto y Crecimiento. Expande a Brasil y Colombia.',
+  },
+  {
+    anio: '2023',
+    etiqueta: 'La Revolución',
+    texto: 'Lanza programas educativos y una comunidad para ganar libertad financiera.',
+  },
+  {
+    anio: 'Hoy',
+    etiqueta: 'Revolution Inc.',
+    texto: 'Ecosistema de medios, educación, patrimonio y capital. Fondos y GOAT Capital.',
+    actual: true,
+  },
+];
+---
+
+<section class="seccion seccion--negro trayectoria" id="trayectoria" aria-labelledby="trayectoria-titulo">
+  <div class="capa trayectoria__atmosfera" aria-hidden="true">
+    <Image src={atmosfera} alt="" widths={[800, 1600, 2400]} sizes="100vw" />
+  </div>
+  <div class="capa trayectoria__velo" aria-hidden="true"></div>
+  <Image
+    src={resplandorElectrico}
+    alt=""
+    class="trayectoria__resplandor trayectoria__resplandor--electrico"
+    aria-hidden="true"
+  />
+  <Image src={resplandorHielo} alt="" class="trayectoria__resplandor trayectoria__resplandor--hielo" aria-hidden="true" />
+
+  <EncabezadoSeccion icono={icono} etiqueta="Trayectoria" />
+
+  <div class="contenedor">
+    <h2 id="trayectoria-titulo" class="display display-l trayectoria__titulo">
+      17 años construyendo el futuro de las inversiones.
+    </h2>
+
+    <div class="linea">
+      <div class="linea__eje" aria-hidden="true">
+        <span class="linea__base"></span>
+        <span class="linea__progreso"></span>
+        <span class="linea__marcas"></span>
+      </div>
+
+      <ol class="linea__hitos">
+        {
+          hitos.map((h) => (
+            <li class:list={['hito', { 'hito--actual': h.actual }]}>
+              <span class="hito__punto" aria-hidden="true">
+                {h.actual && <Image src={halo} alt="" class="hito__halo" />}
+                <Image src={h.actual ? hitoActual : hito} alt="" class="hito__icono" />
+              </span>
+              <span class="hito__conector" aria-hidden="true" />
+              <article class="hito__tarjeta">
+                <div class="hito__etiqueta">
+                  {h.logo && (
+                    <Image
+                      src={h.logo.src}
+                      alt={h.logo.alt}
+                      width={h.logo.w}
+                      densities={[1, 2]}
+                      class="hito__logo"
+                    />
+                  )}
+                  {h.etiqueta && <span>{h.etiqueta}</span>}
+                </div>
+                <h3 class="display hito__anio">{h.anio}</h3>
+                <span class="hito__linea" aria-hidden="true" />
+                <p class="hito__texto">{h.texto}</p>
+              </article>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <div class="formacion">
+      <p class="mini formacion__etiqueta">Formación</p>
+      <span class="formacion__divisor" aria-hidden="true"></span>
+      <ul class="formacion__lista">
+        <li>Licenciatura en Economía · Universidad Iberoamericana</li>
+        <li>MBA · IPADE Business School</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .trayectoria {
+    --hito-gap: 20.8px;
+    padding-top: 56px;
+    padding-bottom: 94px;
+  }
+
+  .trayectoria > :global(.encabezado) {
+    width: min(var(--contenido), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  .trayectoria__atmosfera {
+    opacity: 0.55;
+    z-index: -3;
+  }
+
+  .trayectoria__velo {
+    z-index: -2;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.85) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0.95) 100%
+    );
+  }
+
+  .trayectoria__resplandor {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    max-width: none;
+  }
+
+  /* Los SVG traen su halo de blur: círculo 640 → 980, círculo 420 → 760 */
+  .trayectoria__resplandor--electrico {
+    width: 980px;
+    height: 980px;
+    left: calc(50% + 90px);
+    top: 250px;
+  }
+
+  .trayectoria__resplandor--hielo {
+    width: 760px;
+    height: 760px;
+    left: calc(50% - 1010px);
+    top: -230px;
+  }
+
+  .trayectoria__titulo {
+    max-width: 1026px;
+    margin-top: 44px;
+  }
+
+  /* ---------- Línea de tiempo ---------- */
+  .linea {
+    position: relative;
+    margin-top: 42px;
+  }
+
+  .linea__eje {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 24px;
+  }
+
+  .linea__base {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 7px;
+    height: 1px;
+    background: var(--texto-claro);
+  }
+
+  /* El progreso termina en el centro de la última columna (Hoy) */
+  .linea__progreso {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    height: 3px;
+    width: calc(100% - (100% - 5 * var(--hito-gap)) / 12);
+    border-radius: 2px;
+    background: linear-gradient(to right, rgba(220, 231, 242, 0.9), var(--marca-electrico-claro));
+  }
+
+  /* Regla: marca chica cada 20px, marca grande cada 160px */
+  .linea__marcas {
+    position: absolute;
+    left: 0;
+    top: 15px;
+    width: calc(100% + 1px);
+    height: 9px;
+    background:
+      repeating-linear-gradient(to right, #fff 0 1px, transparent 1px 160px) top left / 100% 9px no-repeat,
+      repeating-linear-gradient(to right, #fff 0 1px, transparent 1px 20px) top left / 100% 4px no-repeat;
+  }
+
+  .linea__hitos {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--hito-gap);
+  }
+
+  .hito {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hito__punto {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 14px;
+    height: 14px;
+  }
+
+  .hito__icono {
+    width: 14px;
+    height: 14px;
+  }
+
+  .hito--actual .hito__punto {
+    margin-top: -2px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .hito--actual .hito__icono {
+    position: relative;
+    width: 18px;
+    height: 18px;
+  }
+
+  .hito__halo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 64px;
+    height: 64px;
+    max-width: none;
+    transform: translate(-50%, -50%);
+  }
+
+  .hito__conector {
+    width: 1px;
+    height: 54px;
+    margin-top: 1px;
+    background: var(--texto-claro);
+  }
+
+  .hito--actual .hito__conector {
+    margin-top: -1px;
+    background: var(--marca-electrico-claro);
+  }
+
+  .hito__tarjeta {
+    flex: 1;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 262px;
+    margin-top: 4px;
+    padding: 24px 22px;
+    border: 1px solid var(--linea-oscura);
+    border-radius: var(--radio-card);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .hito--actual .hito__tarjeta {
+    border-color: rgba(123, 125, 255, 0.9);
+    background: linear-gradient(to right, rgba(64, 66, 255, 0.34), rgba(64, 66, 255, 0.08));
+  }
+
+  .hito__etiqueta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 24px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.4;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--marca-hielo);
+    white-space: nowrap;
+  }
+
+  .hito__logo {
+    height: auto;
+  }
+
+  .hito__anio {
+    font-size: 44px;
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+  }
+
+  .hito--actual .hito__anio {
+    color: var(--marca-hielo);
+  }
+
+  .hito__linea {
+    height: 1px;
+    background: var(--texto-claro);
+  }
+
+  .hito__texto {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  /* ---------- Formación ---------- */
+  .formacion {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-top: 40px;
+    padding: 22px 28px;
+    border: 1px solid var(--linea-oscura);
+    border-radius: var(--radio-card);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .formacion__etiqueta {
+    flex: none;
+  }
+
+  .formacion__divisor {
+    flex: none;
+    width: 1px;
+    height: 28px;
+    background: var(--texto-claro);
+  }
+
+  .formacion__lista {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .formacion__lista li + li::before {
+    content: '/';
+    padding-inline: 1.1em;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1180px) {
+    .hito__tarjeta {
+      padding: 22px 18px;
+    }
+    .hito__anio {
+      font-size: 38px;
+    }
+  }
+
+  /* Sin espacio para 6 columnas: la regla se oculta y las tarjetas fluyen en cuadrícula */
+  @media (max-width: 1100px) {
+    .linea__eje,
+    .hito__punto,
+    .hito__conector {
+      display: none;
+    }
+
+    .linea__hitos {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .hito__tarjeta {
+      margin-top: 0;
+      min-height: 0;
+      height: 100%;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .linea__hitos {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .formacion {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 20px 22px;
+    }
+
+    .formacion__divisor {
+      width: 40px;
+      height: 1px;
+    }
+
+    .formacion__lista {
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .formacion__lista li + li::before {
+      content: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .trayectoria {
+      padding-bottom: 64px;
+    }
+
+    .trayectoria__titulo {
+      margin-top: 32px;
+    }
+
+    .linea {
+      margin-top: 32px;
+    }
+
+    .linea__hitos {
+      grid-template-columns: 1fr;
+    }
+
+    .hito__anio {
+      font-size: 40px;
+    }
+
+    .formacion__lista {
+      font-size: 15px;
+    }
+  }
+</style>

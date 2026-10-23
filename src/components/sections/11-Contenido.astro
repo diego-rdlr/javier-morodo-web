@@ -1,0 +1,330 @@
+---
+/** 11 · Contenido (Figma 4:128) */
+import { Image } from 'astro:assets';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import icono from '../../assets/img/icons/revolution-21.png';
+import miniatura from '../../assets/img/contenido/videos-miniatura.jpg';
+import playVidrio from '../../assets/img/contenido/play-vidrio.svg';
+import boletin from '../../assets/img/shared/atmosfera.jpg';
+import blog from '../../assets/img/contenido/blog.jpg';
+import ebooks from '../../assets/img/contenido/ebooks.jpg';
+
+const tarjetas = [
+  {
+    etiqueta: 'Boletín',
+    titulo: 'El ensayo de Javier',
+    texto: 'Cada semana, un ensayo sobre mercados, tesis y criterio. Sin costo.',
+    imagen: boletin,
+    href: '#', // TODO: URL real
+  },
+  {
+    etiqueta: 'Blog',
+    titulo: 'Ideas y análisis',
+    texto: 'Notas largas sobre inversión, mentalidad y construcción de patrimonio.',
+    imagen: blog,
+    href: '#', // TODO: URL real
+  },
+  {
+    etiqueta: 'Libros electrónicos',
+    titulo: 'Guías descargables',
+    texto: 'Marcos prácticos para ordenar tus finanzas y tomar decisiones.',
+    imagen: ebooks,
+    href: '#', // TODO: URL real
+  },
+];
+---
+
+<section class="seccion seccion--crema contenido" id="contenido" aria-labelledby="contenido-titulo">
+  <EncabezadoSeccion icono={icono} etiqueta="Contenido" tono="claro" />
+
+  <div class="contenedor">
+    <h2 id="contenido-titulo" class="display display-l contenido__titulo">Aprende con Javier todas las semanas.</h2>
+
+    <div class="contenido__grid">
+      <a
+        class="videos"
+        href="https://www.youtube.com/@javiermorodo"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Image
+          src={miniatura}
+          alt="Javier Morodo sonriendo, sentado al aire libre"
+          widths={[640, 960, 1280]}
+          sizes="(max-width: 900px) 100vw, 640px"
+          class="videos__miniatura"
+        />
+        <span class="videos__velo" aria-hidden="true"></span>
+        <Image src={playVidrio} alt="" width={72} height={72} class="videos__play" aria-hidden="true" />
+        <span class="videos__texto">
+          <span class="display videos__titulo">Videos</span>
+          <span class="videos__bajada">
+            Entrevistas, clases y análisis en el canal Revolución de la Riqueza.&nbsp;&nbsp;↗
+          </span>
+        </span>
+      </a>
+
+      <ul class="contenido__lista">
+        {
+          tarjetas.map((t) => (
+            <li>
+              {/* TODO: URL real */}
+              <a class="tarjeta" href={t.href}>
+                <span class="tarjeta__imagen">
+                  <Image src={t.imagen} alt="" widths={[160, 320]} sizes="160px" />
+                </span>
+                <span class="tarjeta__texto">
+                  <span class="mini tarjeta__etiqueta">{t.etiqueta}</span>
+                  <span class="display tarjeta__titulo">{t.titulo}</span>
+                  <span class="tarjeta__bajada">{t.texto}</span>
+                </span>
+                <span class="tarjeta__flecha" aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contenido {
+    padding-top: 56px;
+    padding-bottom: 60px;
+  }
+
+  .contenido > :global(.encabezado) {
+    width: min(var(--contenido), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  .contenido > :global(.encabezado .encabezado__regla) {
+    background: var(--linea-clara);
+  }
+
+  .contenido__titulo {
+    margin-top: 55px;
+    max-width: 968px;
+  }
+
+  .contenido__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px;
+    margin-top: 55px;
+  }
+
+  /* ---------- Videos ---------- */
+  .videos {
+    position: relative;
+    isolation: isolate;
+    display: block;
+    min-height: 520px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--fondo-negro);
+    color: var(--texto-claro);
+  }
+
+  .videos__miniatura {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 45% 50%;
+    z-index: -2;
+    transition: transform 0.6s ease;
+  }
+
+  .videos:hover .videos__miniatura {
+    transform: scale(1.03);
+  }
+
+  .videos__velo {
+    position: absolute;
+    inset: 50% 0 0;
+    z-index: -1;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.85));
+  }
+
+  .videos__play {
+    position: absolute;
+    left: 50%;
+    top: calc(50% - 30px);
+    translate: -50% -50%;
+    width: 72px;
+    height: 72px;
+  }
+
+  .videos__texto {
+    position: absolute;
+    left: 32px;
+    right: 32px;
+    bottom: 42px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .videos__titulo {
+    font-size: 40px;
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+  }
+
+  .videos__bajada {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  /* ---------- Tarjetas ---------- */
+  .contenido__lista {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contenido__lista li {
+    flex: 1;
+  }
+
+  .tarjeta {
+    position: relative;
+    display: flex;
+    height: 100%;
+    min-height: 160px;
+    background: var(--fondo-blanco);
+    border: 1px solid var(--linea-clara);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+
+  .tarjeta:hover {
+    border-color: var(--marca-electrico);
+  }
+
+  .tarjeta__imagen {
+    flex: none;
+    width: 159px;
+    margin: -1px 0 -1px -1px;
+  }
+
+  .tarjeta__imagen :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .tarjeta__texto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 22px 52px 22px 27px;
+    min-width: 0;
+  }
+
+  .tarjeta__etiqueta {
+    color: var(--marca-electrico);
+  }
+
+  .tarjeta__titulo {
+    font-size: 30px;
+    line-height: 1.12;
+    letter-spacing: 0;
+  }
+
+  .tarjeta__bajada {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--texto-tenue);
+  }
+
+  .tarjeta__flecha {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 1.12;
+    transition: transform 0.2s ease;
+  }
+
+  .tarjeta:hover .tarjeta__flecha {
+    transform: translate(2px, -2px);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1180px) {
+    .contenido__grid {
+      gap: 24px;
+    }
+
+    .tarjeta__imagen {
+      width: 120px;
+    }
+
+    .tarjeta__texto {
+      padding: 20px 44px 20px 22px;
+    }
+
+    .tarjeta__titulo {
+      font-size: 26px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .contenido__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .videos {
+      min-height: 0;
+      aspect-ratio: 16 / 11;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .contenido__titulo,
+    .contenido__grid {
+      margin-top: 36px;
+    }
+
+    .videos {
+      aspect-ratio: 4 / 5;
+    }
+
+    .videos__texto {
+      left: 20px;
+      right: 20px;
+      bottom: 22px;
+    }
+
+    .videos__titulo {
+      font-size: 32px;
+    }
+
+    .tarjeta__imagen {
+      width: 104px;
+    }
+
+    .tarjeta__texto {
+      padding: 18px 40px 18px 18px;
+    }
+
+    .tarjeta__titulo {
+      font-size: 24px;
+    }
+
+    .tarjeta__flecha {
+      top: 12px;
+      right: 14px;
+      font-size: 20px;
+    }
+  }
+</style>

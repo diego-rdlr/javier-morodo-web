@@ -1,0 +1,265 @@
+---
+/** 08 · Educación (Figma 3:72) */
+import { Image } from 'astro:assets';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import icono from '../../assets/img/icons/revolution-30.png';
+import wealthX from '../../assets/img/educacion/wealth-x.jpg';
+import revolutionDaily from '../../assets/img/educacion/revolution-daily.jpg';
+import wealthNation from '../../assets/img/educacion/wealth-nation.jpg';
+import wealthClub from '../../assets/img/educacion/wealth-club.jpg';
+
+// TODO: URL real en cada `href`
+const programas = [
+  {
+    n: '01',
+    imagen: wealthX,
+    etiqueta: 'Presencial · 3 días',
+    titulo: 'Wealth X',
+    texto: 'Inmersión presencial de tres días sobre los principios de la riqueza, con Javier y otros expertos.',
+    cta: 'Inscribirme',
+    href: '#',
+  },
+  {
+    n: '02',
+    imagen: revolutionDaily,
+    etiqueta: 'Diario · Sin costo',
+    titulo: 'Revolution Daily',
+    texto: 'El ensayo de Javier cada semana: mercados, tesis y criterio, directo a tu correo.',
+    cta: 'Suscribirme',
+    href: '#',
+  },
+  {
+    n: '03',
+    imagen: wealthNation,
+    etiqueta: 'Comunidad',
+    titulo: 'Wealth Nation',
+    texto:
+      'La comunidad de Javier para invertir con criterio: seminarios web en vivo, análisis y gente que construye patrimonio junta.',
+    cta: 'Unirme a la comunidad',
+    href: '#',
+  },
+  {
+    n: '04',
+    imagen: wealthClub,
+    etiqueta: 'Comunidad',
+    titulo: 'Wealth Club',
+    texto: 'Comunidad y radar semanal de mercados para invertir con criterio.',
+    cta: 'Unirme al club',
+    href: '#',
+  },
+];
+---
+
+<section class="seccion seccion--crema educacion" id="educacion" aria-labelledby="educacion-titulo">
+  <div class="contenedor">
+    <EncabezadoSeccion icono={icono} etiqueta="Educación" tono="claro" />
+
+    <div class="educacion__intro">
+      <h2 id="educacion-titulo" class="display educacion__titulo">
+        Aprende a construir riqueza, no solo a ganar dinero.
+      </h2>
+      <p class="educacion__bajada">Programas, comunidad y metodología para pasar de la intención al patrimonio.</p>
+    </div>
+
+    <ul class="programas">
+      {
+        programas.map((p) => (
+          <li class="programa">
+            <div class="programa__imagen">
+              <Image src={p.imagen} alt="" widths={[300, 600]} sizes="(max-width: 640px) 100vw, 300px" />
+              <span class="mini programa__etiqueta">{p.etiqueta}</span>
+            </div>
+            <div class="programa__cuerpo">
+              <p class="mini programa__n">{p.n}</p>
+              <h3 class="display programa__titulo">{p.titulo}</h3>
+              <p class="programa__texto">{p.texto}</p>
+            </div>
+            <a class="programa__cta" href={p.href}>
+              {p.cta} <span aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="mini educacion__nota">Los lugares son limitados. Más información en revoluciondelariqueza.com</p>
+  </div>
+</section>
+
+<style>
+  .educacion {
+    padding-top: 56px;
+    padding-bottom: 38px;
+  }
+
+  .educacion :global(.encabezado .encabezado__regla) {
+    background: var(--linea-clara);
+  }
+
+  .educacion__intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    margin-top: 56px;
+  }
+
+  .educacion__titulo {
+    max-width: 860px;
+    font-size: clamp(38px, 4.2vw, 60px);
+  }
+
+  .educacion__bajada {
+    flex: 0 1 360px;
+    margin-top: 17px;
+    color: var(--texto-tenue);
+  }
+
+  .programas {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 29px;
+    margin-top: 48px;
+  }
+
+  .programa {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 500px;
+    overflow: hidden;
+    border: 1px solid var(--linea-clara);
+    border-radius: 8px;
+    background: var(--fondo-blanco);
+  }
+
+  .programa__imagen {
+    position: relative;
+    height: 220px;
+    margin: -1px -1px 0;
+  }
+
+  .programa__imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .programa__etiqueta {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 6px 10px;
+    border-radius: 100px;
+    background: rgba(0, 0, 0, 0.55);
+    color: var(--texto-claro);
+    white-space: nowrap;
+  }
+
+  .programa__cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 23px 23px 0;
+  }
+
+  .programa__n {
+    color: var(--marca-electrico);
+  }
+
+  .programa__titulo {
+    font-size: 32px;
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+  }
+
+  .programa__texto {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--texto-tenue);
+  }
+
+  .programa__cta {
+    margin-top: auto;
+    padding: 32px 23px 48px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--marca-electrico);
+  }
+
+  .programa__cta span {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .programa__cta:hover span {
+    transform: translateX(3px);
+  }
+
+  .programa__cta::after {
+    /* Toda la tarjeta es clicable */
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .programa {
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .programa:hover {
+    border-color: var(--marca-electrico);
+    box-shadow: 0 12px 30px -12px rgba(17, 17, 17, 0.18);
+  }
+
+  .educacion__nota {
+    margin-top: 28px;
+    color: var(--texto-tenue);
+  }
+
+  @media (max-width: 1100px) {
+    .programas {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .programa {
+      min-height: 0;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .educacion {
+      padding-bottom: 56px;
+    }
+
+    .educacion__intro {
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .educacion__bajada {
+      flex: none;
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .programas {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    .programa__cta {
+      padding-bottom: 32px;
+    }
+  }
+</style>

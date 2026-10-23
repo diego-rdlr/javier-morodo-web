@@ -1,0 +1,377 @@
+---
+/** 15 · Redes y medios (Figma 4:188) */
+import { Image } from 'astro:assets';
+import Boton from '../ui/Boton.astro';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import icono from '../../assets/img/icons/revolution-49.png';
+import instagram from '../../assets/img/logos/instagram.png';
+import x from '../../assets/img/logos/x.png';
+import linkedin from '../../assets/img/logos/linkedin.png';
+import youtube from '../../assets/img/logos/youtube.png';
+import tiktok from '../../assets/img/logos/tiktok.png';
+import facebook from '../../assets/img/logos/facebook.png';
+import expansion from '../../assets/img/logos/expansion.png';
+import elCeo from '../../assets/img/logos/el-ceo.png';
+import fundsSociety from '../../assets/img/logos/funds-society.png';
+import portada from '../../assets/img/logos/portada.png';
+import resplandorElectrico from '../../assets/img/redes/resplandor-electrico.svg';
+import resplandorLavanda from '../../assets/img/redes/resplandor-lavanda.svg';
+
+const redes = [
+  { nombre: 'Instagram', usuario: '@javiermorodo', logo: instagram, href: 'https://www.instagram.com/javiermorodo/' },
+  { nombre: 'X', usuario: '@javiermtzmorodo', logo: x, href: 'https://x.com/JavierMtzMorodo' },
+  {
+    nombre: 'LinkedIn',
+    usuario: '/in/javiermtzmorodo',
+    logo: linkedin,
+    href: 'https://www.linkedin.com/in/javiermtzmorodo/',
+  },
+  {
+    nombre: 'YouTube',
+    usuario: '@RevoluciondelaRiqueza',
+    logo: youtube,
+    href: 'https://www.youtube.com/@RevoluciondelaRiqueza',
+    accion: 'Suscribirme',
+  },
+  { nombre: 'TikTok', usuario: '@javiermorodo', logo: tiktok, href: 'https://www.tiktok.com/@javiermorodo' },
+  { nombre: 'Facebook', usuario: '/javiermtzmorodo', logo: facebook, href: 'https://www.facebook.com/javiermtzmorodo' },
+];
+---
+
+<section class="seccion seccion--crema redes" id="redes" aria-labelledby="redes-titulo">
+  <EncabezadoSeccion icono={icono} etiqueta="Redes sociales" tono="claro" />
+
+  <div class="contenedor">
+    <h2 id="redes-titulo" class="display display-l redes__titulo">Encuéntralo donde está la conversación.</h2>
+
+    <ul class="redes__grid">
+      {
+        redes.map((r) => (
+          <li class="red">
+            <Image src={r.logo} alt="" width={32} height={32} densities={[1, 2]} class="red__logo" />
+            <h3 class="display red__nombre">{r.nombre}</h3>
+            <p class="red__usuario">{r.usuario}</p>
+            <Boton
+              href={r.href}
+              externo
+              tamano="s"
+              class="red__boton"
+              aria-label={`${r.accion ?? 'Seguir'} a Javier Morodo en ${r.nombre}`}
+            >
+              {r.accion ?? 'Seguir'}
+            </Boton>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="medios">
+    <Image src={resplandorElectrico} alt="" class="medios__resplandor medios__resplandor--electrico" aria-hidden="true" />
+    <Image src={resplandorLavanda} alt="" class="medios__resplandor medios__resplandor--lavanda" aria-hidden="true" />
+
+    <div class="contenedor medios__contenido">
+      <span class="medios__acento" aria-hidden="true"></span>
+      <div class="medios__encabezado">
+        <h3 class="kicker">En los medios</h3>
+        <span class="medios__regla" aria-hidden="true"></span>
+      </div>
+
+      <ul class="medios__grid">
+        <li class="medio">
+          <Image src={expansion} alt="Expansión" width={188} height={52} densities={[1, 2]} class="medio__expansion" />
+        </li>
+        <li class="medio">
+          <span class="medio__elceo">
+            <Image src={elCeo} alt="" width={40} height={40} densities={[1, 2]} />
+            <span>El CEO</span>
+          </span>
+        </li>
+        <li class="medio">
+          <Image
+            src={fundsSociety}
+            alt="Funds Society"
+            width={183}
+            height={34}
+            densities={[1, 2]}
+            class="medio__funds"
+          />
+        </li>
+        <li class="medio">
+          <Image src={portada} alt="Portada" width={64} height={64} densities={[1, 2]} class="medio__portada" />
+        </li>
+      </ul>
+
+      <p class="mini medios__nota">
+        Menciones y reconocimientos: Mejor Proyecto Financiero (CNNExpansión, hoy Expansión) por GBMhomebroker ·
+        cobertura de su paso por Bitso y GBM.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .redes {
+    padding-top: 56px;
+    padding-bottom: 0;
+  }
+
+  .redes > :global(.encabezado) {
+    width: min(var(--contenido), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  .redes > :global(.encabezado .encabezado__regla) {
+    background: var(--linea-clara);
+  }
+
+  .redes__titulo {
+    margin-top: 65px;
+    max-width: 1071px;
+  }
+
+  .redes__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px 31px;
+    margin-top: 65px;
+  }
+
+  .red {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'logo logo'
+      'nombre nombre'
+      'usuario boton';
+    align-items: center;
+    column-gap: 8px;
+    min-height: 168px;
+    padding: 22px 23px 23px;
+    background: var(--fondo-blanco);
+    border: 1px solid var(--linea-clara);
+    border-radius: 8px;
+  }
+
+  .red :global(.red__logo) {
+    grid-area: logo;
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  .red__nombre {
+    grid-area: nombre;
+    margin-top: 14px;
+    font-size: 34px;
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+    color: var(--texto-tinta);
+  }
+
+  .red__usuario {
+    grid-area: usuario;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.4;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--texto-tenue);
+  }
+
+  .red :global(.red__boton) {
+    grid-area: boton;
+    margin-top: -2px;
+  }
+
+  /* ---------- Banda "En los medios" ---------- */
+  .medios {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    margin-top: 74px;
+    background: var(--fondo-negro);
+    color: var(--texto-claro);
+  }
+
+  .medios__resplandor {
+    position: absolute;
+    z-index: -1;
+    max-width: none;
+    pointer-events: none;
+  }
+
+  /* SVG con halo de blur: el círculo de 700 ocupa 1040 con el filtro */
+  .medios__resplandor--electrico {
+    width: 1040px;
+    height: 1040px;
+    left: calc(50% - 720px - 290px);
+    top: -550px;
+  }
+
+  .medios__resplandor--lavanda {
+    width: 820px;
+    height: 820px;
+    left: calc(50% - 720px + 850px);
+    top: -450px;
+  }
+
+  .medios__contenido {
+    position: relative;
+    padding-top: 40px;
+    padding-bottom: 64px;
+  }
+
+  .medios__acento {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 140px;
+    height: 3px;
+    background: var(--marca-electrico);
+  }
+
+  .medios__encabezado {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .medios__encabezado .kicker {
+    font-weight: 400;
+  }
+
+  .medios__regla {
+    height: 1px;
+    background: var(--texto-claro);
+  }
+
+  .medios__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 29px;
+    margin-top: 31px;
+  }
+
+  .medio {
+    display: grid;
+    place-items: center;
+    height: 96px;
+    padding: 0 16px;
+    background: var(--fondo-blanco);
+    border-radius: 14px;
+    filter: drop-shadow(0 12px 14px rgba(0, 0, 0, 0.35));
+  }
+
+  .medio :global(.medio__expansion) {
+    width: 188px;
+    height: auto;
+  }
+
+  .medio :global(.medio__funds) {
+    width: 182.5px;
+    height: auto;
+  }
+
+  .medio :global(.medio__portada) {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+  }
+
+  .medio__elceo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--texto-tinta);
+  }
+
+  .medio__elceo :global(img) {
+    width: 40px;
+    height: 40px;
+  }
+
+  .medios__nota {
+    margin-top: 36px;
+  }
+
+  @media (max-width: 1100px) {
+    .redes__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .medios__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .redes__titulo,
+    .redes__grid {
+      margin-top: 40px;
+    }
+
+    .redes__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .red {
+      min-height: 0;
+    }
+
+    .red__nombre {
+      font-size: 30px;
+    }
+
+    .medios {
+      margin-top: 56px;
+    }
+
+    .medios__encabezado {
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 20px;
+    }
+
+    .medios__grid {
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .medio {
+      height: 80px;
+      padding: 0 12px;
+    }
+
+    .medio :global(.medio__expansion) {
+      width: min(140px, 100%);
+    }
+
+    .medio :global(.medio__funds) {
+      width: min(130px, 100%);
+    }
+
+    .medio :global(.medio__portada) {
+      width: 52px;
+      height: 52px;
+    }
+
+    .medio__elceo {
+      gap: 8px;
+      font-size: 22px;
+    }
+
+    .medio__elceo :global(img) {
+      width: 32px;
+      height: 32px;
+    }
+  }
+</style>

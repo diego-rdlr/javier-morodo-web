@@ -1,0 +1,210 @@
+---
+/** 14 · Inversiones (Figma 4:159) */
+import { Image } from 'astro:assets';
+import Boton from '../ui/Boton.astro';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import icono from '../../assets/img/icons/revolution-35.png';
+import montana from '../../assets/img/inversiones/montana.jpg';
+
+const pilares = [
+  { numero: '01', titulo: 'Mercados privados', texto: 'Capital privado y fondos con visión de largo plazo.' },
+  {
+    numero: '02',
+    titulo: 'Cripto y activos digitales',
+    texto: 'Una década operando el puente entre finanzas y tecnología.',
+  },
+  {
+    numero: '03',
+    titulo: 'Capital de riesgo y ángel',
+    texto: 'Apoyo a fundadores desde las primeras etapas, también como consejero.',
+  },
+];
+---
+
+<section class="seccion seccion--tinta inversiones" id="inversiones" aria-labelledby="inversiones-titulo">
+  <div class="inversiones__montana" aria-hidden="true">
+    <Image src={montana} alt="" widths={[620, 1240]} sizes="(max-width: 900px) 100vw, 44vw" />
+  </div>
+  <div class="capa inversiones__tinte" aria-hidden="true"></div>
+
+  <EncabezadoSeccion icono={icono} etiqueta="Inversiones" />
+
+  <div class="contenedor">
+    <div class="inversiones__texto">
+      <h2 id="inversiones-titulo" class="display inversiones__titulo">
+        Capital que trabaja: activos alternativos y digitales.
+      </h2>
+      <p class="inversiones__bajada">
+        Javier invierte en activos alternativos y digitales, es socio fundador de tres fondos y ángel inversionista. A
+        través de Revolution Capital abre ese acceso a inversionistas calificados.
+      </p>
+
+      <ul class="inversiones__pilares">
+        {
+          pilares.map((p) => (
+            <li class="pilar">
+              <span class="mini pilar__numero">{p.numero}</span>
+              <div class="pilar__texto">
+                <h3 class="pilar__titulo">{p.titulo}</h3>
+                <p class="pilar__descripcion">{p.texto}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <Boton href="https://revolutioncapital.mx" externo>Conocer Revolution Capital</Boton>
+    </div>
+
+    <p class="mini inversiones__aviso">
+      Contenido informativo y educativo. No constituye asesoría financiera ni recomendación de inversión. Invertir
+      implica riesgos, incluida la pérdida de capital.
+    </p>
+  </div>
+</section>
+
+<style>
+  .inversiones {
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+
+  .inversiones > :global(.encabezado) {
+    width: min(var(--contenido), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  /* Montaña: columna derecha (620 de 1440), oscurecida y fundida hacia la izquierda */
+  .inversiones__montana {
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 43.06%;
+    pointer-events: none;
+  }
+
+  .inversiones__montana img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .inversiones__montana::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, var(--fondo-tinta) 0%, rgba(10, 10, 10, 0) 58%),
+      rgba(0, 0, 0, 0.5);
+  }
+
+  .inversiones__tinte {
+    background: linear-gradient(to bottom, rgba(64, 66, 255, 0) 0%, rgba(64, 66, 255, 0.16) 100%);
+  }
+
+  .inversiones__texto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    max-width: 809px;
+    margin-top: 55px;
+  }
+
+  .inversiones__titulo {
+    max-width: 736px;
+    font-size: clamp(36px, 3.9vw, 56px);
+  }
+
+  .inversiones__bajada {
+    max-width: 753px;
+    font-size: clamp(17px, 1.4vw, 20px);
+    line-height: 1.6;
+  }
+
+  .inversiones__pilares {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .pilar {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .pilar__numero {
+    flex: none;
+    color: var(--marca-hielo);
+  }
+
+  .pilar__texto {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .pilar__titulo {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .pilar__descripcion {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .inversiones__aviso {
+    margin-top: 58px;
+  }
+
+  @media (max-width: 900px) {
+    .inversiones__montana {
+      width: 100%;
+      opacity: 0.45;
+    }
+
+    .inversiones__montana::after {
+      background:
+        linear-gradient(to bottom, var(--fondo-tinta) 0%, rgba(10, 10, 10, 0.4) 50%, var(--fondo-tinta) 100%),
+        rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .inversiones__texto {
+      margin-top: 40px;
+    }
+
+    .pilar {
+      gap: 16px;
+      padding: 18px;
+    }
+
+    .pilar__titulo {
+      font-size: 22px;
+    }
+
+    .inversiones__texto :global(.boton) {
+      width: 100%;
+      white-space: normal;
+    }
+
+    .inversiones__aviso {
+      margin-top: 40px;
+    }
+  }
+</style>

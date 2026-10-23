@@ -1,0 +1,202 @@
+---
+/** 06 · Dónde ha trabajado (Figma 2:166) */
+import { Image } from 'astro:assets';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import icono from '../../assets/img/icons/revolution-23.png';
+import gbm from '../../assets/img/logos/gbm.png';
+import bitso from '../../assets/img/logos/bitso.png';
+
+type Empresa = {
+  periodo: string;
+  nombre: string;
+  logo?: { src: ImageMetadata; w: number; h: number };
+  rol: string;
+  descripcion: string;
+};
+
+const empresas: Empresa[] = [
+  {
+    periodo: '2009 →',
+    nombre: 'GBM',
+    logo: { src: gbm, w: 116, h: 34.5 },
+    rol: 'Fundador de GBM Digital y director general de Administración de Activos',
+    descripcion: 'Casa de bolsa mexicana',
+  },
+  {
+    periodo: '2021 →',
+    nombre: 'Bitso',
+    logo: { src: bitso, w: 109, h: 30 },
+    rol: 'Director de Producto y Crecimiento',
+    descripcion: 'Plataforma cripto en Latinoamérica',
+  },
+  {
+    periodo: '2023 →',
+    nombre: 'Revolution Inc.',
+    rol: 'Fundador. Medios, Educación, Patrimonio y Capital',
+    descripcion: 'Ecosistema financiero para la libertad patrimonial',
+  },
+  { periodo: 'Hoy', nombre: 'GOAT Capital', rol: 'Cofundador', descripcion: 'Inversión en activos alternativos' },
+  { periodo: 'Hoy', nombre: 'El Arte de Invertir', rol: 'Co-conductor', descripcion: 'Co-conductor del programa' },
+  {
+    periodo: 'Hoy',
+    nombre: 'Inversionista',
+    rol: 'Ángel inversionista, socio fundador de tres fondos y consejero de startups',
+    descripcion: 'Capital y criterio al servicio de fundadores',
+  },
+];
+---
+
+<section class="seccion seccion--crema empresas" aria-labelledby="empresas-titulo">
+  <EncabezadoSeccion icono={icono} etiqueta="Dónde ha trabajado" tono="claro" />
+
+  <div class="contenedor">
+    <h2 id="empresas-titulo" class="display empresas__titulo">
+      Empresas que ayudó a crecer. Marcas que sigue construyendo.
+    </h2>
+
+    <ul class="empresas__grid">
+      {
+        empresas.map((e, i) => (
+          <li class="empresa">
+            <div class="mini empresa__fila">
+              <span class="empresa__num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="empresa__periodo">{e.periodo}</span>
+            </div>
+            <h3 class="empresa__nombre">
+              {e.logo ? (
+                <Image
+                  src={e.logo.src}
+                  alt={e.nombre}
+                  width={e.logo.w}
+                  densities={[1, 2]}
+                  class="empresa__logo"
+                  style={`--alto: ${e.logo.h}px`}
+                />
+              ) : (
+                <span class="display empresa__marca">{e.nombre}</span>
+              )}
+            </h3>
+            <p class="empresa__rol">{e.rol}</p>
+            <p class="empresa__desc">{e.descripcion}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .empresas {
+    padding-top: 56px;
+    padding-bottom: 90px;
+  }
+
+  .empresas > :global(.encabezado) {
+    width: min(var(--contenido), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  /* En fondos claros la regla del Figma es línea/clara */
+  .empresas > :global(.encabezado .encabezado__regla) {
+    background: var(--linea-clara);
+  }
+
+  .empresas__titulo {
+    max-width: 880px;
+    margin-top: 50px;
+    font-size: clamp(34px, 3.9vw, 56px);
+  }
+
+  .empresas__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px 31px;
+    margin-top: 36px;
+  }
+
+  .empresa {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 250px;
+    padding: 28px;
+    border: 1px solid var(--linea-clara);
+    border-radius: 8px;
+    background: var(--fondo-blanco);
+  }
+
+  .empresa__fila {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    white-space: nowrap;
+  }
+
+  .empresa__num {
+    color: var(--marca-electrico);
+  }
+
+  .empresa__periodo {
+    color: var(--texto-tenue);
+  }
+
+  .empresa__nombre {
+    display: flex;
+    align-items: center;
+    font-weight: inherit;
+  }
+
+  .empresa__logo {
+    width: auto;
+    height: var(--alto);
+  }
+
+  .empresa__marca {
+    font-size: 36px;
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+  }
+
+  .empresa__rol {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .empresa__desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--texto-tenue);
+  }
+
+  @media (max-width: 1100px) {
+    .empresas__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .empresas {
+      padding-bottom: 64px;
+    }
+
+    .empresas__titulo {
+      margin-top: 36px;
+    }
+
+    .empresas__grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .empresa {
+      min-height: 0;
+      padding: 24px;
+    }
+
+    .empresa__marca {
+      font-size: 32px;
+    }
+  }
+</style>

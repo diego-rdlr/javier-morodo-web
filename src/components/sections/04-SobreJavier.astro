@@ -1,0 +1,256 @@
+---
+/** 04 · Sobre Javier (Figma 2:100) */
+import { Image } from 'astro:assets';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import icono from '../../assets/img/icons/revolution-37.png';
+import retrato from '../../assets/img/sobre-javier/retrato-hiedra.jpg';
+
+const dimensiones = [
+  'Capital que compone',
+  'Un cuerpo que lo sostiene',
+  'Relaciones que le dan sentido',
+  'Un propósito que decide a dónde va',
+];
+---
+
+<section class="seccion seccion--crema sobre" id="sobre-javier" aria-labelledby="sobre-titulo">
+  <EncabezadoSeccion icono={icono} etiqueta="Sobre Javier" tono="claro" />
+
+  <div class="contenedor sobre__grid">
+    <figure class="sobre__figura">
+      <div class="sobre__marco">
+        <div class="sobre__retrato">
+        <Image
+          src={retrato}
+          alt="Javier Morodo sonriendo frente a un muro de hiedra"
+          widths={[520, 780, 1040]}
+          sizes="(max-width: 900px) 100vw, 520px"
+          />
+        </div>
+        <div class="sobre__tarjeta">
+          <p class="sobre__nombre">Javier Morodo</p>
+          <p class="mini sobre__empresa">Revolution Inc.</p>
+        </div>
+      </div>
+      <figcaption class="mini sobre__pie">Lo que queda cuando todo se detiene.</figcaption>
+    </figure>
+
+    <div class="sobre__texto">
+      <h2 id="sobre-titulo" class="display sobre__titulo">
+        El verdadero <span class="sobre__acento">patrimonio.</span>
+      </h2>
+      <p class="sobre__subtitulo">La suma que ningún banco calcula.</p>
+      <p>
+        Javier Morodo es economista por la Universidad Iberoamericana y MBA por el IPADE. En 2009 creó el área
+        digital de GBM y la llevó a más de 2 millones de clientes y una valuación superior a los 1,000 millones de
+        dólares. En 2021 se unió a Bitso como Chief Product &amp; Growth Officer y quintuplicó su base de usuarios.
+      </p>
+      <p>
+        En 2023 lanzó La Revolución de la Riqueza: programas, comunidad y contenido para que cualquier persona
+        construya patrimonio con conocimiento. Hoy es inversionista en activos alternativos, socio fundador de tres
+        fondos, ángel inversionista y consejero de startups.
+      </p>
+      <span class="sobre__linea" aria-hidden="true"></span>
+      <h3 class="kicker sobre__kicker">La riqueza se construye en cuatro dimensiones</h3>
+      <ol class="sobre__dimensiones">
+        {
+          dimensiones.map((d, i) => (
+            <li class="dimension">
+              <span class="mini dimension__num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="dimension__texto">{d}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sobre {
+    padding-top: 56px;
+    padding-bottom: 80px;
+  }
+
+  .sobre > :global(.encabezado) {
+    width: min(var(--contenido), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  /* En fondos claros la regla del Figma es línea/clara */
+  .sobre > :global(.encabezado .encabezado__regla) {
+    background: var(--linea-clara);
+  }
+
+  .sobre__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 520fr) minmax(0, 660fr);
+    --gap-col: clamp(40px, 7vw, 100px);
+    column-gap: var(--gap-col);
+    align-items: start;
+    margin-top: 14px;
+  }
+
+  /* ---------- Retrato ---------- */
+  .sobre__figura {
+    margin-top: 42px;
+  }
+
+  .sobre__marco {
+    position: relative;
+  }
+
+  .sobre__retrato {
+    aspect-ratio: 520 / 680;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .sobre__retrato img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 20%;
+  }
+
+  .sobre__tarjeta {
+    position: absolute;
+    /* En el Figma sobresale 70px del retrato (70% del espacio entre columnas) */
+    right: calc(-0.7 * var(--gap-col));
+    bottom: -32px;
+    width: 250px;
+    padding: 14px 22px 13px;
+    border-radius: 4px;
+    background: var(--fondo-blanco);
+    white-space: nowrap;
+  }
+
+  .sobre__nombre {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .sobre__empresa {
+    margin-top: 6px;
+    color: var(--marca-electrico);
+  }
+
+  .sobre__pie {
+    max-width: calc(100% - 250px + 0.7 * var(--gap-col) - 16px);
+    margin-top: 20px;
+    color: var(--texto-tenue);
+  }
+
+  /* ---------- Texto ---------- */
+  .sobre__texto {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .sobre__titulo {
+    font-size: clamp(48px, 5.6vw, 80px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  .sobre__acento {
+    color: var(--marca-electrico);
+  }
+
+  .sobre__subtitulo {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(24px, 2.1vw, 30px);
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+    color: var(--marca-electrico);
+  }
+
+  .sobre__linea {
+    height: 1px;
+    background: var(--linea-clara);
+  }
+
+  .sobre__kicker {
+    color: var(--texto-tenue);
+  }
+
+  .sobre__dimensiones {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .dimension {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px 20px;
+    border: 1px solid var(--linea-clara);
+    border-radius: var(--radio);
+    background: var(--fondo-blanco);
+  }
+
+  .dimension__num {
+    color: var(--marca-electrico);
+  }
+
+  .dimension__texto {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .sobre__grid {
+      grid-template-columns: 1fr;
+      row-gap: 72px;
+    }
+
+    .sobre__figura {
+      max-width: 520px;
+      margin-top: 32px;
+    }
+
+    .sobre__tarjeta {
+      right: 16px;
+    }
+
+    .sobre__pie {
+      max-width: none;
+      margin-top: 52px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .sobre {
+      padding-bottom: 64px;
+    }
+
+    .sobre__tarjeta {
+      right: 12px;
+      width: auto;
+      min-width: 200px;
+    }
+
+    .sobre__texto {
+      gap: 22px;
+    }
+
+    .sobre__dimensiones {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .dimension__texto {
+      font-size: 20px;
+    }
+  }
+</style>

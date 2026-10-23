@@ -1,0 +1,413 @@
+---
+/** 01 · Hero (Figma 2:3) */
+import { Image } from 'astro:assets';
+import Boton from '../ui/Boton.astro';
+import Chip from '../ui/Chip.astro';
+import cielo from '../../assets/img/shared/cielo.jpg';
+import retrato from '../../assets/img/hero/retrato-javier.jpg';
+import logo from '../../assets/img/logos/javier-morodo-horizontal-light.svg';
+import gbm from '../../assets/img/logos/gbm-white.png';
+
+const enlaces = [
+  { texto: 'Sobre mí', href: '#sobre-javier' },
+  { texto: 'Trayectoria', href: '#trayectoria' },
+  { texto: 'Conferencias', href: '#conferencias' },
+  { texto: 'Educación', href: '#educacion' },
+  { texto: 'Podcast', href: '#podcast' },
+  { texto: 'Libros', href: '#libro' },
+  { texto: 'Inversiones', href: '#inversiones' },
+];
+---
+
+<header class="hero" id="inicio">
+  <div class="capa hero__cielo">
+    <Image src={cielo} alt="" widths={[800, 1600]} sizes="100vw" loading="eager" />
+  </div>
+  <div class="hero__retrato">
+    <Image
+      src={retrato}
+      alt="Javier Morodo"
+      widths={[640, 960, 1280, 1599]}
+      sizes="(max-width: 900px) 100vw, 55vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+  <div class="capa hero__velos" aria-hidden="true"></div>
+
+  <nav class="nav contenedor" aria-label="Principal">
+    <a href="#inicio" class="nav__logo">
+      <Image src={logo} alt="Javier Morodo" width={182} height={39} loading="eager" />
+    </a>
+    <ul class="nav__enlaces" id="nav-menu">
+      {
+        enlaces.map((e) => (
+          <li>
+            <a href={e.href}>{e.texto}</a>
+          </li>
+        ))
+      }
+      <li class="nav__contacto-movil">
+        <a href="#contacto">Contacto</a>
+      </li>
+    </ul>
+    <Boton href="#contacto" estilo="contorno-claro" tamano="s" class="nav__contacto">Contacto</Boton>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+      <span class="sr-only">Abrir menú</span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+    <span class="nav__linea" aria-hidden="true"></span>
+  </nav>
+
+  <div class="hero__contenido contenedor">
+    <p class="kicker hero__kicker">Inversionista · Emprendedor · Educador financiero</p>
+    <h1 class="display display-xl hero__titulo">Libertad a través de la riqueza.</h1>
+    <p class="hero__bajada">
+      Construyó el área digital de GBM, llevó a Bitso a Brasil y Colombia y hoy educa a toda una comunidad a
+      construir patrimonio con criterio, no con ruido.
+    </p>
+    <div class="hero__botones">
+      <Boton href="#educacion">Conocer Wealth X</Boton>
+      <Boton href="#podcast" estilo="contorno-claro">Escuchar el podcast</Boton>
+    </div>
+  </div>
+
+  <div class="hero__pie contenedor">
+    <ul class="hero__credenciales">
+      <li><Chip>17+ años operando mercados</Chip></li>
+      <li>
+        <Chip>
+          Ex <Image src={gbm} alt="GBM" width={42} height={13} class="hero__gbm" /> Administración de activos
+        </Chip>
+      </li>
+      <li><Chip>Ex Bitso · Producto y Crecimiento</Chip></li>
+      <li><Chip>Cofundador GOAT Capital</Chip></li>
+    </ul>
+    <p class="mini">CDMX · México · 2026</p>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.nav__toggle');
+  const nav = toggle?.closest('.nav');
+  toggle?.addEventListener('click', () => {
+    const abierto = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!abierto));
+    nav?.classList.toggle('nav--abierto', !abierto);
+  });
+  nav?.querySelectorAll('.nav__enlaces a').forEach((a) =>
+    a.addEventListener('click', () => {
+      toggle?.setAttribute('aria-expanded', 'false');
+      nav.classList.remove('nav--abierto');
+    }),
+  );
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: min(980px, 100svh);
+    display: flex;
+    flex-direction: column;
+    background: var(--fondo-negro);
+    color: var(--texto-claro);
+  }
+
+  .hero__cielo {
+    opacity: 0.5;
+    z-index: -3;
+  }
+
+  .hero__retrato {
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(780px, 54.2%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 38%, #000 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 38%, #000 100%);
+  }
+
+  .hero__retrato img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 22%;
+  }
+
+  .hero__velos {
+    z-index: -1;
+    background:
+      linear-gradient(to bottom, rgba(64, 66, 255, 0) 0%, rgba(64, 66, 255, 0.18) 100%),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0) 57%, rgba(0, 0, 0, 0.95) 100%),
+      linear-gradient(to right, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 68%);
+  }
+
+  /* ---------- Navegación ---------- */
+  .nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding-top: 34px;
+    padding-bottom: 20px;
+  }
+
+  .nav__logo {
+    flex: none;
+  }
+
+  .nav__logo img {
+    width: 182px;
+    height: auto;
+  }
+
+  .nav__enlaces {
+    display: flex;
+    gap: 36px;
+    margin-inline: auto;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  .nav__enlaces a {
+    opacity: 0.92;
+    transition: opacity 0.2s;
+  }
+
+  .nav__enlaces a:hover {
+    opacity: 1;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
+
+  .nav__contacto-movil,
+  .nav__toggle {
+    display: none;
+  }
+
+  .nav__linea {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--texto-claro);
+  }
+
+  .nav__linea::before,
+  .nav__linea::after {
+    content: '';
+    position: absolute;
+    top: -2.5px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--texto-claro);
+  }
+
+  .nav__linea::before {
+    left: 0;
+  }
+
+  .nav__linea::after {
+    right: 0;
+  }
+
+  /* ---------- Contenido ---------- */
+  .hero__contenido {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+    padding-top: 80px;
+    padding-bottom: 64px;
+  }
+
+  .hero__kicker {
+    color: var(--marca-hielo);
+  }
+
+  .hero__titulo {
+    max-width: 5.2em;
+    background: linear-gradient(to bottom, #fff 0%, var(--marca-hielo) 55%, var(--marca-lavanda) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding-bottom: 0.06em;
+  }
+
+  .hero__bajada {
+    max-width: 628px;
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.6;
+  }
+
+  .hero__botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .hero__pie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 29px;
+    padding-bottom: 40px;
+    border-top: 1px solid var(--texto-claro);
+  }
+
+  .hero__credenciales {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .hero__gbm {
+    width: 42px;
+    height: auto;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1180px) {
+    .nav__enlaces {
+      gap: 22px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .nav {
+      justify-content: space-between;
+    }
+
+    .nav__contacto {
+      display: none;
+    }
+
+    .nav__toggle {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      width: 44px;
+      height: 44px;
+      padding: 0 10px;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: var(--radio);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .nav__toggle span[aria-hidden] {
+      display: block;
+      height: 1px;
+      background: var(--texto-claro);
+      transition: transform 0.2s;
+    }
+
+    .nav--abierto .nav__toggle span[aria-hidden]:first-of-type {
+      transform: translateY(3.5px) rotate(45deg);
+    }
+
+    .nav--abierto .nav__toggle span[aria-hidden]:last-of-type {
+      transform: translateY(-3.5px) rotate(-45deg);
+    }
+
+    .nav__enlaces {
+      display: none;
+      position: absolute;
+      z-index: 10;
+      top: calc(100% + 1px);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      padding: 8px 20px;
+      background: rgba(10, 10, 10, 0.94);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--linea-oscura);
+      border-radius: 0 0 var(--radio-card) var(--radio-card);
+      font-size: 13px;
+    }
+
+    .nav--abierto .nav__enlaces {
+      display: flex;
+    }
+
+    .nav__enlaces li a {
+      display: block;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--linea-oscura);
+    }
+
+    .nav__contacto-movil {
+      display: block;
+    }
+
+    .nav__contacto-movil a {
+      color: var(--marca-hielo);
+      border-bottom: 0 !important;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      min-height: 0;
+    }
+
+    .hero__retrato {
+      top: 0;
+      bottom: auto;
+      width: 100%;
+      height: 78vw;
+      max-height: 620px;
+      -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+    }
+
+    .hero__retrato img {
+      object-position: 50% 18%;
+    }
+
+    .hero__velos {
+      background:
+        linear-gradient(to bottom, rgba(64, 66, 255, 0) 0%, rgba(64, 66, 255, 0.18) 100%),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 20%);
+    }
+
+    .hero__contenido {
+      padding-top: min(56vw, 440px);
+      gap: 22px;
+    }
+
+    .hero__pie {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero__botones {
+      flex-direction: column;
+      align-self: stretch;
+    }
+
+    .hero__botones :global(.boton) {
+      width: 100%;
+    }
+
+    .hero__credenciales :global(.chip) {
+      white-space: normal;
+    }
+  }
+</style>

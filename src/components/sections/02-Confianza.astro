@@ -1,0 +1,138 @@
+---
+/** 02 · Han confiado / trayectoria (Figma 2:67) */
+import { Image } from 'astro:assets';
+import gbm from '../../assets/img/logos/gbm.png';
+import bitso from '../../assets/img/logos/bitso.png';
+import revolution from '../../assets/img/logos/revolution-inc.png';
+import ipade from '../../assets/img/logos/ipade.png';
+import ibero from '../../assets/img/logos/ibero.png';
+
+const marcas = [
+  { logo: gbm, alt: 'GBM', w: 108, h: 32.2 },
+  { logo: bitso, alt: 'Bitso', w: 124, h: 34 },
+  { logo: revolution, alt: 'Revolution Inc.', w: 173, h: 40 },
+  { texto: 'GOAT Capital' },
+  { logo: ipade, alt: 'IPADE Business School', w: 138, h: 52 },
+  { logo: ibero, alt: 'Universidad Iberoamericana Ciudad de México', w: 120, h: 46 },
+];
+---
+
+<section class="seccion seccion--crema confianza" aria-labelledby="confianza-titulo">
+  <div class="contenedor">
+    <h2 id="confianza-titulo" class="confianza__titulo">Ha construido, liderado e invertido en</h2>
+
+    <ul class="confianza__marcas">
+      {
+        marcas.map((m) => (
+          <li class="marca">
+            {m.logo ? (
+              <Image
+                src={m.logo}
+                alt={m.alt}
+                width={m.w}
+                densities={[1, 2]}
+                class="marca__logo"
+                style={`--alto: ${m.h}px`}
+              />
+            ) : (
+              <span class="marca__texto">{m.texto}</span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .confianza {
+    padding-top: 48px;
+    padding-bottom: 20px;
+  }
+
+  .confianza__titulo {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--texto-tenue);
+  }
+
+  .confianza__marcas {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 80px;
+    margin-top: 34px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--linea-clara);
+  }
+
+  .marca {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .confianza {
+    --escala: 1;
+  }
+
+  .marca__logo {
+    width: auto;
+    height: calc(var(--alto) * var(--escala));
+    max-width: 100%;
+  }
+
+  .marca__texto {
+    font-family: var(--font-sans);
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--texto-tinta);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 1100px) {
+    .confianza {
+      --escala: 0.8;
+    }
+    .marca__texto {
+      font-size: 22px;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .confianza__marcas {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 32px 16px;
+      padding-block: 8px 28px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .confianza {
+      padding-top: 40px;
+    }
+    .confianza__titulo {
+      font-size: 11px;
+    }
+    .confianza__marcas {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px 16px;
+      margin-top: 28px;
+    }
+    .confianza {
+      --escala: 0.72;
+    }
+    .marca__texto {
+      font-size: 20px;
+    }
+  }
+</style>
