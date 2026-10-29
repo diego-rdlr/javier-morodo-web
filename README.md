@@ -1,6 +1,6 @@
 # javier-morodo-web
 
-Sitio de **Javier Morodo** (javiermorodo.revolution.inc). Astro estático servido por el Worker
+Sitio de **Javier Morodo** (javiermorodo.com). Astro estático servido por el Worker
 `javier-morodo-web` de Cloudflare (static assets).
 
 - Diseño: [Figma · sitioweb-javier-morodo](https://www.figma.com/design/NR6yhNFUePRWlj1MgYWSmz/sitioweb-javier-morodo--Copy-?node-id=0-1)
@@ -28,6 +28,15 @@ npm run preview    # build + wrangler dev (igual que en Cloudflare)
   - Node: **22.22.0+** (lo exige Astro 7). Cloudflare lo toma de `.node-version`.
 - **Manual:** `npx wrangler login && npm run deploy`.
 
+## Dominios
+
+- Canónico: **javiermorodo.com**. `worker/index.js` redirige con 301 los alias
+  (`www.`, `web.javiermorodo.com`, `javiermorodo.revolution.inc`) al canónico; `*.workers.dev` se sirve tal cual.
+- `public/_redirects` manda las URLs del WordPress anterior a su sección (`/conferencias/` → `/#conferencias`)
+  y los posts del blog a Substack, para no perder el SEO.
+- SEO: metadatos, Open Graph (`public/og.jpg`, 1200×630) y JSON-LD en `src/layouts/Base.astro`;
+  `public/robots.txt` y `public/sitemap.xml`.
+
 ## Estructura
 
 ```
@@ -37,7 +46,8 @@ src/
   components/ui/           Boton, Chip, EncabezadoSeccion (componentes del Figma)
   components/sections/     una sección por archivo, en orden del Figma
   assets/img/              imágenes exportadas del Figma (Astro las optimiza a WebP)
-public/                    favicon, _headers
+public/                    favicon, og.jpg, _headers, _redirects, robots.txt, sitemap.xml
+worker/index.js            redirección de dominios alias → javiermorodo.com
 ```
 
 ## Tipografía
