@@ -37,6 +37,13 @@ npm run preview    # build + wrangler dev (igual que en Cloudflare)
 - SEO: metadatos, Open Graph (`public/og.jpg`, 1200×630) y JSON-LD en `src/layouts/Base.astro`;
   `public/robots.txt` y `public/sitemap.xml`.
 
+## Episodios del podcast
+
+El panel "Últimos episodios" sale de `src/data/episodios.json`. La GitHub Action
+`.github/workflows/episodios.yml` corre a diario (6:17 am CDMX) `npm run episodios`, que lee el playlist
+público "Revolución de la Riqueza PODCAST" en YouTube y, si algo cambió, hace commit a `main`; eso dispara el deploy.
+También se puede correr a mano desde la pestaña *Actions* (*Run workflow*) o localmente con `npm run episodios`.
+
 ## Estructura
 
 ```
