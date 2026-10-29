@@ -8,7 +8,6 @@ import revolutionDaily from '../../assets/img/educacion/revolution-daily.jpg';
 import wealthNation from '../../assets/img/educacion/wealth-nation.jpg';
 import wealthClub from '../../assets/img/educacion/wealth-club.jpg';
 
-// TODO: URL real en cada `href`
 const programas = [
   {
     n: '01',
@@ -17,7 +16,7 @@ const programas = [
     titulo: 'Wealth X',
     texto: 'Inmersión presencial de tres días sobre los principios de la riqueza, con Javier y otros expertos.',
     cta: 'Inscribirme',
-    href: '#',
+    href: 'https://revoluciondelariqueza.com/wealthx/',
   },
   {
     n: '02',
@@ -26,7 +25,7 @@ const programas = [
     titulo: 'Revolution Daily',
     texto: 'El ensayo de Javier cada semana: mercados, tesis y criterio, directo a tu correo.',
     cta: 'Suscribirme',
-    href: '#',
+    href: '#', // TODO: URL real (Revolution Daily)
   },
   {
     n: '03',
@@ -36,7 +35,7 @@ const programas = [
     texto:
       'La comunidad de Javier para invertir con criterio: seminarios web en vivo, análisis y gente que construye patrimonio junta.',
     cta: 'Unirme a la comunidad',
-    href: '#',
+    href: 'https://wealthnation.revolution.inc/',
   },
   {
     n: '04',
@@ -45,7 +44,7 @@ const programas = [
     titulo: 'Wealth Club',
     texto: 'Comunidad y radar semanal de mercados para invertir con criterio.',
     cta: 'Unirme al club',
-    href: '#',
+    href: 'https://revoluciondelariqueza.com/vpv67xvd/',
   },
 ];
 ---
@@ -74,7 +73,11 @@ const programas = [
               <h3 class="display programa__titulo">{p.titulo}</h3>
               <p class="programa__texto">{p.texto}</p>
             </div>
-            <a class="programa__cta" href={p.href}>
+            <a
+              class="programa__cta"
+              href={p.href}
+              {...(p.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
               {p.cta} <span aria-hidden="true">→</span>
             </a>
           </li>
