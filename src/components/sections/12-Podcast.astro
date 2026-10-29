@@ -11,6 +11,8 @@ import spotify from '../../assets/img/logos/spotify-144.png';
 import applePodcasts from '../../assets/img/logos/apple-podcasts-144.png';
 import amazonMusic from '../../assets/img/logos/amazon-music.png';
 import youtubeMusic from '../../assets/img/logos/youtube-music.png';
+import datosEpisodios from '../../data/episodios.json';
+import { haceCuanto } from '../../lib/tiempo-relativo';
 
 const plataformas = [
   { nombre: 'Spotify', logo: spotify, href: 'https://open.spotify.com/show/7exTzXcsvM9EH7uxhWbFFI' },
@@ -20,24 +22,20 @@ const plataformas = [
     href: 'https://podcasts.apple.com/mx/podcast/revoluci%C3%B3n-de-la-riqueza/id1567968618',
   },
   { nombre: 'Amazon Music', logo: amazonMusic, href: '#' }, // TODO: URL real
-  { nombre: 'YouTube Music', logo: youtubeMusic, href: '#' }, // TODO: URL real
+  { nombre: 'YouTube Music', logo: youtubeMusic, href: 'https://music.youtube.com/playlist?list=PLwdXcQkLGge8nBTD_FmeCFv1z6Z-s7few' },
 ];
 
-// TODO: URL real de cada episodio
-const episodios = [
-  { titulo: 'El peso se depreció 10% en dos semanas: qué lo provocó y por qué es sano', meta: 'Hace 2 días · 8.4 K vistas' },
-  { titulo: 'Si te pierdes los 10 mejores días de la bolsa, pierdes la mitad del retorno', meta: 'Hace 4 días · 5.4 K vistas' },
-  { titulo: 'Las casas sí bajan de precio: 3 crisis inmobiliarias en EE.UU. en 50 años', meta: 'Hace 9 días · 15 K vistas' },
-  {
-    titulo: 'Fundador de un grupo educativo en 125 países: "¡en un Search Fund solo tienes una bala!"',
-    meta: 'Hace 11 días · 1.5 K vistas',
-  },
-  { titulo: 'De qué depende el 90% de tu rendimiento, según el director de Vanguard', meta: 'Hace 2 semanas · 17 K vistas' },
-  {
-    titulo: 'Experto en IA y geopolítica: "¡la ley de la escala no es una ley, es una observación!"',
-    meta: 'Hace 2 semanas · 2.4 K vistas',
-  },
-].map((e, i) => ({ ...e, numero: String(i + 1).padStart(2, '0'), href: '#' }));
+// Últimos episodios del playlist del podcast en YouTube. Los actualiza a diario
+// `.github/workflows/episodios.yml` (scripts/actualizar-episodios.mjs).
+const verEnYoutube = (id: string) => `https://www.youtube.com/watch?v=${id}&list=${datosEpisodios.playlist}`;
+const episodios = datosEpisodios.episodios.map((e, i) => ({
+  titulo: e.titulo,
+  href: verEnYoutube(e.id),
+  publicado: e.publicado,
+  vistas: e.vistas,
+  numero: String(i + 1).padStart(2, '0'),
+}));
+const ultimo = episodios[0];
 ---
 
 <section class="seccion seccion--negro podcast" id="podcast" aria-labelledby="podcast-titulo">
@@ -60,9 +58,8 @@ const episodios = [
           sizes="360px"
           class="podcast__portada-img"
         />
-        {/* TODO: URL real del episodio más reciente */}
-        <a href="#" class="podcast__play">
-          <span class="sr-only">Escuchar el último episodio</span>
+        <a href={ultimo.href} class="podcast__play" target="_blank" rel="noopener noreferrer">
+          <span class="sr-only">Escuchar el último episodio: {ultimo.titulo}</span>
           <Image src={playVidrio} alt="" width={76} height={76} aria-hidden="true" />
         </a>
       </div>
@@ -99,11 +96,14 @@ const episodios = [
         {
           episodios.map((e) => (
             <li>
-              <a class="episodio" href={e.href}>
+              <a class="episodio" href={e.href} target="_blank" rel="noopener noreferrer">
                 <span class="mini episodio__numero">{e.numero}</span>
                 <span class="episodio__texto">
                   <span class="episodio__titulo">{e.titulo}</span>
-                  <span class="episodio__meta">{e.meta}</span>
+                  <span class="episodio__meta">
+                    <time datetime={e.publicado} data-relativo>{haceCuanto(e.publicado)}</time>
+                    {e.vistas && ` · ${e.vistas} vistas`}
+                  </span>
                 </span>
                 <span class="kicker episodio__play" aria-hidden="true">▶</span>
               </a>
@@ -114,6 +114,14 @@ const episodios = [
     </div>
   </div>
 </section>
+
+<script>
+  // El sitio se compila solo cuando cambian los episodios: recalcula "Hace N días" con la fecha de hoy.
+  import { haceCuanto } from '../../lib/tiempo-relativo';
+  document.querySelectorAll<HTMLTimeElement>('time[data-relativo]').forEach((t) => {
+    t.textContent = haceCuanto(t.dateTime);
+  });
+</script>
 
 <style>
   .podcast {

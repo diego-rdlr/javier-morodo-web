@@ -1,0 +1,36 @@
+# Cada día trae los últimos episodios del podcast desde YouTube.
+# Si cambiaron, hace commit a main y eso dispara el deploy de Cloudflare.
+name: Episodios del podcast
+
+on:
+  schedule:
+    - cron: '17 12 * * *' # 6:17 am CDMX
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: episodios
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - run: node scripts/actualizar-episodios.mjs
+      - name: Commit si cambiaron
+        run: |
+          if git diff --quiet -- src/data/episodios.json; then
+            echo "Sin cambios."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add src/data/episodios.json
+          git commit -m "Episodios del podcast: actualización automática"
+          git push
