@@ -20,19 +20,32 @@ function rise(element: Element, delay = 0) {
   ], 720, delay);
 }
 
-// The headline is immediately readable. Only its supporting voice settles in.
+// A restrained opening, inspired by Wealth Nation's editorial title reveals.
 if (!location.hash && window.scrollY < 40) {
+  document.querySelectorAll('.hero__titulo').forEach((element) => revealTitle(element));
   document.querySelectorAll('.hero__kicker, .hero__bajada, .hero__botones')
     .forEach((element, index) => rise(element, index * 90));
 }
 
-// Explicit selection keeps the long page quiet between narrative moments.
+function revealTitle(element: Element) {
+  play(element, [
+    { clipPath: 'inset(0 -8% 100% -8%)', transform: 'translateY(20px)' },
+    { clipPath: 'inset(-8% -8% -8% -8%)', transform: 'translateY(0)' },
+  ], 1000);
+}
+
+// Titles, drawn rules, and grouped cards each have their own visual cadence.
 const selectors = [
   '.sobre__titulo', '.sobre__dimensiones > li', '.trayectoria__titulo',
-  '.hito__tarjeta', '.linea__progreso', '.educacion__intro',
+  '.hito__tarjeta', '.linea__progreso', '.educacion__titulo',
   '.libro__titulo', '.libro__portada-img', '.libro .dimension',
   '.corex__titulo', '.corex__portada-img', '.ecuacion > li',
   '.inversiones__titulo', '.suscripcion__titulo',
+  '.cifras__titulo', '.empresas__titulo', '.conferencias__titulo',
+  '.contenido__titulo', '.podcast__titulo', '.shows__titulo', '.redes__titulo',
+  '.encabezado__regla', '.cifra', '.programa', '.contenido__lista > li',
+  '.podcast__episodios > li', '.shows__grid > li', '.red',
+  '.sobre__retrato', '.podcast__portada-img', '.suscripcion__visual',
 ];
 
 const observer = new IntersectionObserver((entries) => {
@@ -49,12 +62,14 @@ const observer = new IntersectionObserver((entries) => {
       ? element.closest('.linea__hitos') : element.parentElement;
     const index = groups.get(parent) ?? 0;
     groups.set(parent, index + 1);
-    if (element.matches('.linea__progreso')) {
+    if (element.matches('h2')) {
+      revealTitle(element);
+    } else if (element.matches('.linea__progreso, .encabezado__regla')) {
       play(element, [
         { transform: 'scaleX(0)', transformOrigin: 'left' },
         { transform: 'scaleX(1)', transformOrigin: 'left' },
       ], 1100);
-    } else if (element.matches('.libro__portada-img, .corex__portada-img')) {
+    } else if (element.matches('.libro__portada-img, .corex__portada-img, .sobre__retrato, .podcast__portada-img, .suscripcion__visual')) {
       play(element, [
         { opacity: 0.45, transform: 'translateY(18px) scale(0.98)' },
         { opacity: 1, transform: 'translateY(0) scale(1)' },

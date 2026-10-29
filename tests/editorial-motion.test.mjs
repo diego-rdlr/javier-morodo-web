@@ -22,11 +22,12 @@ function setup({ reduced = false, hash = '' } = {}) {
     }
   }
   const hero = new Element();
+  const title = new Element();
   const heading = new Element();
   let observer;
   const document = {
     activeElement: null,
-    querySelectorAll: selector => selector.startsWith('.hero') ? [hero] : [heading],
+    querySelectorAll: selector => selector === '.hero__titulo' ? [title] : selector.startsWith('.hero') ? [hero] : [heading],
     addEventListener: (type, fn) => { listeners[type] = fn; },
   };
   runInNewContext(source, {
@@ -68,5 +69,5 @@ test('changing the motion preference cancels active animation', () => {
 test('keyboard focus immediately reveals its animated container', () => {
   const scene = setup();
   scene.listeners.focusin({ target: scene.hero });
-  assert.equal(scene.animations[0].cancelled, true);
+  assert.equal(scene.animations[1].cancelled, true);
 });

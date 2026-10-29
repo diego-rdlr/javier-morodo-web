@@ -1,0 +1,19 @@
+/* Quiet interaction details; touch screens keep their static composition. */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .programa__imagen { overflow: hidden; }
+  .programa__imagen img {
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .programa:is(:hover, :focus-within) .programa__imagen img {
+    transform: scale(1.045);
+  }
+  .red__logo, .show__logo {
+    transition: translate 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .red:is(:hover, :focus-within) .red__logo,
+  .show:is(:hover, :focus-within) .show__logo { translate: 0 -4px; }
+  .episodio {
+    transition: background-color 300ms ease;
+  }
+  .episodio:is(:hover, :focus-visible) { background-color: rgb(255 255 255 / 4%); }
+}
