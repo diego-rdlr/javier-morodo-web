@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "javier-morodo-web",
+  "main": "worker/index.js",
   "compatibility_date": "2026-10-01",
   // `wrangler deploy` compila antes de subir, así el deploy no depende
   // de que el "Build command" del dashboard esté configurado.
@@ -9,6 +10,9 @@
   },
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    // El Worker corre primero para redirigir los alias al dominio canónico.
+    "run_worker_first": true,
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
   }
