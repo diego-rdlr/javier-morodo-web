@@ -1,0 +1,329 @@
+---
+/**
+ * Formulario "Solicitar una conferencia" en un <dialog>. Lo abre cualquier elemento con
+ * data-abrir="solicitud-conferencia". Envía al formulario de HubSpot "Solicitud de conferencia";
+ * HubSpot notifica a Elena y a Romeo y el segmento "Solicitudes de conferencia" se llena solo.
+ *
+ * Los `name` de cada campo son los nombres internos de las propiedades de contacto en HubSpot,
+ * y los `value` de los desplegables son sus valores internos.
+ */
+import Boton from './ui/Boton.astro';
+
+const opciones = {
+  tipo: ['Conferencia', 'Taller', 'Panel', 'Otro'],
+  modalidad: ['Presencial', 'Virtual'],
+  audiencia: ['Menos de 100', '100 a 500', '500 a 1,000', 'Más de 1,000'],
+  presupuesto: ['Menos de USD 5,000', 'USD 5,000 a 10,000', 'USD 10,000 a 20,000', 'Más de USD 20,000'],
+  tema: [
+    'Mentalidad patrimonial',
+    'Educación financiera para todos',
+    'El dinero y las máquinas',
+    'Activos alternativos y digitales',
+    'Otro',
+  ],
+};
+---
+
+<!-- data-lenis-prevent: el scroll suave de la página no debe robarse la rueda dentro del diálogo. -->
+<dialog class="solicitud" id="solicitud-conferencia" aria-labelledby="solicitud-titulo" data-lenis-prevent>
+  <div class="solicitud__caja">
+    <button class="solicitud__cerrar" type="button" data-cerrar aria-label="Cerrar">×</button>
+
+    <p class="kicker solicitud__kicker">Conferencias</p>
+    <h2 id="solicitud-titulo" class="display solicitud__titulo">Solicita una conferencia</h2>
+    <p class="solicitud__bajada">Cuéntanos de tu evento. Te contactamos en un día hábil con disponibilidad y propuesta.</p>
+
+    <form class="solicitud__form" data-form="solicitud-conferencia" novalidate>
+      <fieldset class="solicitud__grupo">
+        <legend class="mini">Tus datos</legend>
+        <label>Nombre <input name="firstname" required autocomplete="given-name" /></label>
+        <label>Apellido <input name="lastname" required autocomplete="family-name" /></label>
+        <label>Correo <input name="email" type="email" required autocomplete="email" /></label>
+        <label>WhatsApp <input name="phone" type="tel" required autocomplete="tel" placeholder="+52 55 1234 5678" /></label>
+        <label>Organización <input name="company" required autocomplete="organization" /></label>
+        <label>Cargo <input name="jobtitle" autocomplete="organization-title" /></label>
+      </fieldset>
+
+      <fieldset class="solicitud__grupo">
+        <legend class="mini">Tu evento</legend>
+        <label>
+          Tipo de evento
+          <select name="tipo_de_evento" required>
+            <option value="">Elige una opción</option>
+            {opciones.tipo.map((o) => <option value={o}>{o}</option>)}
+          </select>
+        </label>
+        <label>
+          Modalidad
+          <select name="modalidad_del_evento" required>
+            <option value="">Elige una opción</option>
+            {opciones.modalidad.map((o) => <option value={o}>{o}</option>)}
+          </select>
+        </label>
+        <label>Fecha tentativa <input name="fecha_tentativa_del_evento" required placeholder="Ej. marzo 2027" /></label>
+        <label>Ciudad <input name="ciudad_del_evento" required placeholder="Ej. Monterrey, México" /></label>
+        <label>
+          Tamaño de la audiencia
+          <select name="tamano_de_la_audiencia" required>
+            <option value="">Elige una opción</option>
+            {opciones.audiencia.map((o) => <option value={o}>{o}</option>)}
+          </select>
+        </label>
+        <label>
+          Presupuesto aproximado
+          <select name="presupuesto_para_conferencia" required>
+            <option value="">Elige una opción</option>
+            {opciones.presupuesto.map((o) => <option value={o}>{o}</option>)}
+          </select>
+        </label>
+        <label class="solicitud__ancho">
+          Tema de interés
+          <select name="tema_de_interes" required>
+            <option value="">Elige una opción</option>
+            {opciones.tema.map((o) => <option value={o}>{o}</option>)}
+          </select>
+        </label>
+        <label class="solicitud__ancho">
+          Cuéntanos más (opcional)
+          <textarea name="message" rows="3" placeholder="Perfil de la audiencia, objetivo del evento, otros detalles."></textarea>
+        </label>
+      </fieldset>
+
+      <div class="solicitud__acciones">
+        <Boton type="submit">Enviar solicitud</Boton>
+        <p class="solicitud__estado" role="status" aria-live="polite" hidden></p>
+      </div>
+    </form>
+
+    <div class="solicitud__gracias" hidden>
+      <p class="display solicitud__titulo">Gracias. Recibimos tu solicitud.</p>
+      <p class="solicitud__bajada">Te contactamos en un día hábil para revisar disponibilidad y la propuesta.</p>
+      <Boton estilo="contorno-claro" data-cerrar>Cerrar</Boton>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import { enviarFormularioHubspot } from '../lib/hubspot';
+
+  // TODO: GUID del formulario de HubSpot "Solicitud de conferencia"
+  const FORMULARIO = '';
+
+  const dialogo = document.querySelector<HTMLDialogElement>('#solicitud-conferencia');
+  const form = dialogo?.querySelector<HTMLFormElement>('form');
+  const estado = dialogo?.querySelector<HTMLParagraphElement>('.solicitud__estado');
+  const gracias = dialogo?.querySelector<HTMLDivElement>('.solicitud__gracias');
+  const boton = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+  document.querySelectorAll('[data-abrir="solicitud-conferencia"]').forEach((el) =>
+    el.addEventListener('click', (evento) => {
+      evento.preventDefault();
+      dialogo?.showModal();
+    }),
+  );
+  dialogo?.querySelectorAll('[data-cerrar]').forEach((el) => el.addEventListener('click', () => dialogo.close()));
+  // Clic fuera de la caja cierra el diálogo.
+  dialogo?.addEventListener('click', (evento) => {
+    if (evento.target === dialogo) dialogo.close();
+  });
+
+  function mostrar(texto: string) {
+    if (!estado) return;
+    estado.textContent = texto;
+    estado.hidden = false;
+  }
+
+  form?.addEventListener('submit', async (evento) => {
+    evento.preventDefault();
+    if (!form.checkValidity()) {
+      mostrar('Revisa los campos marcados.');
+      form.classList.add('solicitud__form--revisar');
+      form.querySelector<HTMLElement>(':invalid')?.focus();
+      return;
+    }
+    boton?.setAttribute('disabled', '');
+    try {
+      const campos = Object.fromEntries([...new FormData(form)].map(([k, v]) => [k, String(v)]));
+      await enviarFormularioHubspot(FORMULARIO, campos);
+      form.hidden = true;
+      if (gracias) gracias.hidden = false;
+    } catch {
+      mostrar('No pudimos enviar tu solicitud. Inténtalo de nuevo o escríbenos a info@revoluciondelariqueza.com.');
+    } finally {
+      boton?.removeAttribute('disabled');
+    }
+  });
+</script>
+
+<style>
+  .solicitud {
+    width: min(760px, 100% - 32px);
+    max-height: calc(100dvh - 32px);
+    padding: 0;
+    border: 1px solid var(--linea-oscura);
+    border-radius: var(--radio-card);
+    background: var(--fondo-tinta);
+    color: var(--texto-claro);
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .solicitud::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+  }
+
+  .solicitud__caja {
+    position: relative;
+    padding: 40px;
+  }
+
+  .solicitud__cerrar {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--linea-oscura);
+    border-radius: 50%;
+    background: transparent;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .solicitud__kicker {
+    color: var(--marca-hielo);
+  }
+
+  .solicitud__titulo {
+    margin-top: 12px;
+    font-size: clamp(30px, 4vw, 40px);
+  }
+
+  .solicitud__bajada {
+    margin-top: 12px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 15px;
+  }
+
+  .solicitud__form {
+    display: grid;
+    gap: 28px;
+    margin-top: 28px;
+  }
+
+  .solicitud__grupo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .solicitud__grupo legend {
+    grid-column: 1 / -1;
+    margin-bottom: 12px;
+    color: var(--marca-hielo);
+  }
+
+  .solicitud label {
+    display: grid;
+    gap: 6px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .solicitud__ancho {
+    grid-column: 1 / -1;
+  }
+
+  .solicitud input,
+  .solicitud select,
+  .solicitud textarea {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: var(--radio);
+    background: rgba(255, 255, 255, 0.06);
+    font-size: 15px;
+  }
+
+  .solicitud select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #fff 50%), linear-gradient(135deg, #fff 50%, transparent 50%);
+    background-position:
+      calc(100% - 18px) 50%,
+      calc(100% - 13px) 50%;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+  }
+
+  .solicitud option {
+    color: var(--texto-tinta);
+  }
+
+  .solicitud textarea {
+    resize: vertical;
+  }
+
+  .solicitud input::placeholder,
+  .solicitud textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .solicitud input:focus-visible,
+  .solicitud select:focus-visible,
+  .solicitud textarea:focus-visible {
+    outline: 2px solid var(--marca-electrico-claro);
+    outline-offset: 1px;
+  }
+
+  .solicitud__form--revisar :invalid {
+    border-color: #ff9c8f;
+  }
+
+  .solicitud__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .solicitud__acciones :global(button[disabled]) {
+    opacity: 0.6;
+    cursor: progress;
+  }
+
+  .solicitud__estado {
+    font-size: 14px;
+    color: #ff9c8f;
+  }
+
+  .solicitud__gracias {
+    display: grid;
+    justify-items: start;
+    gap: 8px;
+    padding-block: 24px 8px;
+  }
+
+  .solicitud__gracias[hidden] {
+    display: none;
+  }
+
+  .solicitud__gracias :global(.boton) {
+    margin-top: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .solicitud__caja {
+      padding: 28px 20px;
+    }
+
+    .solicitud__grupo {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

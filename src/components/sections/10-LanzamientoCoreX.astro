@@ -97,10 +97,11 @@ const ecuacion = [
 </section>
 
 <script>
-  // Formulario de HubSpot "Lista de espera Core X" (portal 51345487).
+  import { enviarFormularioHubspot } from '../../lib/hubspot';
+
+  // Formulario de HubSpot "Lista de espera Core X".
   // El segmento "Lista de espera CORE-X" en HubSpot se llena con quien lo envía.
-  const ENDPOINT =
-    'https://api.hsforms.com/submissions/v3/integration/submit/51345487/724ea078-6cb9-4b66-8b7a-5191f3f44610';
+  const FORMULARIO = '724ea078-6cb9-4b66-8b7a-5191f3f44610';
 
   const form = document.querySelector<HTMLFormElement>('[data-form="lanzamiento-core-x"]');
   const campo = form?.querySelector<HTMLInputElement>('input[name="email"]');
@@ -122,17 +123,8 @@ const ecuacion = [
       return;
     }
     boton?.setAttribute('disabled', '');
-    const hutk = document.cookie.match(/(?:^|; )hubspotutk=([^;]+)/)?.[1];
     try {
-      const respuesta = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fields: [{ objectTypeId: '0-1', name: 'email', value: campo.value.trim() }],
-          context: { pageUri: location.href, pageName: document.title, ...(hutk ? { hutk } : {}) },
-        }),
-      });
-      if (!respuesta.ok) throw new Error(String(respuesta.status));
+      await enviarFormularioHubspot(FORMULARIO, { email: campo.value });
       form.reset();
       mostrar('¡Listo! Te avisamos en cuanto salga CORE-X.', 'ok');
     } catch {
