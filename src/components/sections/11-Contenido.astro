@@ -11,25 +11,25 @@ import ebooks from '../../assets/img/contenido/ebooks.jpg';
 
 const tarjetas = [
   {
-    etiqueta: 'Boletín',
-    titulo: 'El ensayo de Javier',
-    texto: 'Cada semana, un ensayo sobre mercados, tesis y criterio. Sin costo.',
+    etiqueta: 'Cada domingo',
+    titulo: 'Opinionated',
+    texto: 'Un ensayo cada domingo donde comparto análisis financiero de fondo, ideas de inversión, criterio y visión de largo plazo.',
     imagen: boletin,
-    href: '#', // TODO: URL real
+    href: 'https://javiermtzmorodo.substack.com/s/opinionated',
   },
   {
-    etiqueta: 'Blog',
-    titulo: 'Ideas y análisis',
-    texto: 'Notas largas sobre inversión, mentalidad y construcción de patrimonio.',
+    etiqueta: 'Cada sábado',
+    titulo: 'Revolution Weekly',
+    texto: 'Una curaduría semanal. Cada sábado recibe los contenidos, ideas, podcasts, videos, artículos y reflexiones que me ayudaron a expandir mi visión sobre inversiones, finanzas, desarrollo personal y bienestar. Un correo para invertir mejor tu atención, elevar tu criterio y construir una vida con más claridad, estrategia y propósito.',
     imagen: blog,
-    href: '#', // TODO: URL real
+    href: 'https://javiermtzmorodo.substack.com/s/revolution-weekly',
   },
   {
-    etiqueta: 'Libros electrónicos',
-    titulo: 'Guías descargables',
-    texto: 'Marcos prácticos para ordenar tus finanzas y tomar decisiones.',
+    etiqueta: 'Diario',
+    titulo: 'Revolution Daily',
+    texto: 'Una lectura diaria que transforma noticias en tesis, volatilidad en contexto y movimientos de mercado en criterio patrimonial.',
     imagen: ebooks,
-    href: '#', // TODO: URL real
+    href: 'https://javiermtzmorodo.substack.com/s/revolution-daily',
   },
 ];
 ---
@@ -68,8 +68,7 @@ const tarjetas = [
         {
           tarjetas.map((t) => (
             <li>
-              {/* TODO: URL real */}
-              <a class="tarjeta" href={t.href}>
+              <a class="tarjeta" href={t.href} target="_blank" rel="noopener noreferrer">
                 <span class="tarjeta__imagen">
                   <Image src={t.imagen} alt="" widths={[160, 320]} sizes="160px" />
                 </span>
