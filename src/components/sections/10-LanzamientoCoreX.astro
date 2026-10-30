@@ -75,7 +75,8 @@ const ecuacion = [
 
       <p class="corex__lema">Principios invisibles, resultados extraordinarios.</p>
 
-      <form class="corex__form" data-form="lanzamiento-core-x" method="post">
+      <!-- Envía el correo al formulario de HubSpot "Lista de espera Core X" (ver el script de abajo). -->
+      <form class="corex__form" data-form="lanzamiento-core-x" method="post" novalidate>
         <label class="sr-only" for="corex-correo">Correo electrónico</label>
         <input
           id="corex-correo"
@@ -87,12 +88,60 @@ const ecuacion = [
           placeholder="tu@correo.com"
         />
         <Boton type="submit">Avísame del lanzamiento</Boton>
+        <p class="corex__estado" role="status" aria-live="polite" hidden></p>
       </form>
 
       <p class="mini">Sé de los primeros en recibir la fecha y un adelanto del libro.</p>
     </div>
   </div>
 </section>
+
+<script>
+  // Formulario de HubSpot "Lista de espera Core X" (portal 51345487).
+  // El segmento "Lista de espera CORE-X" en HubSpot se llena con quien lo envía.
+  const ENDPOINT =
+    'https://api.hsforms.com/submissions/v3/integration/submit/51345487/724ea078-6cb9-4b66-8b7a-5191f3f44610';
+
+  const form = document.querySelector<HTMLFormElement>('[data-form="lanzamiento-core-x"]');
+  const campo = form?.querySelector<HTMLInputElement>('input[name="email"]');
+  const estado = form?.querySelector<HTMLParagraphElement>('.corex__estado');
+  const boton = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+  function mostrar(texto: string, tipo: 'ok' | 'error') {
+    if (!estado) return;
+    estado.textContent = texto;
+    estado.dataset.tipo = tipo;
+    estado.hidden = false;
+  }
+
+  form?.addEventListener('submit', async (evento) => {
+    evento.preventDefault();
+    if (!campo || !campo.checkValidity()) {
+      mostrar('Escribe un correo válido.', 'error');
+      campo?.focus();
+      return;
+    }
+    boton?.setAttribute('disabled', '');
+    const hutk = document.cookie.match(/(?:^|; )hubspotutk=([^;]+)/)?.[1];
+    try {
+      const respuesta = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fields: [{ objectTypeId: '0-1', name: 'email', value: campo.value.trim() }],
+          context: { pageUri: location.href, pageName: document.title, ...(hutk ? { hutk } : {}) },
+        }),
+      });
+      if (!respuesta.ok) throw new Error(String(respuesta.status));
+      form.reset();
+      mostrar('¡Listo! Te avisamos en cuanto salga CORE-X.', 'ok');
+    } catch {
+      mostrar('No pudimos registrarte. Inténtalo de nuevo en un momento.', 'error');
+    } finally {
+      boton?.removeAttribute('disabled');
+    }
+  });
+</script>
 
 <style>
   .corex {
@@ -282,6 +331,25 @@ const ecuacion = [
     flex-wrap: wrap;
     align-items: center;
     gap: 12px;
+  }
+
+  .corex__estado {
+    flex-basis: 100%;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .corex__estado[data-tipo='ok'] {
+    color: #e8c98a;
+  }
+
+  .corex__estado[data-tipo='error'] {
+    color: #ff9c8f;
+  }
+
+  .corex__form :global(button[disabled]) {
+    opacity: 0.6;
+    cursor: progress;
   }
 
   .corex__campo {
