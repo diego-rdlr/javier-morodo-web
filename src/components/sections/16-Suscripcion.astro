@@ -72,7 +72,14 @@ const notas = [
         }
       </ul>
 
-      <form class="suscripcion__form" data-form="suscripcion" method="post">
+      <!-- Abre la página de Substack con el correo ya escrito; ahí se confirma la suscripción. -->
+      <form
+        class="suscripcion__form"
+        data-form="suscripcion"
+        method="get"
+        action="https://javiermtzmorodo.substack.com/subscribe"
+        target="_blank"
+      >
         <label class="sr-only" for="suscripcion-email">Tu correo electrónico</label>
         <input
           id="suscripcion-email"
