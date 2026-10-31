@@ -146,8 +146,18 @@ const columnas: { titulo: string; enlaces: Enlace[] }[] = [
     line-height: 0.96;
     letter-spacing: -0.03em;
     white-space: nowrap;
-    opacity: 0.07;
     user-select: none;
+    /* El degradado del titular del hero, tenue y desvaneciéndose hacia abajo */
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.42) 0%,
+      rgba(220, 231, 242, 0.3) 45%,
+      rgba(158, 166, 255, 0.12) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding-bottom: 0.08em;
   }
 
   .pie__inferior {
