@@ -15,5 +15,9 @@ export async function enviarFormularioHubspot(formGuid: string, campos: Record<s
       context: { pageUri: location.href, pageName: document.title, ...(hutk ? { hutk } : {}) },
     }),
   });
-  if (!respuesta.ok) throw new Error(`HubSpot respondió ${respuesta.status}`);
+  if (!respuesta.ok) {
+    // HubSpot explica el rechazo en `errors` (campo faltante, correo bloqueado, consentimiento, etc.)
+    const detalle = await respuesta.text().catch(() => '');
+    throw new Error(`HubSpot respondió ${respuesta.status}: ${detalle}`);
+  }
 }

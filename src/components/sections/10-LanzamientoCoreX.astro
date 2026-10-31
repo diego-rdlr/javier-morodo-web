@@ -127,7 +127,8 @@ const ecuacion = [
       await enviarFormularioHubspot(FORMULARIO, { email: campo.value });
       form.reset();
       mostrar('¡Listo! Te avisamos en cuanto salga CORE-X.', 'ok');
-    } catch {
+    } catch (error) {
+      console.error('Lista de espera CORE-X:', error);
       mostrar('No pudimos registrarte. Inténtalo de nuevo en un momento.', 'error');
     } finally {
       boton?.removeAttribute('disabled');

@@ -13,7 +13,6 @@ const opciones = {
   tipo: ['Conferencia', 'Taller', 'Panel', 'Otro'],
   modalidad: ['Presencial', 'Virtual'],
   audiencia: ['Menos de 100', '100 a 500', '500 a 1,000', 'Más de 1,000'],
-  presupuesto: ['Menos de USD 5,000', 'USD 5,000 a 10,000', 'USD 10,000 a 20,000', 'Más de USD 20,000'],
   tema: [
     'Mentalidad patrimonial',
     'Educación financiera para todos',
@@ -62,18 +61,11 @@ const opciones = {
         </label>
         <label>Fecha tentativa <input name="fecha_tentativa_del_evento" required placeholder="Ej. marzo 2027" /></label>
         <label>Ciudad <input name="ciudad_del_evento" required placeholder="Ej. Monterrey, México" /></label>
-        <label>
+        <label class="solicitud__ancho">
           Tamaño de la audiencia
           <select name="tamano_de_la_audiencia" required>
             <option value="">Elige una opción</option>
             {opciones.audiencia.map((o) => <option value={o}>{o}</option>)}
-          </select>
-        </label>
-        <label>
-          Presupuesto aproximado
-          <select name="presupuesto_para_conferencia" required>
-            <option value="">Elige una opción</option>
-            {opciones.presupuesto.map((o) => <option value={o}>{o}</option>)}
           </select>
         </label>
         <label class="solicitud__ancho">
@@ -147,7 +139,8 @@ const opciones = {
       await enviarFormularioHubspot(FORMULARIO, campos);
       form.hidden = true;
       if (gracias) gracias.hidden = false;
-    } catch {
+    } catch (error) {
+      console.error('Solicitud de conferencia:', error);
       mostrar('No pudimos enviar tu solicitud. Inténtalo de nuevo o escríbenos a info@revoluciondelariqueza.com.');
     } finally {
       boton?.removeAttribute('disabled');
