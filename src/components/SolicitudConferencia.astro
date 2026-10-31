@@ -248,7 +248,14 @@ const opciones = {
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: var(--radio);
     background: rgba(255, 255, 255, 0.06);
+    color: var(--texto-claro);
+    font-family: var(--font-sans);
     font-size: 15px;
+  }
+
+  /* "Elige una opción" (desplegable sin elegir) en el mismo gris que los placeholders */
+  .solicitud select:invalid {
+    color: rgba(255, 255, 255, 0.4);
   }
 
   .solicitud select {
