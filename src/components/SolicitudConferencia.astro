@@ -31,7 +31,7 @@ const opciones = {
 
     <p class="kicker solicitud__kicker">Conferencias</p>
     <h2 id="solicitud-titulo" class="display solicitud__titulo">Solicita una conferencia</h2>
-    <p class="solicitud__bajada">Cuéntanos de tu evento. Te contactamos en un día hábil con disponibilidad y propuesta.</p>
+    <p class="solicitud__bajada">Cuéntanos de tu evento y nuestro equipo se pondrá en contacto contigo.</p>
 
     <form class="solicitud__form" data-form="solicitud-conferencia" novalidate>
       <fieldset class="solicitud__grupo">
@@ -97,7 +97,7 @@ const opciones = {
 
     <div class="solicitud__gracias" hidden>
       <p class="display solicitud__titulo">Gracias. Recibimos tu solicitud.</p>
-      <p class="solicitud__bajada">Te contactamos en un día hábil para revisar disponibilidad y la propuesta.</p>
+      <p class="solicitud__bajada">Nuestro equipo se pondrá en contacto contigo.</p>
       <Boton estilo="contorno-claro" data-cerrar>Cerrar</Boton>
     </div>
   </div>
@@ -248,7 +248,14 @@ const opciones = {
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: var(--radio);
     background: rgba(255, 255, 255, 0.06);
+    color: var(--texto-claro);
+    font-family: var(--font-sans);
     font-size: 15px;
+  }
+
+  /* "Elige una opción" (desplegable sin elegir) en el mismo gris que los placeholders */
+  .solicitud select:invalid {
+    color: rgba(255, 255, 255, 0.4);
   }
 
   .solicitud select {
