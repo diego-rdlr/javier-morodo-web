@@ -7,6 +7,10 @@ import SolicitudConferencia from '../SolicitudConferencia.astro';
 import icono from '../../assets/img/icons/revolution-32.png';
 import retrato from '../../assets/img/conferencias/retrato-conferencista.jpg';
 
+// Tarjeta "Próximo evento" sobre el retrato. Con `null` no se muestra; para anunciar uno, p. ej.:
+// { nombre: 'Wealth Nation', fecha: 'Seminario web en vivo · 27 y 28 de octubre' }
+const proximoEvento: { nombre: string; fecha: string } | null = null;
+
 const temas = [
   { n: '01', titulo: 'Mentalidad patrimonial', texto: 'De ganar dinero a construir riqueza.' },
   { n: '02', titulo: 'Educación financiera para todos', texto: 'Democratizar productos y servicios financieros.' },
@@ -24,11 +28,15 @@ const temas = [
       sizes="(max-width: 900px) 100vw, 640px"
     />
     <span class="conferencias__velo" aria-hidden="true"></span>
-    <aside class="evento" aria-label="Próximo evento">
-      <p class="mini evento__etiqueta">Próximo evento</p>
-      <p class="evento__nombre">Wealth Nation</p>
-      <p class="evento__fecha">Seminario web en vivo · 27 y 28 de octubre</p>
-    </aside>
+    {
+      proximoEvento && (
+        <aside class="evento" aria-label="Próximo evento">
+          <p class="mini evento__etiqueta">Próximo evento</p>
+          <p class="evento__nombre">{proximoEvento.nombre}</p>
+          <p class="evento__fecha">{proximoEvento.fecha}</p>
+        </aside>
+      )
+    }
   </figure>
 
   <div class="contenedor conferencias__encabezado">
@@ -59,8 +67,6 @@ const temas = [
 
       <div class="conferencias__botones">
         <Boton data-abrir="solicitud-conferencia" aria-haspopup="dialog">Solicitar una conferencia</Boton>
-        <!-- TODO: URL real -->
-        <Boton href="#" estilo="contorno-claro">Descargar dossier de conferencista</Boton>
       </div>
 
       <p class="mini conferencias__nota">
