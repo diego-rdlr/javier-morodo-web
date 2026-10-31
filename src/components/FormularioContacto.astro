@@ -1,0 +1,28 @@
+---
+/**
+ * "Contacto" general: lo abre cualquier elemento con data-abrir="contacto-formulario".
+ * (El id no es "contacto" porque ese es el ancla del footer.)
+ * Formulario de HubSpot "Contacto Javier Morodo"; las notificaciones llegan a info@revoluciondelariqueza.com.
+ */
+import DialogoFormulario from './ui/DialogoFormulario.astro';
+---
+
+<DialogoFormulario
+  id="contacto-formulario"
+  formulario="" /* TODO: GUID del formulario de HubSpot "Contacto Javier Morodo" */
+  kicker="Contacto"
+  titulo="Escríbenos"
+  bajada="Déjanos tu mensaje y nuestro equipo se pondrá en contacto contigo."
+  boton="Enviar mensaje"
+>
+  <fieldset class="solicitud__grupo">
+    <legend class="sr-only">Tus datos</legend>
+    <label>Nombre <input name="firstname" required autocomplete="given-name" /></label>
+    <label>Apellido <input name="lastname" required autocomplete="family-name" /></label>
+    <label class="solicitud__ancho">Correo <input name="email" type="email" required autocomplete="email" /></label>
+    <label class="solicitud__ancho">
+      Mensaje
+      <textarea name="message" rows="5" required placeholder="¿En qué te podemos ayudar?"></textarea>
+    </label>
+  </fieldset>
+</DialogoFormulario>

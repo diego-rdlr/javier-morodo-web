@@ -48,10 +48,13 @@ const enlaces = [
         ))
       }
       <li class="nav__contacto-movil">
-        <a href="#contacto">Contacto</a>
+        <button type="button" data-abrir="contacto-formulario" aria-haspopup="dialog">Contacto</button>
       </li>
     </ul>
-    <Boton href="#contacto" estilo="contorno-claro" tamano="s" class="nav__contacto">Contacto</Boton>
+    {/* Botones, no links a #contacto: el scroll suave (Lenis) intercepta los links con # y movería la página. */}
+    <Boton data-abrir="contacto-formulario" aria-haspopup="dialog" estilo="contorno-claro" tamano="s" class="nav__contacto">
+      Contacto
+    </Boton>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
       <span class="sr-only">Abrir menú</span>
       <span aria-hidden="true"></span>
@@ -96,7 +99,7 @@ const enlaces = [
     toggle.setAttribute('aria-expanded', String(!abierto));
     nav?.classList.toggle('nav--abierto', !abierto);
   });
-  nav?.querySelectorAll('.nav__enlaces a').forEach((a) =>
+  nav?.querySelectorAll('.nav__enlaces a, .nav__enlaces button').forEach((a) =>
     a.addEventListener('click', () => {
       toggle?.setAttribute('aria-expanded', 'false');
       nav.classList.remove('nav--abierto');
@@ -290,7 +293,8 @@ const enlaces = [
       justify-content: space-between;
     }
 
-    .nav__contacto {
+    /* .nav delante: le gana al display de .boton sin importar el orden en que se carguen los estilos */
+    .nav .nav__contacto {
       display: none;
     }
 
@@ -354,9 +358,18 @@ const enlaces = [
       display: block;
     }
 
-    .nav__contacto-movil a {
+    .nav__contacto-movil button {
+      display: block;
+      width: 100%;
+      padding: 14px 0;
+      border: 0;
+      background: none;
+      font: inherit;
+      letter-spacing: inherit;
+      text-transform: inherit;
+      text-align: left;
       color: var(--marca-hielo);
-      border-bottom: 0 !important;
+      cursor: pointer;
     }
   }
 
