@@ -13,6 +13,31 @@ const opciones = {
   tipo: ['Conferencia', 'Taller', 'Panel', 'Otro'],
   modalidad: ['Presencial', 'Virtual'],
   audiencia: ['Menos de 100', '100 a 500', '500 a 1,000', 'Más de 1,000'],
+  // Lada del WhatsApp. México primero (la mayoría), luego Norteamérica, Latinoamérica y España.
+  ladas: [
+    ['🇲🇽', '+52', 'México'],
+    ['🇺🇸', '+1', 'Estados Unidos'],
+    ['🇨🇦', '+1', 'Canadá'],
+    ['🇨🇴', '+57', 'Colombia'],
+    ['🇦🇷', '+54', 'Argentina'],
+    ['🇨🇱', '+56', 'Chile'],
+    ['🇵🇪', '+51', 'Perú'],
+    ['🇪🇸', '+34', 'España'],
+    ['🇧🇷', '+55', 'Brasil'],
+    ['🇪🇨', '+593', 'Ecuador'],
+    ['🇺🇾', '+598', 'Uruguay'],
+    ['🇵🇾', '+595', 'Paraguay'],
+    ['🇧🇴', '+591', 'Bolivia'],
+    ['🇻🇪', '+58', 'Venezuela'],
+    ['🇵🇦', '+507', 'Panamá'],
+    ['🇨🇷', '+506', 'Costa Rica'],
+    ['🇬🇹', '+502', 'Guatemala'],
+    ['🇸🇻', '+503', 'El Salvador'],
+    ['🇭🇳', '+504', 'Honduras'],
+    ['🇳🇮', '+505', 'Nicaragua'],
+    ['🇩🇴', '+1', 'República Dominicana'],
+    ['🇵🇷', '+1', 'Puerto Rico'],
+  ],
   tema: [
     'Mentalidad patrimonial',
     'Educación financiera para todos',
@@ -38,7 +63,23 @@ const opciones = {
         <label>Nombre <input name="firstname" required autocomplete="given-name" /></label>
         <label>Apellido <input name="lastname" required autocomplete="family-name" /></label>
         <label>Correo <input name="email" type="email" required autocomplete="email" /></label>
-        <label>WhatsApp <input name="phone" type="tel" required autocomplete="tel" placeholder="+52 55 1234 5678" /></label>
+        <div class="solicitud__telefono">
+          <span id="solicitud-whatsapp">WhatsApp</span>
+          <div class="solicitud__telefono-campos">
+            {/* Sin `name`: la lada se une al número en `phone` antes de enviar a HubSpot. */}
+            <select data-lada aria-label="Lada del país" autocomplete="tel-country-code">
+              {opciones.ladas.map(([bandera, lada, pais]) => <option value={lada} title={pais}>{bandera} {lada}</option>)}
+            </select>
+            <input
+              name="phone"
+              type="tel"
+              required
+              autocomplete="tel-national"
+              placeholder="55 1234 5678"
+              aria-labelledby="solicitud-whatsapp"
+            />
+          </div>
+        </div>
         <label>Organización <input name="company" required autocomplete="organization" /></label>
         <label>Cargo <input name="jobtitle" autocomplete="organization-title" /></label>
       </fieldset>
@@ -98,8 +139,8 @@ const opciones = {
 <script>
   import { enviarFormularioHubspot } from '../lib/hubspot';
 
-  // TODO: GUID del formulario de HubSpot "Solicitud de conferencia"
-  const FORMULARIO = '';
+  // Formulario de HubSpot "Solicitud de conferencia". Segmento: "Solicitudes de conferencia" (lista 461).
+  const FORMULARIO = '3000fb2b-f8bc-4e8f-9e65-e156ee250305';
 
   const dialogo = document.querySelector<HTMLDialogElement>('#solicitud-conferencia');
   const form = dialogo?.querySelector<HTMLFormElement>('form');
@@ -136,6 +177,8 @@ const opciones = {
     boton?.setAttribute('disabled', '');
     try {
       const campos = Object.fromEntries([...new FormData(form)].map(([k, v]) => [k, String(v)]));
+      const lada = form.querySelector<HTMLSelectElement>('[data-lada]')?.value ?? '';
+      campos.phone = `${lada} ${campos.phone.trim()}`.trim();
       await enviarFormularioHubspot(FORMULARIO, campos);
       form.hidden = true;
       if (gracias) gracias.hidden = false;
@@ -226,6 +269,19 @@ const opciones = {
     gap: 6px;
     font-size: 13px;
     color: rgba(255, 255, 255, 0.8);
+  }
+
+  .solicitud__telefono {
+    display: grid;
+    gap: 6px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .solicitud__telefono-campos {
+    display: grid;
+    grid-template-columns: 116px minmax(0, 1fr);
+    gap: 8px;
   }
 
   .solicitud__ancho {
