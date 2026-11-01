@@ -1,7 +1,13 @@
 {
   "playlist": "PLwdXcQkLGge8nBTD_FmeCFv1z6Z-s7few",
-  "actualizado": "2026-10-31",
+  "actualizado": "2026-11-01",
   "episodios": [
+    {
+      "id": "TShRdX1Qre0",
+      "titulo": "Mi peor error financiero: la historia detrás de mi trauma con los bienes raíces",
+      "vistas": "1.8 K",
+      "publicado": "2026-11-01"
+    },
     {
       "id": "EUAvIrq0qsA",
       "titulo": "El dinero en el mundo se duplica cada 9 años y tu estado de cuenta no lo muestra",
@@ -30,12 +36,6 @@
       "id": "jKls2yOf0k0",
       "titulo": "Desarrollador inmobiliario: \"¡vivo en renta y no tengo casa propia!\"",
       "vistas": "27 K",
-      "publicado": "2026-09-29"
-    },
-    {
-      "id": "DDwGtx3gmsU",
-      "titulo": "XRP no vale lo que dice el precio: la matemática de Ripple que no cuadra",
-      "vistas": "10 K",
       "publicado": "2026-09-29"
     }
   ]
