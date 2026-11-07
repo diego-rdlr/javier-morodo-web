@@ -1,11 +1,17 @@
 {
   "playlist": "PLwdXcQkLGge8nBTD_FmeCFv1z6Z-s7few",
-  "actualizado": "2026-11-06",
+  "actualizado": "2026-11-07",
   "episodios": [
+    {
+      "id": "VxYvL9IaMko",
+      "titulo": "Por qué vender por miedo te sale caro, mis errores con Bitcoin, Avalanche y Decentraland",
+      "vistas": "8",
+      "publicado": null
+    },
     {
       "id": "TShRdX1Qre0",
       "titulo": "Mi peor error financiero: la historia detrás de mi trauma con los bienes raíces",
-      "vistas": "9.3 K",
+      "vistas": "9.5 K",
       "publicado": "2026-11-01"
     },
     {
@@ -31,12 +37,6 @@
       "titulo": "De qué depende el 90% de tu rendimiento, según el director de Vanguard",
       "vistas": "18 K",
       "publicado": "2026-10-08"
-    },
-    {
-      "id": "jKls2yOf0k0",
-      "titulo": "Desarrollador inmobiliario: \"¡vivo en renta y no tengo casa propia!\"",
-      "vistas": "27 K",
-      "publicado": "2026-09-29"
     }
   ]
 }
