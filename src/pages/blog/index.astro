@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Listado from '../../components/blog/Listado.astro';
+import Pagina from '../../layouts/Pagina.astro';
+import { categoriasDe, ordenar } from '../../lib/blog';
+
+const entradas = ordenar(await getCollection('blog'));
+const categorias = categoriasDe(entradas);
+---
+
+<Pagina
+  title="Blog · Javier Morodo"
+  description="Ideas, tesis y análisis de mercado de Javier Morodo. El archivo completo de artículos, de 2020 a 2025."
+  rss
+>
+  <Listado
+    entradas={entradas}
+    pagina={1}
+    base="/blog/"
+    titulo="Ideas, tesis y análisis de mercado."
+    bajada="El archivo de lo que Javier ha publicado: inversiones, mercados y las ideas que construyen patrimonio."
+    categorias={categorias}
+  />
+</Pagina>

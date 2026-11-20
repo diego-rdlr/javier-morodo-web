@@ -1,0 +1,41 @@
+---
+title: "La historia de las Bolsas de Valores"
+description: "Las bolsas de valores son escenciales dentro del sistema financiero. En este post te explico como surigieron y su importancia en el sistema."
+date: "2021-02-21T08:26:16"
+slug: "bolsas-de-valores"
+wpId: 750
+categories:
+  - nombre: "Inversión"
+    slug: "inversion"
+tags: []
+image: "/blog/media/0d4b8cd434-lloyd-blunk-vrSKrUEZsDY-unsplash-scaled-1.webp"
+imageAlt: "lloyd-blunk-vrSKrUEZsDY-unsplash"
+imageWidth: 1600
+imageHeight: 1068
+---
+
+<p><span style="font-weight: 400;">Si no eres financiero o economista de carrera, probablemente no tengas presente como surgió el concepto de las Bolsas de Valores. No te preocupes; esta parte tan importante de la historia de nuestra civilización suele ser repasada por encimita y aveces hasta omitido para la gran mayoría de la gente. En mi opinión, es un gran error que el mundo de las finanzas no sea tema prioritario en nuestro sistema educativo ya que la falta de educación financiera es el origen de muchos de nuestros problemas como sociedad. Pero hasta que eso no cambie, lo que me toca aportar de este lado es un poco de información para refrescar la memoria y lograr entender mejor por qué nuestro sistema económico funciona en la manera que lo hace y la importancia que tienen instituciones como las bolsas de valores en el mismo. Así que, arranquemos. </span></p>
+
+<p><span style="font-weight: 400;">Los orígenes del libre mercado se remontan al siglo XVII, cuando los grandes imperios europeos estaban en el auge de sus ambiciosas expediciones marítimas. Muchos de ellos, especialmente los portugueses y los españoles, tenían desde el siglo XV financiando los viajes que los llevaron a descubrir otros continentes. Su modelo de negocio, por decirlo así, consistía inicialmente en que la monarquía financiaba a los mercaderes que vivían en diferentes puertos europeos a cambio de una especie de impuesto que ellos debían pagar. </span></p>
+
+<p><span style="font-weight: 400;">Después, los reyes comenzaron a financiar expediciones enteras. Posteriormente, hombres y comerciantes ricos le entraron al financiamiento de barcos y tripulación, pero era un negocio bastante riesgoso debido a la naturaleza del viaje por mar, la presencia de piratas y las mismas guerras entre imperios que cada vez eran más frecuentes.</span></p>
+
+<p><span style="font-weight: 400;">Una vez que se estableció una ruta comercial para importar e intercambiar especias y otros productos exóticos de los recién descubiertos lugares, comenzó a surgir otro sistema de financiamiento. En este sentido, los holandeses fueron pioneros y visionarios. En el siglo XVII, la Dutch East Trading Company (VOC, por sus siglas en holandés) era una poderosísima compañía que servía como un brazo militar y comercial del estado holandés. Operaba en tres continentes –Europa, Asia y África– para proveer a Europa de especias, y tuvo la gran idea de que el dinero podría invertirse directamente en la compañía, en vez de en cada viaje que ésta hiciera, como se hacía tradicionalmente. </span></p>
+
+<p><span style="font-weight: 400;">La VOC fue la primera en dejar que el público general, y no solo el Estado, pudiera invertir en ella. Para lograrlo, la compañía decidió crear y vender acciones a cambio del pago de dividendos para los inversionistas. De este modo nació en Amsterdam el primer mercado de valores de toda la historia. Durante muchos años, la única actividad en este mercado fue el intercambio de acciones de la VOC. De hecho, muchos historiadores consideran que el nacimiento de esta bolsa de valores es el origen del capitalismo moderno. </span></p>
+
+<p><span style="font-weight: 400;">Pronto, otros países comenzaron a crear compañías similares –la East Indian Trading Company en Reino Unido, por ejemplo– y comprar acciones se volvió algo muy popular entre los inversionistas. Sin embargo, tanta emoción sin regulación alguna provocó la primera burbuja en el mercado, cuando el imperio inglés comenzó a tener problemas con sus colonias y los barcos mercaderes no pudieron cumplir con el pago dividendos a sus accionistas. </span></p>
+
+<p><span style="font-weight: 400;">Los estadounidenses adoptaron el modelo hasta finales de 1700, cuando ya eran independientes de Inglaterra. Cabe destacar que a partir de entonces, todas las Bolsas de Valores nacieron como empresas privadas, dedicadas a operar el intercambio de acciones, apegadas a reglas gubernamentales. La primera bolsa de valores en EE. UU. fue la de Filadelfia (recordemos que fue la capital estadounidense durante algunos años), donde comenzaron a cotizar las acciones de compañías que impulsaron el crecimiento del sector financiero de Estados Unidos y su posterior expansión hacia la costa oeste. Pero la bolsa más importante sin duda ha sido el <a href="https://www.nyse.com/index">New York Stock Exchange (NYSE)</a>, fundada en 1792. </span></p>
+
+<p><span style="font-weight: 400;">La ciudad de Nueva York se convirtió en el puerto más importante de Norteamérica, donde comenzó a fluir el intercambio comercial con Europa. Por esa razón, la popularidad del NYSE creció como la espuma, estableciendo muchas de las reglas del juego –comisiones, requisitos para cotizar, productos financieros con los cuales se puede intercambiar en el mercado– que han sido replicadas en bolsas de todo el mundo. Durante casi dos siglos, la hegemonía del NYSE no tuvo ningún rival, a pesar del crash de 1929 que hundió a EE. UU. (y al mundo, prácticamente) en lo que hoy conocemos como la Gran Depresión.</span></p>
+
+<p><span style="font-weight: 400;">Resulta increíble que fue hasta 1971 cuando surgió el <a href="https://www.nasdaq.com/">Nasdaq</a>, la segunda Bolsa de Valores de EE. UU. La gran diferencia con el NYSE es que el Nasdaq no nació con un piso de intercambio de acciones que hemos visto representado en todas las películas sobre Wall Street (cientos de corredores en el piso de remates, histéricos al teléfono con pedazos de papel en la mano). Desde sus inicios, aprovechó el poder de las computadoras para que, alimentadas con datos cada vez más preciso, pudieran tomar las decisiones más eficientes a nombre de los inversionistas que meten su dinero para comprar acciones. </span></p>
+
+<p><span style="font-weight: 400;">Desde entonces, el NYSE también ha evolucionado hasta convertirse en una bolsa principalmente digital. Aunque en el NASDAQ cotizan más compañías (más de 3,000 vs 2,800), el NYSE es más grande en términos de capitalización total de mercado. Es decir, el valor total de acciones de las empresas que cotizan ahí, que vale más que las bolsas combinadas de Tokio, Londres y el propio Nasdaq. </span></p>
+
+<p><span style="font-weight: 400;">En el caso de México, la primera Bolsa de Valores en crearse fue la <a href="https://www.bmv.com.mx/">Bolsa Mexicana de Valores</a> (BMV) en 1894, aunque tardó bastante tiempo en llamarse así y en funcionar como la conocemos ahora. Por ejemplo, en 1975 se fusionaron las Bolsas de Valores de Monterrey y Guadalajara en una sola bolsa; en 1999 se volvió digital, como el Nasdaq; y no fue sino hasta 2003 cuando la BMV permitió que inversionistas mexicanos pudieran invertir en acciones internacionales. </span></p>
+
+<p><span style="font-weight: 400;">Algo súper importante a destacar es que en 2017 –123 años después del nacimiento de la BMV– surgió la segunda Bolsa de Valores en México: la <a href="https://www.biva.mx/">Bolsa Institucional de Valores, o BIVA</a>. Sin duda marcó un hito en la historia financiera del país, pues la competencia entre bolsas de valores es importantísima para que más gente pueda participar como inversionista y que más empresas logren financiarse de manera pública. Al día de hoy son 137 las empresas que cotizan en el mercado local y más de 2,500 a través del SIC (Sistema Internacional de Cotizaciones). No es poca cosa, pero la cifra aún es pequeña frente a la cantidad que lo hace en el mercado del país vecino. Claramente no es una combinación justa debido a las diferencias económicas entre México y EE. UU., pero creo firmemente que la participación del público en la vida financiera del país en donde vive es algo a lo que deberíamos aspirar como sociedad.</span></p>
+
+<p>Y estoy seguro que así será. La revolución de las inversiones en México apenas está comenzando.</p>

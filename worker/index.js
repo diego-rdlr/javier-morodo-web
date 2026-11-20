@@ -1,16 +1,17 @@
-// Dominio canónico: todo lo que llegue por un alias redirige 301 a javiermorodo.com.
-// Las URLs *.workers.dev (producción y previews) y localhost se sirven tal cual.
-const CANONICO = 'javiermorodo.com';
-const ALIAS = new Set(['www.javiermorodo.com', 'web.javiermorodo.com', 'javiermorodo.revolution.inc']);
+// Dominio canónico: los alias (www, etc.) redirigen 301 a javiermorodo.com.
+// Las URLs *.workers.dev (previews) y localhost se sirven en el mismo host.
+// Las redirecciones SEO del WordPress viven aquí porque public/_redirects
+// no se aplica con run_worker_first + ASSETS.fetch en este Worker.
+import { ALIAS, CANONICO, resolveRedirect } from './redirects.js';
+
+export { ALIAS, CANONICO };
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (ALIAS.has(url.hostname)) {
-      url.hostname = CANONICO;
-      url.protocol = 'https:';
-      url.port = '';
-      return Response.redirect(url.toString(), 301);
+    const destino = resolveRedirect(url);
+    if (destino) {
+      return Response.redirect(destino, 301);
     }
     return env.ASSETS.fetch(request);
   },

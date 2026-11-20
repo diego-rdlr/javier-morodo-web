@@ -2,7 +2,7 @@
 
 Sitio de Javier Morodo. Astro 7 estático → Worker de Cloudflare `javier-morodo-web` (ver README).
 
-- Fuente de verdad del diseño: Figma `NR6yhNFUePRWlj1MgYWSmz`, página `JavierMorodo_SitioWeb`,
+- Fuente de verdad del diseño: Figma `6VN3rt6Sw1LqKg6PvZJ9Po`, página `JavierMorodo_SitioWeb`,
   frame `2:2` (1440 px, márgenes de 80). Cada sección de `src/components/sections/` lleva en su
   comentario el node id del frame del Figma.
 - Sin Tailwind ni frameworks de UI: CSS con scope por componente y los tokens de `src/styles/global.css`

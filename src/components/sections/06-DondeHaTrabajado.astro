@@ -5,6 +5,8 @@ import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
 import icono from '../../assets/img/icons/revolution-23.png';
 import gbm from '../../assets/img/logos/gbm.png';
 import bitso from '../../assets/img/logos/bitso.png';
+import revolv from '../../assets/img/logos/revolv.png';
+import genivs from '../../assets/img/logos/genivs.png';
 
 type Empresa = {
   periodo: string;
@@ -30,12 +32,26 @@ const empresas: Empresa[] = [
     descripcion: 'Plataforma cripto en Latinoamérica',
   },
   {
+    periodo: 'Hoy',
+    nombre: 'Revolv Capital',
+    logo: { src: revolv, w: 150, h: 33 },
+    rol: 'Socio gestor y cofundador',
+    descripcion: 'Gestora de activos alternativos enfocada en blockchain y activos digitales.',
+  },
+  {
     periodo: '2023 →',
     nombre: 'Revolution Inc.',
     rol: 'Fundador. Medios, Educación, Patrimonio y Capital',
     descripcion: 'Ecosistema financiero para la libertad patrimonial',
   },
   { periodo: 'Hoy', nombre: 'GOAT Capital', rol: 'Cofundador', descripcion: 'Inversión en activos alternativos' },
+  {
+    periodo: 'Hoy',
+    nombre: 'Genivs Ventures',
+    logo: { src: genivs, w: 220, h: 32 },
+    rol: 'Inversionista',
+    descripcion: 'Firma de capital de riesgo (venture capital) del ecosistema de Javier.',
+  },
   { periodo: 'Hoy', nombre: 'El Arte de Invertir', rol: 'Co-conductor', descripcion: 'Co-conductor del programa' },
   {
     periodo: 'Hoy',
@@ -109,8 +125,8 @@ const empresas: Empresa[] = [
 
   .empresas__grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px 31px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
     margin-top: 36px;
   }
 
@@ -118,7 +134,7 @@ const empresas: Empresa[] = [
     display: flex;
     flex-direction: column;
     gap: 14px;
-    min-height: 250px;
+    min-height: 268px;
     padding: 28px;
     border: 1px solid var(--linea-clara);
     border-radius: 8px;
@@ -148,7 +164,11 @@ const empresas: Empresa[] = [
 
   .empresa__logo {
     width: auto;
-    height: var(--alto);
+    max-width: 100%;
+    height: auto;
+    max-height: var(--alto);
+    object-fit: contain;
+    object-position: left center;
   }
 
   .empresa__marca {

@@ -1,0 +1,27 @@
+---
+import Base from './Base.astro';
+import Cabecera from '../components/blog/Cabecera.astro';
+import Footer from '../components/sections/17-Footer.astro';
+import FormularioContacto from '../components/FormularioContacto.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: 'website' | 'article';
+  published?: string;
+  rss?: boolean;
+  jsonLdExtra?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const props = Astro.props;
+---
+
+<Base {...props}>
+  <Cabecera />
+  <slot />
+  <Footer />
+  <FormularioContacto />
+</Base>

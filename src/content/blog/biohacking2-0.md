@@ -1,0 +1,62 @@
+---
+title: "Biohacking 2.0: Mi Experiencia Personal"
+description: "Siempre he sido un fanático de la experimentación y lo que está en la frontera de la ciencia. Probablemente se deba a mi formación y la necesidad que desde niño he…"
+date: "2020-07-13T07:32:48"
+slug: "biohacking2-0"
+wpId: 591
+categories:
+  - nombre: "Biohacking"
+    slug: "biohacking"
+tags:
+  - "ayuno intermitente"
+  - "fasting"
+  - "keto"
+image: "/blog/media/33243d37b6-rustam-ziabirov-epIpgb2iCpQ-unsplash.webp"
+imageAlt: "rustam-ziabirov-epIpgb2iCpQ-unsplash"
+imageWidth: 1600
+imageHeight: 1600
+---
+
+<p><span style="font-weight: 400;">Empecé esta aventura mucho antes de saberlo.</span></p>
+
+<p><span style="font-weight: 400;">Siempre he sido un fanático de la experimentación y lo que está en la frontera de la ciencia. Probablemente se deba a mi formación y la necesidad que desde niño he tenido de sobresalir y lograr más de lo que es humanamente posible, siempre con la intención de explotar mi máximo potencial.</span></p>
+
+<p><span style="font-weight: 400;">Entiendo muy bien, por ejemplo, el concepto de ciclos de retroalimentación y sus implicaciones en el cuerpo humano; es decir, el tiempo que pasa entre que hago algo y veo sus consecuencias. Con el paso del tiempo, estos ciclos son cada vez son más evidentes y me permiten relacionar mejor las causas con sus efectos.&nbsp;</span></p>
+
+<p><span style="font-weight: 400;">La tecnología ha tenido avances extremadamente relevantes en este sentido y hoy nos permiten medir todo. Esto tiene una gran ventaja, pues permite que se acorten los ciclos de retroalimentación y hacen mucho más tangibles todos los cambios que vas realizando y el progreso que vas teniendo. Esto es fundamental para mantener la motivación y seguirte moviendo hacia tu meta.</span></p>
+
+<p><span style="font-weight: 400;">Como lo he mencionado </span><a href="/genesis/"><span style="font-weight: 400;">anteriormente</span></a><span style="font-weight: 400;">, es muy importante tener una visión de quién te quieres convertir en un futuro para trabajar hacia allá en todos los aspectos de tu vida. Así ha sido mi experiencia de vida y gracias a esto he podido potenciar este tipo de prácticas, sobretodo en los últimos años.&nbsp;</span></p>
+
+<p><span style="font-weight: 400;">Por otro lado, en lo particular yo le tengo pavor a la muerte. Mi papá murió a los 39 años y yo tengo 36, por lo que muchas veces siento que estoy ya jugando tiempos extras. Desde hace ya varios años he intentado ver la manera en la que puedo mejorar ciertos hábitos que apunten en la dirección de la longevidad.</span></p>
+
+<p><span style="font-weight: 400;">Sobre todo hay que entender que todo lo que hagamos hoy con nuestro cuerpo y mente, que son nuestros activos más importantes, tendrá repercusiones en unos días, meses y en especial a lo largo de los años. Incrementar la longevidad es un tema que todos tenemos en el radar, ya que, aunque algunos lo nieguen, la mayoría le tenemos miedo a la muerte. En el camino me he encontrado que aún más importante que la longevidad, es la calidad de vida (</span><i><span style="font-weight: 400;">lifespan vs healthspan</span></i><span style="font-weight: 400;">). No importa si vives 300 años si estás intubado; es mucho más importante que puedas vivir al máximo.</span></p>
+
+<p><span style="font-weight: 400;">La vida “moderna” nos ha inclinado a ser sedentarios, a vivir en lugares cerrados como oficinas y departamentos con luz artificial, a respirar aire contaminado de las grandes urbes del mundo, a comer de más, a ser adictos al azúcar y a tener dietas basadas en granos que gracias a la agricultura son abundantes en el planeta.&nbsp; Bajo esa línea de pensamiento, hay mucho que mejorar.&nbsp;</span></p>
+
+<p><span style="font-weight: 400;">*</span></p>
+
+<p><span style="font-weight: 400;">Mi aventura personal en el mundo del </span><i><span style="font-weight: 400;">biohacking</span></i><span style="font-weight: 400;"> comenzó muy temprano, a mis 17 años, de manera casi accidental. A esa edad comencé a buscar opciones para subir de peso ya que era extremadamente flaco (lo que explica mi apodo): pesaba menos de 60 kilos midiendo 1.85 cms. En ese entonces estaba buscando construir masa muscular y embarnecer. Fui a un nutriólogo y me recomendó empezar con suplementos como la <a href="https://es.wikipedia.org/wiki/Creatina">creatina</a> y complementos como Ensure y proteína en polvo, como Isopure. Y es que el </span><i><span style="font-weight: 400;">biohacking</span></i><span style="font-weight: 400;"> es muy amplio y empieza por temas “comunes” como pueden ser estos. Me tomó 3-4 años pero logré incrementar mi masa muscular de manera muy significativa gracias a la suplementación y mi dedicación al <a href="https://es.wikipedia.org/wiki/Ejercicio_anaer%C3%B3bico">ejercicio </a></span><a href="https://es.wikipedia.org/wiki/Ejercicio_anaer%C3%B3bico"><span style="font-weight: 400;">anaeróbico</span></a><span style="font-weight: 400;">.&nbsp;</span></p>
+
+<p><span style="font-weight: 400;">Por esa misma época padecía de insomnio, como todo adolecente, probablemente debido al desorden en mis horarios. Mi madre me recomendó ir a un tratamiento muy novedoso llamado “</span><a href="https://www.fundacioncadah.org/web/articulo/neurofeedback-que-es-en-que-consiste-es-eficaz-para-tratar-el-tdah.html"><i><span style="font-weight: 400;">neurofeedback</span></i></a><span style="font-weight: 400;">” para tratar mi padecimiento. Era algo que en ese momento nunca había escuchado. El neurofeedback es un tratamiento cuyo objetivo es generar autocontrol sobre ciertos patrones de actividad cerebral y la aplicación de estas habilidades en las actividades de la vida diaria. Consiste en colocar unos electrodos en la cabeza y, simplemente a través de juegos en un monitor, debes concentrarte y no te distraerte. Eso es suficiente para que vaya avanzando un “Pacman” en la pantalla. Mediante estos juegos aprendes a regular tus ondas cerebrales y a generar habilidades de concentración y autorregulación.&nbsp;</span></p>
+
+<p><span style="font-weight: 400;">Es un tratamiento también usado para niños con trastornos de déficit de atención (TDA), por ejemplo. Para mí fue magia el saber que puedes “aprender” a estimular y entrenar tu cerebro para controlarlo. Fue una verdadera revelación descubrir el poder que tenían estas funciones sobre el potencial del cuerpo humano.&nbsp;</span></p>
+
+<p><span style="font-weight: 400;">Fue hasta hace tres o cuatro años que entendí que estas prácticas caían bajo el paraguas del </span><i><span style="font-weight: 400;">biohacking</span></i><span style="font-weight: 400;">. Conocí este término ya que un grupo de amigos que siempre han estado y estarán en el filo entre la ciencia y la “locura” (sí, tengo conocidos muy interesantes que me ayudan a descubrir la frontera de lo posible y son mi fuente de conocimiento), me hablaron sobre el tema. Algunos de ellos ya llevan años en esto, y gracias a la información que me comparten sigo aprendiendo y estudiando mucho.</span></p>
+
+<p><span style="font-weight: 400;">Después de leer demasiado e intentar aprender del tema, a principios de 2019 decidí que, como uno de los </span><a href="/habitos-transformacionales/">hábitos transformacionales</a> <span style="font-weight: 400;">que hago todos los años, me dedicaría de lleno al biohacking para entender a mi cuerpo y cómo potenciarlo. Opté empezar por hábitos de dieta: la dieta keto o cetogénica y el ayuno intermitente.</span></p>
+
+<p><b>Dieta keto</b></p>
+
+<p><span style="font-weight: 400;">Decidí arrancar el primero de enero con una </span><a href="https://es.wikipedia.org/wiki/Dieta_cetog%C3%A9nica"><span style="font-weight: 400;">dieta keto o cetogénica</span></a><span style="font-weight: 400;">, que implica básicamente en el eliminar casi por completo o en su mínima expresión los carbohidratos. La lógica es que tu cuerpo puede generar energía a partir de un proceso químico llamado cetosis, que convierte las grasas en energía en vez de la glucosa que producen los carbohidratos. Esta fuente de energía es mejor y más óptima para tu cuerpo. De hecho, el argumento principal para hacer esta dieta viene de hace miles de años, antes de que existiera la agricultura, en donde los granos y mucha de la comida que tenemos actualmente no era abundante y más bien nos alimentabamos de grasas animales y otros alimentos.&nbsp;</span></p>
+
+<p><span style="font-weight: 400;">Es una dieta bastante difícil de hacer, ya que implica un cambio de sistema por completo. Los alimentos que no tienen carbohidratos, no te satisfacen igual el apetito y tienen propiedades muy distintas. La dieta restringe muchísimo la cantidad de carbohidratos que puedes comer. Hay miles de apps que te pueden guiar sobre este tema, <a href="https://www.lifewire.com/best-free-carb-counter-apps-4173211">aquí algunos ejemplos.</a></span></p>
+
+<p><span style="font-weight: 400;">Al cabo de una semana yo me empecé a sentir mal. Consultando con amigos me dijeron que era normal y que se llamaba “</span><a href="https://www.dietdoctor.com/low-carb/keto/flu-side-effects"><span style="font-weight: 400;">keto flu</span></a><span style="font-weight: 400;">” o gripa de keto, que es un estado de <em>shock</em> en el que entra tu cuerpo ante el cambio drástico de la dieta, pues se está acostumbrando a quemar grasas en vez de las azúcares que generan los carbohidratos. Seguí un par de semanas más bajo este régimen, pero al cabo de cuatro semanas había bajado casi 5 kilos, especialmente mi porcentaje de grasa muscular. Decidí entonces suspender temporalmente la dieta y comenzar a buscar ayuda profesional. Siempre he sido muy abierto a la ayuda y me sirve mucho tener a alguien con quien aprender.&nbsp;</span></p>
+
+<p><b>Ayuno intermitente</b></p>
+
+<p><span style="font-weight: 400;">Mi siguiente aventura fue con esta práctica, también conocida como </span><i><span style="font-weight: 400;">fasting</span></i><span style="font-weight: 400;">. La verdad me dí cuenta que esto no me costaba nada de trabajo, ya que de niño había tenido el “mal” hábito de no desayunar. (Al contrario de lo que mi mamá pensaba, resultó ser un gran hábito). El ayuno intermitente está aún en fases exploratorias, pero de igual manera tiene sus bases en la antropología. Hace miles de años, no estábamos acostumbrados a comer tres o cuatro veces al día. De hecho, el cuerpo humano puede pasar varios días sin comer.&nbsp;</span></p>
+
+<p><span style="font-weight: 400;">Cuando éramos nómadas, pasábamos periodos de “fast” (ayuno) y “feast” (festín), y el</span><i><span style="font-weight: 400;"> fasting</span></i><span style="font-weight: 400;"> actual se basa en esto. Lo más importante es un proceso llamado “</span><a href="https://es.wikipedia.org/wiki/Autofagia"><span style="font-weight: 400;">autofagia</span></a><span style="font-weight: 400;">”, mediante el cual tu cuerpo prácticamente se renueva a sí mismo. Tus células nuevas se “comen” a las viejas y esto hace que tu cuerpo sea más eficiente por sí mismo, es una especie de evolución darwiniana que tiene el organismo humano. Esta técnica la sigo aplicando de manera constante. De hecho aplico </span><a href="https://peterattiamd.com/wp-content/uploads/2020/01/nutrition-framework-3-levers.png"><span style="font-weight: 400;">este </span><i><span style="font-weight: 400;">framework</span></i><span style="font-weight: 400;"> de Peter Attia</span></a><span style="font-weight: 400;">.&nbsp;</span></p>
+
+<p><span style="font-weight: 400;">En mi búsqueda de ayuda profesional sobre biohacking, encontré a <a href="http://www.healthcoachclau.com/">Claudia Zaragoza</a>, quien me parece es de las personas más preparadas y sofisticadas en temas de </span><i><span style="font-weight: 400;">biohacking</span></i><span style="font-weight: 400;"> en México. Ella me ha ayudado a conocer muchos más temas al respecto, sobre todo en temas de medición que me han ayudado a potenciar mi cuerpo y mente. Les platicaré más sobre mi experiencia reciente con Clau en el <a href="/biohacking-3/">siguiente post</a>. Mientras tanto, a ella la pueden contactar vía mail en: </span><em style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;">info@healthcoachclau.com, o en <a href="https://www.linkedin.com/in/claudia-zaragoza-b8a85814/?locale=es_ES">LinkedIn.</a></em></p>

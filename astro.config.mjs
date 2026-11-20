@@ -5,5 +5,6 @@ import { defineConfig } from 'astro/config';
 // `javier-morodo-web` lo sirve como static assets (ver wrangler.jsonc).
 export default defineConfig({
   site: 'https://javiermorodo.com',
+  trailingSlash: 'always',
   build: { inlineStylesheets: 'auto' },
 });
