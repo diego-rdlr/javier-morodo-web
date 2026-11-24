@@ -9,21 +9,21 @@ const columnas: { titulo: string; enlaces: Enlace[] }[] = [
   {
     titulo: 'Explorar',
     enlaces: [
-      { texto: 'Sobre Javier', href: '#sobre-javier' },
-      { texto: 'Trayectoria', href: '#trayectoria' },
-      { texto: 'Conferencias', href: '#conferencias' },
-      { texto: 'Educación', href: '#educacion' },
-      { texto: 'Inversiones', href: '#inversiones' },
+      { texto: 'Sobre Javier', href: '/#sobre-javier' },
+      { texto: 'Trayectoria', href: '/#trayectoria' },
+      { texto: 'Conferencias', href: '/#conferencias' },
+      { texto: 'Educación', href: '/#educacion' },
+      { texto: 'Inversiones', href: '/#inversiones' },
     ],
   },
   {
     titulo: 'Contenido',
     enlaces: [
-      { texto: 'Podcast', href: '#podcast' },
+      { texto: 'Podcast', href: '/#podcast' },
       { texto: 'Videos', href: 'https://www.youtube.com/@javiermorodo', externo: true },
-      { texto: 'Boletín', href: '#boletin' },
-      { texto: 'Blog', href: 'https://javiermtzmorodo.substack.com', externo: true },
-      { texto: 'Libro Riqueza 360', href: '#libro' },
+      { texto: 'Boletín', href: '/#boletin' },
+      { texto: 'Blog', href: '/blog/' },
+      { texto: 'Libro Riqueza 360', href: '/#libro' },
     ],
   },
   {
@@ -44,7 +44,7 @@ const columnas: { titulo: string; enlaces: Enlace[] }[] = [
   <div class="contenedor">
     <div class="pie__superior">
       <div class="pie__marca">
-        <a href="#inicio" class="pie__logo">
+        <a href="/#inicio" class="pie__logo">
           <Image src={logo} alt="Javier Morodo" width={272} height={58} />
         </a>
         <p class="pie__bajada">

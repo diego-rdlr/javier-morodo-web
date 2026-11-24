@@ -1,0 +1,656 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Boton from '../components/ui/Boton.astro';
+import Pagina from '../layouts/Pagina.astro';
+import retrato from '../assets/img/hero/retrato-javier.jpg';
+import { fechaCorta, minutosDeLectura, ordenar, relacionadasDe } from '../lib/blog';
+
+export async function getStaticPaths() {
+  const entradas = ordenar(await getCollection('blog'));
+  return entradas.map((entrada) => ({
+    params: { slug: entrada.data.slug },
+    props: { entrada, relacionadas: relacionadasDe(entradas, entrada) },
+  }));
+}
+
+const { entrada, relacionadas } = Astro.props;
+const { title, description, date, categories, tags, image, imageAlt, imageWidth, imageHeight, slug } = entrada.data;
+const canonical = new URL(`/${slug}/`, Astro.site).toString();
+const publicado = date.slice(0, 10);
+const minutos = minutosDeLectura(entrada.body ?? '');
+const textoCompartir = encodeURIComponent(title);
+const urlCompartir = encodeURIComponent(canonical);
+
+const jsonLdExtra = {
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: date,
+  inLanguage: 'es-MX',
+  mainEntityOfPage: canonical,
+  url: canonical,
+  image: image ? new URL(image, Astro.site).toString() : undefined,
+  author: { '@id': `${Astro.site}#javier` },
+  publisher: { '@id': `${Astro.site}#javier` },
+  articleSection: categories.map((c) => c.nombre),
+  keywords: tags.join(', ') || undefined,
+  timeRequired: `PT${minutos}M`,
+};
+---
+
+<Pagina
+  title={`${title} · Javier Morodo`}
+  description={description}
+  ogImage={image}
+  ogImageAlt={imageAlt || title}
+  ogType="article"
+  published={publicado}
+  jsonLdExtra={jsonLdExtra}
+>
+  <article class="entrada">
+    <header class="entrada__cabecera">
+      <p class="entrada__miga">
+        <a href="/blog/">Blog</a>
+        {
+          categories[0] && (
+            <>
+              <span aria-hidden="true"> · </span>
+              <a href={`/category/${categories[0].slug}/`}>{categories[0].nombre}</a>
+            </>
+          )
+        }
+      </p>
+      <h1 class="display entrada__titulo">{title}</h1>
+      {description && <p class="entrada__dek">{description}</p>}
+
+      <div class="autor">
+        <Image
+          src={retrato}
+          alt=""
+          width={88}
+          height={88}
+          class="autor__foto"
+          widths={[88, 176]}
+        />
+        <div>
+          <p class="autor__nombre">Javier Morodo</p>
+          <p class="autor__meta">
+            <time datetime={publicado}>{fechaCorta(date)}</time>
+            <span aria-hidden="true"> · </span>
+            <span>{minutos} min de lectura</span>
+          </p>
+        </div>
+      </div>
+
+      <ul class="compartir" aria-label="Compartir">
+        <li>
+          <a
+            href={`https://twitter.com/intent/tweet?url=${urlCompartir}&text=${textoCompartir}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            X
+          </a>
+        </li>
+        <li>
+          <a
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${urlCompartir}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+        </li>
+        <li>
+          <a
+            href={`https://wa.me/?text=${textoCompartir}%20${urlCompartir}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp
+          </a>
+        </li>
+        <li>
+          <button type="button" data-copiar data-url={canonical}>Copiar enlace</button>
+        </li>
+      </ul>
+
+      {
+        image && (
+          <figure class="entrada__hero">
+            <img
+              src={image}
+              alt={imageAlt || ''}
+              width={imageWidth}
+              height={imageHeight}
+              fetchpriority="high"
+              decoding="async"
+            />
+            {imageAlt && <figcaption>{imageAlt}</figcaption>}
+          </figure>
+        )
+      }
+    </header>
+
+    <div class="prosa" set:html={entrada.body} />
+
+    <div class="barra" aria-label="Acciones del artículo">
+      <p class="barra__etiqueta">Compartir</p>
+      <ul class="compartir">
+        <li>
+          <a
+            href={`https://twitter.com/intent/tweet?url=${urlCompartir}&text=${textoCompartir}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            X
+          </a>
+        </li>
+        <li>
+          <a
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${urlCompartir}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+        </li>
+        <li>
+          <a
+            href={`https://wa.me/?text=${textoCompartir}%20${urlCompartir}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp
+          </a>
+        </li>
+        <li>
+          <button type="button" data-copiar data-url={canonical}>Copiar enlace</button>
+        </li>
+      </ul>
+    </div>
+
+    <aside class="boletin">
+      <p class="display boletin__titulo">Recibe cada edición en tu correo.</p>
+      <p>Revolution Daily y Weekly, gratis. El mismo boletín de siempre.</p>
+      <form method="get" action="https://javiermtzmorodo.substack.com/subscribe" target="_blank" data-form="suscripcion">
+        <label class="sr-only" for={`boletin-${slug}`}>Tu correo electrónico</label>
+        <input id={`boletin-${slug}`} type="email" name="email" required autocomplete="email" placeholder="tu@correo.com" />
+        <Boton type="submit" estilo="claro" tamano="s">Suscribirme</Boton>
+      </form>
+      <p class="mini">Gratis · Te das de baja cuando quieras</p>
+    </aside>
+
+    {
+      relacionadas.length > 0 && (
+        <section class="mas" aria-labelledby="mas-titulo">
+          <h2 id="mas-titulo" class="display">Más artículos</h2>
+          <ul>
+            {relacionadas.map((otra) => (
+              <li>
+                <a href={`/${otra.data.slug}/`}>
+                  {otra.data.image && (
+                    <img src={otra.data.image} alt="" width={160} height={106} loading="lazy" decoding="async" />
+                  )}
+                  <span>
+                    <span class="mini">
+                      {otra.data.categories[0]?.nombre}
+                      <span aria-hidden="true"> · </span>
+                      <time datetime={otra.data.date.slice(0, 10)}>{fechaCorta(otra.data.date)}</time>
+                    </span>
+                    <span class="display">{otra.data.title}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </article>
+</Pagina>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copiar]').forEach((boton) => {
+    const original = boton.textContent ?? 'Copiar enlace';
+    boton.addEventListener('click', async () => {
+      const url = boton.dataset.url || location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        boton.textContent = 'Enlace copiado';
+      } catch {
+        boton.textContent = url;
+      }
+      window.setTimeout(() => {
+        boton.textContent = original;
+      }, 2000);
+    });
+  });
+</script>
+
+<style>
+  .entrada {
+    background: var(--fondo-blanco);
+    color: var(--texto-tinta);
+    padding: 48px 0 88px;
+  }
+
+  .entrada__cabecera,
+  .prosa,
+  .barra,
+  .boletin,
+  .mas {
+    width: min(720px, 100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  .entrada__miga {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--texto-tenue);
+  }
+
+  .entrada__miga a:hover {
+    color: var(--marca-electrico);
+  }
+
+  .entrada__titulo {
+    margin-top: 18px;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+
+  .entrada__dek {
+    margin-top: 18px;
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.45;
+    color: #3a3834;
+  }
+
+  .autor {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .autor :global(img) {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 62% 18%;
+  }
+
+  .autor__nombre {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .autor__meta {
+    margin-top: 2px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--texto-tenue);
+  }
+
+  .compartir {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 22px;
+  }
+
+  .compartir a,
+  .compartir button {
+    display: inline-flex;
+    align-items: center;
+    height: 34px;
+    padding: 0 12px;
+    border: 1px solid var(--linea-clara);
+    border-radius: 100px;
+    background: transparent;
+    color: var(--texto-tinta);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .compartir a:hover,
+  .compartir button:hover {
+    border-color: var(--marca-electrico);
+    color: var(--marca-electrico);
+  }
+
+  .entrada__hero {
+    margin-top: 28px;
+  }
+
+  .entrada__hero img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background: var(--fondo-crema);
+  }
+
+  .entrada__hero figcaption {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--texto-tenue);
+  }
+
+  .prosa {
+    margin-top: 36px;
+    font-size: 19px;
+    line-height: 1.72;
+  }
+
+  .prosa :global(p) {
+    margin: 0 0 1.2em;
+  }
+
+  .prosa :global(h2),
+  .prosa :global(h3),
+  .prosa :global(h4) {
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 1.7em 0 0.45em;
+  }
+
+  .prosa :global(h2) {
+    font-size: 34px;
+  }
+
+  .prosa :global(h3) {
+    font-size: 26px;
+  }
+
+  .prosa :global(h4) {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-style: italic;
+  }
+
+  .prosa :global(a) {
+    color: var(--marca-electrico);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .prosa :global(ul),
+  .prosa :global(ol) {
+    margin: 0 0 1.2em;
+    padding-left: 1.3em;
+  }
+
+  .prosa :global(ul) {
+    list-style: disc;
+  }
+
+  .prosa :global(ol) {
+    list-style: decimal;
+  }
+
+  .prosa :global(li) {
+    margin: 0.35em 0;
+  }
+
+  .prosa :global(li > ul),
+  .prosa :global(li > ol) {
+    margin-bottom: 0.35em;
+  }
+
+  .prosa :global(blockquote) {
+    margin: 1.6em 0;
+    padding: 4px 0 4px 20px;
+    border-left: 3px solid var(--marca-electrico);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 23px;
+    line-height: 1.45;
+  }
+
+  .prosa :global(img) {
+    width: 100%;
+    height: auto;
+    margin: 0.4em 0;
+    border-radius: 8px;
+  }
+
+  .prosa :global(figure) {
+    margin: 1.6em 0;
+  }
+
+  .prosa :global(figcaption) {
+    margin-top: 8px;
+    color: var(--texto-tenue);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .prosa :global(.wp-block-gallery),
+  .prosa :global(.gallery) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  .prosa :global(.wp-block-gallery figure) {
+    margin: 0;
+  }
+
+  .prosa :global(iframe),
+  .prosa :global(.video) {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 1.4em 0;
+    border: 0;
+    border-radius: 12px;
+  }
+
+  .prosa :global(table) {
+    width: 100%;
+    margin: 0 0 1.3em;
+    border-collapse: collapse;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  .prosa :global(td),
+  .prosa :global(th) {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--linea-clara);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .prosa :global(pre) {
+    overflow: auto;
+    margin: 0 0 1.3em;
+    padding: 16px;
+    border-radius: 8px;
+    background: #111;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .prosa :global(hr) {
+    margin: 2.2em 0;
+    border: 0;
+    border-top: 1px solid var(--linea-clara);
+  }
+
+  .barra {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 20px;
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--linea-clara);
+  }
+
+  .barra__etiqueta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--texto-tenue);
+  }
+
+  .barra .compartir {
+    margin-top: 0;
+  }
+
+  .boletin {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 36px;
+    padding: 28px 28px 24px;
+    border-radius: 16px;
+    background: var(--fondo-negro);
+    color: var(--texto-claro);
+  }
+
+  .boletin__titulo {
+    font-size: clamp(26px, 3vw, 32px);
+    line-height: 1.15;
+  }
+
+  .boletin p {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .boletin form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .boletin input {
+    flex: 1 1 220px;
+    height: 46px;
+    padding: 0 16px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: var(--radio);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--texto-claro);
+    font-size: 16px;
+  }
+
+  .boletin input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .boletin .mini {
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  .mas {
+    margin-top: 56px;
+    padding-top: 8px;
+  }
+
+  .mas h2 {
+    font-size: 28px;
+    line-height: 1.15;
+  }
+
+  .mas ul {
+    margin-top: 8px;
+  }
+
+  .mas a {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 16px;
+    align-items: center;
+    padding: 16px 0;
+    border-top: 1px solid var(--linea-clara);
+  }
+
+  .mas img {
+    width: 112px;
+    height: 74px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: var(--fondo-crema);
+  }
+
+  .mas .mini {
+    color: var(--texto-tenue);
+  }
+
+  .mas .display {
+    display: block;
+    margin-top: 6px;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .mas a:hover .display {
+    color: var(--marca-electrico);
+  }
+
+  @media (max-width: 640px) {
+    .entrada {
+      padding: 28px 0 64px;
+    }
+
+    .prosa {
+      font-size: 18px;
+      line-height: 1.68;
+    }
+
+    .prosa :global(h2) {
+      font-size: 28px;
+    }
+
+    .prosa :global(blockquote) {
+      font-size: 20px;
+    }
+
+    .boletin {
+      padding: 22px 18px;
+    }
+
+    .boletin form {
+      flex-direction: column;
+    }
+
+    .boletin form :global(.boton) {
+      width: 100%;
+    }
+
+    .mas a {
+      grid-template-columns: 88px minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .mas img {
+      width: 88px;
+      height: 64px;
+    }
+  }
+</style>

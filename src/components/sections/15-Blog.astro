@@ -1,0 +1,402 @@
+---
+/**
+ * 15 · Blog (Figma 99:79).
+ * El marco muestra series del boletín (Revolution Daily, Weekly, Tesis, Sin conclusión)
+ * con artículos de muestra. Aquí el destacado y «más recientes» son los últimos
+ * artículos recuperados del archivo. Las pastillas de serie enlazan a las
+ * publicaciones de Substack que el propio Figma usa; «Todos» abre /blog/.
+ */
+import { getCollection } from 'astro:content';
+import Boton from '../ui/Boton.astro';
+import EncabezadoSeccion from '../ui/EncabezadoSeccion.astro';
+import icono from '../../assets/img/icons/revolution-29.png';
+import { colorCategoria, fechaCorta, ordenar } from '../../lib/blog';
+
+const entradas = ordenar(await getCollection('blog'));
+const destacado = entradas[0];
+const recientes = entradas.slice(1, 5);
+const catDestacado = destacado?.data.categories[0];
+
+const series = [
+  {
+    nombre: 'Revolution Daily',
+    color: '#4042ff',
+    href: 'https://javiermtzmorodo.substack.com/s/revolution-daily',
+  },
+  {
+    nombre: 'Revolution Weekly',
+    color: '#111111',
+    href: 'https://javiermtzmorodo.substack.com/s/revolution-weekly',
+  },
+  {
+    nombre: 'Tesis',
+    color: '#6b3fb0',
+    href: 'https://javiermtzmorodo.substack.com/s/opinionated',
+  },
+  {
+    nombre: 'Sin conclusión',
+    color: '#c46a3a',
+    href: 'https://javiermtzmorodo.substack.com',
+  },
+];
+---
+
+<section class="seccion seccion--blanco blogsec" id="blog" aria-labelledby="blog-titulo">
+  <EncabezadoSeccion icono={icono} etiqueta="Blog" tono="claro" />
+
+  <div class="contenedor">
+    <div class="blogsec__cabeza">
+      <h2 id="blog-titulo" class="display blogsec__titulo">Ideas, tesis y análisis de mercado.</h2>
+      <p class="blogsec__intro">
+        Lo que Javier escribe cada día y cada semana: lectura rápida del mercado, tesis de inversión y reflexiones
+        sobre patrimonio.
+      </p>
+    </div>
+
+    <div class="blogsec__barra">
+      <nav class="filtros" aria-label="Series y archivo">
+        <a class="filtro filtro--activo" href="/blog/">Todos</a>
+        {
+          series.map((s) => (
+            <a class="filtro" href={s.href} target="_blank" rel="noopener noreferrer">
+              <span class="filtro__punto" style={`background:${s.color}`} aria-hidden="true" />
+              {s.nombre}
+            </a>
+          ))
+        }
+      </nav>
+      <Boton href="/blog/" estilo="contorno-oscuro" tamano="s">Leer más artículos</Boton>
+    </div>
+
+    {
+      destacado && (
+        <div class="blogsec__cuerpo">
+          <a class="destacado" href={`/${destacado.data.slug}/`}>
+            <span class="destacado__foto">
+              {destacado.data.image && (
+                <img
+                  src={destacado.data.image}
+                  alt=""
+                  width={destacado.data.imageWidth}
+                  height={destacado.data.imageHeight}
+                  loading="eager"
+                  decoding="async"
+                />
+              )}
+              {catDestacado && (
+                <span
+                  class="destacado__placa mini"
+                  style={`background:${colorCategoria(catDestacado.slug)}`}
+                >
+                  {catDestacado.nombre}
+                </span>
+              )}
+            </span>
+            <span class="destacado__texto">
+              <span class="destacado__meta mini">
+                {catDestacado && (
+                  <span class="destacado__etiqueta" style={`background:${colorCategoria(catDestacado.slug)}`}>
+                    {catDestacado.nombre}
+                  </span>
+                )}
+                <time datetime={destacado.data.date.slice(0, 10)}>{fechaCorta(destacado.data.date)}</time>
+              </span>
+              <span class="display destacado__titulo">{destacado.data.title}</span>
+              <span class="destacado__bajada">{destacado.data.description}</span>
+              <span class="destacado__cta">Leer el artículo →</span>
+            </span>
+          </a>
+
+          <div class="lateral">
+            <p class="mini lateral__etiqueta">Más recientes</p>
+            <ul>
+              {recientes.map((entrada) => {
+                const cat = entrada.data.categories[0];
+                const color = cat ? colorCategoria(cat.slug) : '#4042ff';
+                return (
+                  <li>
+                    <a class="reciente" href={`/${entrada.data.slug}/`}>
+                      <span class="reciente__barra" style={`background:${color}`} aria-hidden="true" />
+                      <span>
+                        <span class="reciente__meta mini">
+                          {cat && <span style={`color:${color}`}>{cat.nombre}</span>}
+                          <time datetime={entrada.data.date.slice(0, 10)}>· {fechaCorta(entrada.data.date)}</time>
+                        </span>
+                        <span class="display reciente__titulo">{entrada.data.title}</span>
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+            <aside class="aviso">
+              <p class="display aviso__titulo">Recibe cada edición en tu correo.</p>
+              <p class="aviso__texto">Revolution Daily y Weekly, gratis.</p>
+              <Boton href="#boletin" tamano="s">Suscribirme</Boton>
+            </aside>
+          </div>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .blogsec {
+    padding-top: 56px;
+    padding-bottom: 72px;
+  }
+
+  .blogsec > :global(.encabezado) {
+    width: min(var(--contenido), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  .blogsec__cabeza {
+    display: grid;
+    grid-template-columns: minmax(0, 860px) minmax(220px, 380px);
+    justify-content: space-between;
+    gap: 32px 40px;
+    align-items: end;
+    margin-top: 42px;
+  }
+
+  .blogsec__titulo {
+    font-size: clamp(36px, 3.9vw, 56px);
+    letter-spacing: -0.015em;
+  }
+
+  .blogsec__intro {
+    color: var(--texto-tenue);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .blogsec__barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+    margin-top: 28px;
+  }
+
+  .filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .filtro {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: 1px solid var(--linea-clara);
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .filtro--activo {
+    background: var(--texto-tinta);
+    border-color: var(--texto-tinta);
+    color: var(--texto-claro);
+  }
+
+  .filtro__punto {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+  }
+
+  .blogsec__cuerpo {
+    display: grid;
+    grid-template-columns: minmax(0, 760fr) minmax(280px, 480fr);
+    gap: 40px;
+    align-items: start;
+    margin-top: 22px;
+  }
+
+  .destacado {
+    display: flex;
+    flex-direction: column;
+    min-height: 600px;
+    overflow: hidden;
+    border: 1px solid var(--linea-clara);
+    border-radius: 15px;
+    background: var(--fondo-crema);
+  }
+
+  .destacado__foto {
+    position: relative;
+    display: block;
+    height: 320px;
+    background: #d9d4cc;
+  }
+
+  .destacado__foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .destacado__placa {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    padding: 7px 12px;
+    border-radius: 100px;
+    color: #fff;
+  }
+
+  .destacado__texto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 32px 32px 28px;
+  }
+
+  .destacado__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--texto-tenue);
+  }
+
+  .destacado__etiqueta {
+    padding: 6px 12px;
+    border-radius: 100px;
+    color: #fff;
+  }
+
+  .destacado__titulo {
+    font-size: clamp(28px, 2.5vw, 36px);
+    line-height: 1.12;
+  }
+
+  .destacado__bajada {
+    color: var(--texto-tenue);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .destacado__cta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: var(--marca-electrico);
+  }
+
+  .destacado:hover .destacado__titulo {
+    color: var(--marca-electrico);
+  }
+
+  .lateral__etiqueta {
+    color: var(--texto-tenue);
+  }
+
+  .reciente {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 13px 0;
+    border-top: 1px solid var(--linea-clara);
+  }
+
+  .lateral ul {
+    margin-top: 14px;
+  }
+
+  .reciente__barra {
+    flex: none;
+    width: 4px;
+    height: 64px;
+    border-radius: 2px;
+  }
+
+  .reciente__meta {
+    display: flex;
+    gap: 10px;
+    color: var(--texto-tenue);
+  }
+
+  .reciente__titulo {
+    display: block;
+    margin-top: 8px;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+  }
+
+  .reciente:hover .reciente__titulo {
+    color: var(--marca-electrico);
+  }
+
+  .aviso {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 18px;
+    padding: 22px 24px;
+    border-radius: 15px;
+    background: #0a0a0a;
+    color: var(--texto-claro);
+  }
+
+  .aviso__titulo {
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  .aviso__texto {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 1100px) {
+    .blogsec__cabeza,
+    .blogsec__cuerpo {
+      grid-template-columns: 1fr;
+    }
+
+    .destacado {
+      min-height: 0;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .blogsec {
+      padding-bottom: 56px;
+    }
+
+    .blogsec__cabeza {
+      margin-top: 28px;
+    }
+
+    .blogsec__barra {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .destacado__foto {
+      height: 220px;
+    }
+
+    .destacado__texto {
+      padding: 22px 20px 24px;
+    }
+
+    .reciente__titulo {
+      font-size: 20px;
+    }
+  }
+</style>

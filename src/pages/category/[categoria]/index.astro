@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import Listado from '../../../components/blog/Listado.astro';
+import Pagina from '../../../layouts/Pagina.astro';
+import { categoriasDe, ordenar, porCategoria } from '../../../lib/blog';
+
+export async function getStaticPaths() {
+  const todas = ordenar(await getCollection('blog'));
+  return categoriasDe(todas).map((cat) => ({
+    params: { categoria: cat.slug },
+    props: { nombre: cat.nombre, entradas: porCategoria(todas, cat.slug), categorias: categoriasDe(todas) },
+  }));
+}
+
+const { nombre, entradas, categorias } = Astro.props;
+const { categoria } = Astro.params;
+---
+
+<Pagina
+  title={`${nombre} · Blog · Javier Morodo`}
+  description={`Artículos de ${nombre} en el blog de Javier Morodo.`}
+  rss
+>
+  <Listado
+    entradas={entradas}
+    pagina={1}
+    base={`/category/${categoria}/`}
+    titulo={nombre}
+    bajada={`${entradas.length} ${entradas.length === 1 ? 'artículo' : 'artículos'} en ${nombre}.`}
+    categorias={categorias}
+    categoriaActual={categoria}
+  />
+</Pagina>

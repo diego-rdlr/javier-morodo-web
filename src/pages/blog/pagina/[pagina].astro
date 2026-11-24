@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import Listado from '../../../components/blog/Listado.astro';
+import Pagina from '../../../layouts/Pagina.astro';
+import { categoriasDe, ordenar, POR_PAGINA, totalPaginas } from '../../../lib/blog';
+
+export async function getStaticPaths() {
+  const entradas = ordenar(await getCollection('blog'));
+  const total = totalPaginas(entradas.length);
+  return Array.from({ length: Math.max(0, total - 1) }, (_, i) => ({
+    params: { pagina: String(i + 2) },
+    props: { entradas },
+  }));
+}
+
+const { entradas } = Astro.props;
+const pagina = Number(Astro.params.pagina);
+const categorias = categoriasDe(entradas);
+---
+
+<Pagina
+  title={`Blog · Página ${pagina} · Javier Morodo`}
+  description="Archivo de artículos de Javier Morodo."
+  rss
+>
+  <Listado
+    entradas={entradas}
+    pagina={pagina}
+    base="/blog/"
+    titulo="Ideas, tesis y análisis de mercado."
+    bajada={`Página ${pagina}. ${entradas.length} artículos, ${POR_PAGINA} por página.`}
+    categorias={categorias}
+  />
+</Pagina>

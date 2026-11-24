@@ -3,9 +3,15 @@
 Sitio de **Javier Morodo** (javiermorodo.com). Astro estático servido por el Worker
 `javier-morodo-web` de Cloudflare (static assets).
 
-- Diseño: [Figma · sitioweb-javier-morodo](https://www.figma.com/design/NR6yhNFUePRWlj1MgYWSmz/sitioweb-javier-morodo--Copy-?node-id=0-1)
-- Una sola página (`src/pages/index.astro`) armada con 17 secciones en `src/components/sections/`,
-  numeradas igual que los frames del Figma (`01-Hero.astro` … `17-Footer.astro`).
+- Diseño: [Figma · sitioweb-javier-morodo](https://www.figma.com/design/6VN3rt6Sw1LqKg6PvZJ9Po/sitioweb-javier-morodo?node-id=0-1)
+  (archivo `6VN3rt6Sw1LqKg6PvZJ9Po`, frame `2:2`). El copy anterior
+  `NR6yhNFUePRWlj1MgYWSmz` quedó desactualizado.
+- La home (`src/pages/index.astro`) arma las secciones de `src/components/sections/`
+  en el orden del Figma (`01-Hero.astro` … `17-Footer.astro`). Hay dos bloques «15»:
+  el blog (`15-Blog.astro`, nodo `99:79`) y redes (`15-Redes.astro`).
+- El archivo del blog vive en el sitio: `/blog/` y una página por artículo en `/{slug}/`,
+  con el slug original de WordPress. El contenido sale del export WXR
+  (`scripts/importar-blog.mjs`).
 
 ## Desarrollo
 
@@ -32,8 +38,9 @@ npm run preview    # build + wrangler dev (igual que en Cloudflare)
 
 - Canónico: **javiermorodo.com**. `worker/index.js` redirige con 301 los alias
   (`www.`, `web.javiermorodo.com`, `javiermorodo.revolution.inc`) al canónico; `*.workers.dev` se sirve tal cual.
-- `public/_redirects` manda las URLs del WordPress anterior a su sección (`/conferencias/` → `/#conferencias`)
-  y los posts del blog a Substack, para no perder el SEO.
+- `public/_redirects` manda las páginas del WordPress anterior a su sección (`/conferencias/` → `/#conferencias`).
+  Los artículos publicados ya no redirigen a Substack: se sirven en `/{slug}/`. `/feed` sigue yendo al feed de Substack
+  (el boletín); el archivo del blog tiene el suyo en `/blog/feed.xml`.
 - SEO: metadatos, Open Graph (`public/og.jpg`, 1200×630) y JSON-LD en `src/layouts/Base.astro`;
   `public/robots.txt` y `public/sitemap.xml`.
 

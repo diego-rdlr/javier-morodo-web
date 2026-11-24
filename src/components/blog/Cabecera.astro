@@ -1,0 +1,81 @@
+---
+import { Image } from 'astro:assets';
+import Boton from '../ui/Boton.astro';
+import logo from '../../assets/img/logos/javier-morodo-horizontal-light.svg';
+
+const aqui = Astro.url.pathname.startsWith('/blog') || Astro.url.pathname.startsWith('/category');
+---
+
+<header class="cabecera">
+  <div class="contenedor cabecera__barra">
+    <a href="/" class="cabecera__logo">
+      <Image src={logo} alt="Javier Morodo" width={182} height={39} />
+    </a>
+    <nav class="cabecera__nav" aria-label="Secundaria">
+      <a href="/#inicio">Inicio</a>
+      <a href="/blog/" aria-current={aqui ? 'page' : undefined}>Blog</a>
+    </nav>
+    <Boton data-abrir="contacto-formulario" aria-haspopup="dialog" estilo="contorno-claro" tamano="s">
+      Contacto
+    </Boton>
+  </div>
+</header>
+
+<style>
+  .cabecera {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(0, 0, 0, 0.92);
+    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    backdrop-filter: blur(18px) saturate(1.15);
+    color: var(--texto-claro);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .cabecera__barra {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    min-height: var(--cabecera);
+  }
+
+  .cabecera__logo {
+    flex: none;
+  }
+
+  .cabecera__logo img {
+    width: 168px;
+    height: auto;
+  }
+
+  .cabecera__nav {
+    display: flex;
+    gap: 28px;
+    margin-right: auto;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .cabecera__nav a[aria-current='page'] {
+    color: var(--marca-hielo);
+  }
+
+  @media (max-width: 640px) {
+    .cabecera__barra {
+      gap: 12px;
+      min-height: 72px;
+    }
+
+    .cabecera__logo img {
+      width: 132px;
+    }
+
+    .cabecera__nav {
+      gap: 14px;
+      font-size: 11px;
+    }
+  }
+</style>

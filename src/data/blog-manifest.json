@@ -1,0 +1,52 @@
+{
+  "generado": "2026-11-18T18:23:44.168Z",
+  "publicados": 186,
+  "borradoresOmitidos": 4,
+  "medios": 293,
+  "mediosFallidos": [
+    {
+      "url": "https://capitalismoconsciente.es/wp-content/uploads/2020/02/cuatro-pilares-capitalismo-consciente.jpg",
+      "error": "404 https://capitalismoconsciente.es/wp-content/uploads/2020/02/cuatro-pilares-capitalismo-consciente.jpg"
+    },
+    {
+      "url": "https://timebitvips.com/wp-content/uploads/2019/11/chartCloud.png",
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://blog.opinno.io/sites/default/files/paragraphs-images/Ten-Types-of-Innovation-Updated-Visual.png",
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://images.squarespace-cdn.com/content/v1/5c9be55e77b903341ba38628/1580908085144-XWNR8PYH8BQ99ON5FOWQ/ke17ZwdGBToddI8pDm48kIglukIUFUNscqT_EaosIowUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKc9DbKv7uo0jysHdIXcvJiZ75P4u05KbEV9HWCugg5T09qNOf9VMm97BscYcSscfqR/LT+DCA.png?format=2500w",
+      "error": "404 https://images.squarespace-cdn.com/content/v1/5c9be55e77b903341ba38628/1580908085144-XWNR8PYH8BQ99ON5FOWQ/ke17ZwdGBToddI8pDm48kIglukIUFUNscqT_EaosIowUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKc9DbKv7uo0jysHdIXcvJiZ75P4u05KbEV9HWCugg5T09qNOf9VMm97BscYcSscfqR/LT+DCA.png?format=2500w"
+    },
+    {
+      "url": "https://www.pwc.com/us/en/services/deals/library/assets/underwriting-fee-17.gif",
+      "error": "403 https://www.pwc.com/us/en/services/deals/library/assets/underwriting-fee-17.gif"
+    },
+    {
+      "url": "https://www.pwc.com/us/en/services/deals/capital-markets/images/number-of-us-ipos-quarter-10.gif",
+      "error": "403 https://www.pwc.com/us/en/services/deals/capital-markets/images/number-of-us-ipos-quarter-10.gif"
+    },
+    {
+      "url": "https://az705044.vo.msecnd.net/20210503/eth-3500-04-may-2021.png",
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://en.ethereumworldnews.com/wp-content/uploads/2021/04/Ethereum-quarterly-transactions.jpg",
+      "error": "521 https://en.ethereumworldnews.com/wp-content/uploads/2021/04/Ethereum-quarterly-transactions.jpg"
+    },
+    {
+      "url": "https://2utfff4d3dkt3biit53nsvep-wpengine.netdna-ssl.com/wp-content/uploads/2020/05/LAVCA1updated-2048x1324.jpg",
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://blog.fingo.pl/wp-content/uploads/2020/06/scalability-trilemma-1.png",
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://www.nasdaq.com/sites/acquia.prod/files/styles/1100x620/public/2020/01/31/0160-Q20%20SPAC%20graphic%20for%20Nasdaq.com%20Web%20Page_CS_v1.png?itok=ML3vfzYF",
+      "error": "The operation was aborted due to timeout"
+    }
+  ]
+}
