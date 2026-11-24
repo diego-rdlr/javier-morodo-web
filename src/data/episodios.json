@@ -1,17 +1,23 @@
 {
   "playlist": "PLwdXcQkLGge8nBTD_FmeCFv1z6Z-s7few",
-  "actualizado": "2026-11-19",
+  "actualizado": "2026-11-23",
   "episodios": [
+    {
+      "id": "4avjq03TX8Q",
+      "titulo": "Qué compraron 13 grandes inversionistas y cómo usarlo sin copiar su portafolio.",
+      "vistas": "10 K",
+      "publicado": "2026-11-22"
+    },
     {
       "id": "Js9tYLtTOok",
       "titulo": "Cómo dejar de vender en pánico cuando tu portafolio se pone en rojo y qué hacer antes",
-      "vistas": "13 K",
+      "vistas": "14 K",
       "publicado": "2026-11-15"
     },
     {
       "id": "VxYvL9IaMko",
       "titulo": "Lo que aprendí después de vender antes de tiempo, uno de mis peores errores",
-      "vistas": "15 K",
+      "vistas": "16 K",
       "publicado": "2026-11-08"
     },
     {
@@ -31,12 +37,6 @@
       "titulo": "Por qué los bonos volvieron a competir con la bolsa por primera vez desde 2008",
       "vistas": "11 K",
       "publicado": "2026-10-18"
-    },
-    {
-      "id": "tuo_4QoSEHs",
-      "titulo": "Mercado inmobiliario en Estados Unidos: qué es el buyer’s market y qué viene",
-      "vistas": "16 K",
-      "publicado": "2026-10-15"
     }
   ]
 }
